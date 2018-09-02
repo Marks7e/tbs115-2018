@@ -6,7 +6,7 @@ public class HelloWorld : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Hello world!")
+        Debug.Log("Hello world!");
 	}
 	
 	// Update is called once per frame
