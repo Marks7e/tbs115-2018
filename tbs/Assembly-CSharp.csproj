@@ -53,7 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\PersistenceTEST.cs" />
      <Compile Include="Assets\Scripts\AutoBuild.cs" />
+     <Compile Include="Assets\Scripts\DataPersistence\GameDataPersistence.cs" />
+     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataType.cs" />
+     <Compile Include="Assets\Scripts\DataPersistence\Models\OptionTest.cs" />
      <Compile Include="Assets\Scripts\HelloWorld.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
  <Reference Include="UnityEditor.StandardEvents">
