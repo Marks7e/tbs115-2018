@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Reporting;
+//using UnityEditor.Build.Reporting;
+using UnityEditor.Build;
 using UnityEngine;
 
 public class AutoBuild : MonoBehaviour
 {
-
+	
     static public string HasErrorOcurred;
 
     static public void BuildProject()
@@ -18,9 +19,10 @@ public class AutoBuild : MonoBehaviour
         buildPlayerOptions.locationPathName = "AutoBuildWin";
         buildPlayerOptions.target = UnityEditor.BuildTarget.StandaloneWindows64;
         buildPlayerOptions.options = UnityEditor.BuildOptions.None;
-        BuildReport result = UnityEditor.BuildPipeline.BuildPlayer(buildPlayerOptions);
+        //BuildReport result = UnityEditor.BuildPipeline.BuildPlayer(buildPlayerOptions);
         
-        Debug.Log(result.ToString());
+		Debug.Log(UnityEditor.BuildPipeline.BuildPlayer(buildPlayerOptions).ToString());
 #endif
     }
+
 }
