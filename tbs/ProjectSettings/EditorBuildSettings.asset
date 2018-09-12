@@ -11,4 +11,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/ReinoMenu/ReinoMenu.unity
+    guid: a2b85ee1b4b5b4143a101a6efd07b934
+  - enabled: 1
+    path: Assets/Scenes/ReinoMenu/Ban.unity
+    guid: df2e7cd745d0cbd45a6ec096460f61b6
+  - enabled: 1
+    path: Assets/Scenes/ReinoMenu/Ferreje.unity
+    guid: 188ce3bd4d46b524db6ab2a3ca5c49f4
+  - enabled: 1
+    path: Assets/Scenes/ReinoMenu/Kanslor.unity
+    guid: 8abde7ee0da0b00419b0151b2dc5d0ca
+  - enabled: 1
+    path: Assets/Scenes/ExtrasMenu.unity
+    guid: 5cea99866c536a846b9f418c1ea1d584
+  - enabled: 1
+    path: Assets/Scenes/HistoriaMenu/HistoriaMenu.unity
+    guid: 6c744d49c377940479bfd9a23185093b
+  - enabled: 1
+    path: Assets/Scenes/HistoriaMenu/Autoconocimiento.unity
+    guid: 84df3fc2b710b5543912a9e0c57012e5
+  - enabled: 1
+    path: Assets/Scenes/HistoriaMenu/Escuela.unity
+    guid: 2cb78857241e0284db10ae0f0af477ff
+  - enabled: 1
+    path: Assets/Scenes/HistoriaMenu/Familia.unity
+    guid: 2aa99bca3bba6994fa108ce4d18c9ea8
