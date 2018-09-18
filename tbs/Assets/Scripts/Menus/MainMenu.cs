@@ -143,6 +143,8 @@ public class MainMenu : MonoBehaviour
 			case "Stories":
 				StoriesMenu.SetActive (false);
 				break;
+			case "Test":
+				break;
 		}
 	}
 
