@@ -11,17 +11,14 @@ public class change : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
-			reloj -= Time.deltaTime;
-			if(reloj<=0){
-				
-				//Application.LoadLevel(sceneToChange);
-				//UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToChange);
-				SceneManager.LoadScene(sceneToChange);
-			}
+		//Llama a la escena del minijuego cuando se termine de reproducir
+		reloj -= Time.deltaTime;
+		if(reloj<=0){
+			SceneManager.LoadScene(sceneToChange);
+		}
 	}
 
 }

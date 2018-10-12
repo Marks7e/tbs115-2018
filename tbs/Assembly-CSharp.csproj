@@ -49,7 +49,6 @@
      <Compile Include="Assets\Scripts\AutoBuild.cs" />
      <Compile Include="Assets\Scripts\HelloWorld.cs" />
      <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
-     <Compile Include="Assets\Scripts\Menus\MenuMgr.cs" />
      <Compile Include="Assets\Scripts\SceneMgr.cs" />
      <Compile Include="Assets\Scripts\change.cs" />
  <Reference Include="UnityEngine.UI">

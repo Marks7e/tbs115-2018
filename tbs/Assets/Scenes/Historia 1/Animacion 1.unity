@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloj: 30
-  sceneToChange: Juego_1
+  sceneToChange: Minijuego 1
 --- !u!4 &1297491257
 Transform:
   m_ObjectHideFlags: 0
