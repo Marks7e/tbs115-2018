@@ -9,38 +9,45 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1626ee28983a6384dba00eec76ebb47e
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Historia_1.unity
+    path: Assets/Scenes/Historia 1/Animacion 1.unity
     guid: 44c0e3ae120ff9b4a9080681f78ee294
   - enabled: 1
-    path: Assets/Scenes/MiniJuego/Juego_1.unity
+    path: Assets/Scenes/Historia 1/Minijuego 1.unity
     guid: 80dc831a5773f1d458fd79a4c86ff19c
+  - enabled: 1
+    path: Assets/Scenes/Historia 2/Animacion 2.unity
+    guid: 3faddaa5fc79c924a9779752154779a5
+  - enabled: 1
+    path: Assets/Scenes/Historia 2/Minijuego 2.unity
+    guid: 2e4ec947499752d4ea47025665dad653
   - enabled: 0
     path: 
-    guid: a2b85ee1b4b5b4143a101a6efd07b934
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: df2e7cd745d0cbd45a6ec096460f61b6
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 188ce3bd4d46b524db6ab2a3ca5c49f4
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 8abde7ee0da0b00419b0151b2dc5d0ca
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 5cea99866c536a846b9f418c1ea1d584
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 6c744d49c377940479bfd9a23185093b
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 84df3fc2b710b5543912a9e0c57012e5
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 2cb78857241e0284db10ae0f0af477ff
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: 
-    guid: 2aa99bca3bba6994fa108ce4d18c9ea8
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  m_configObjects: {}
