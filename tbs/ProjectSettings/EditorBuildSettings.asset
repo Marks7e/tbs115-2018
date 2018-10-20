@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Historia 2/Minijuego 2.unity
     guid: 2e4ec947499752d4ea47025665dad653
+  - enabled: 1
+    path: Assets/Scenes/Historia 3/Animacion 3.unity
+    guid: 74d08390fabaced46b56136d9421de49
+  - enabled: 1
+    path: Assets/Scenes/Historia 3/Minijuego 3.unity
+    guid: 9580f4a3aa7315449828e87c4b3e02d1
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
