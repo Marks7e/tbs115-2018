@@ -35,6 +35,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Video/Historias/Historia3/H3.unity
     guid: 5d3c9edf70553bc46a81fc22cb0b60f5
+  - enabled: 1
+    path: Assets/Scenes/Historia 4/Animacion 4.unity
+    guid: 51f8c0d67cc7032478805f265b20f4b5
+  - enabled: 1
+    path: Assets/Scenes/Historia 4/Minijuego 4.unity
+    guid: bad22b67664f41c41bd39f45050f951d
+  - enabled: 1
+    path: Assets/Video/Historias/Historia4/H4.unity
+    guid: a1cde471431692b4c8cf785f3cf789fe
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
