@@ -7,7 +7,7 @@ public class Minijuego3 : MonoBehaviour {
 
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
-    public GameObject btnCirculo, btnTriangulo, btnCuadrado;
+    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano;
 
     //Manejo de Animaciones
     public AnimationClip speak01, speak02, speak03;
@@ -17,7 +17,7 @@ public class Minijuego3 : MonoBehaviour {
 
     private int x, y, z;
     private string sign;
-
+    
     // Use this for initialization
     void Start () {
         animacionSpeak1 = personaje1.AddComponent<Animation>();
@@ -30,6 +30,13 @@ public class Minijuego3 : MonoBehaviour {
         simbolo1.GetComponent<Image>().enabled = false;
         simbolo2.GetComponent<Image>().enabled = false;
         simbolo3.GetComponent<Image>().enabled = false;
+
+        //Ocultar Botones con simbolos
+        btnCirculo.SetActive(false);
+        btnCuadrado.SetActive(false);
+        btnTriangulo.SetActive(false);
+
+
 
         randomSpeak();
     }
@@ -288,45 +295,43 @@ public class Minijuego3 : MonoBehaviour {
     public void esCirculo()
     {
         Debug.Log("Dentro de funcion esCirculo");
-
         if (btnCirculo.name == sign)
-        {
-            Debug.Log("CORRECTO");
-        }
+        { Debug.Log("CORRECTO"); }
         else
-        {
-            Debug.Log("INCORRECTO");
-        }
+        { Debug.Log("INCORRECTO"); }           
     }
 
     public void esTriangulo()
     {
+        Debug.Log("Dentro de funcion esTriangulo");
         if (btnTriangulo.name == sign)
-        {
-            Debug.Log("CORRECTO");
-        }
+        {   Debug.Log("CORRECTO");  }
         else
-        {
-            Debug.Log("INCORRECTO");
-        }
+        {   Debug.Log("INCORRECTO");    }
+        
     }
 
     public void esCuadrado()
     {
         Debug.Log("Dentro de funcion esCuadrado");
         if (btnCuadrado.name == sign)
-        {
-            Debug.Log("CORRECTO");
-        }
+        {   Debug.Log("CORRECTO");  }
         else
-        {
-            Debug.Log("INCORRECTO");
-        }
+        {   Debug.Log("INCORRECTO");    }
     }
 
-    public void nuevoBoton() {
-        Debug.Log("Presiono el nuevo boton");
+    public void accionMano() {
+        Debug.Log("Click en Mano");
+
+        //Ocultar Botones con simbolos
+        btnCirculo.SetActive(true);
+        btnCuadrado.SetActive(true);
+        btnTriangulo.SetActive(true);
+
+        btnMano.SetActive(false);
+
     }
+
 
 
 }
