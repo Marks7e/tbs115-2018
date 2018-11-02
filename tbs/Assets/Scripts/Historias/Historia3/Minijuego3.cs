@@ -52,28 +52,22 @@ public class Minijuego3 : MonoBehaviour {
                 animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                 animacionSpeak1.GetComponent<Animation>().Play("Speak01");
                 Debug.Log("reproduciendo animacion 1 : " + animacionSpeak1.IsPlaying("Speak01"));
-                //Debug.Log("reproduciendo animacion 2 : " + animacionSpeak2.IsPlaying("Speak02"));
-                //Debug.Log("reproduciendo animacion 3 : " + animacionSpeak3.IsPlaying("Speak03"));
-
+                
                 //Random de Simbolo para el personaje que habla 
                 y = Random.Range(1, 4);
-                //Debug.Log("Simbolo "+y+" Seleccionado");
                 simbolo1.GetComponent<Image>().enabled = true;
                 switch (y)
                 {
                     case 1:
                         simbolo1.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje 1 + triangulo");
                         sign = "triangulo"; //simbolo asignado al personaje que esta hablando
                         break;
                     case 2:
                         simbolo1.GetComponent<Image>().sprite = Circulo;
-                        //Debug.Log("Personaje 1 + circulo");
                         sign = "circulo";
                         break;
                     case 3:
                         simbolo1.GetComponent<Image>().sprite = Cuadrado;
-                        //Debug.Log("personaje 1 + cuadrado");
                         sign = "cuadrado";
                         break;
                 }
@@ -83,29 +77,23 @@ public class Minijuego3 : MonoBehaviour {
                 animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
                 animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                 animacionSpeak2.GetComponent<Animation>().Play("Speak02");
-                //Debug.Log("animacion 1 : " + animacionSpeak1.IsPlaying("Speak01"));
                 Debug.Log("animacion 2 : " + animacionSpeak2.IsPlaying("Speak02"));
-                //Debug.Log("animacion 3 : " + animacionSpeak3.IsPlaying("Speak03"));
-
+                
                 //Random de Simbolos 
                 y = Random.Range(1, 4);
-                //Debug.Log(y);
                 simbolo2.GetComponent<Image>().enabled = true;
                 switch (y)
                 {
                     case 1:
                         simbolo2.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje 2 + triangulo");
                         sign = "triangulo";
                         break;
                     case 2:
                         simbolo2.GetComponent<Image>().sprite = Circulo;
-                        //Debug.Log("Personaje 2 + circulo");
                         sign = "circulo";
                         break;
                     case 3:
                         simbolo2.GetComponent<Image>().sprite = Cuadrado;
-                        //Debug.Log("Personaje 2 + Cuadrado");
                         sign = "cuadrado";
                         break;
                 }
@@ -115,29 +103,23 @@ public class Minijuego3 : MonoBehaviour {
                 animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
                 animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
                 animacionSpeak3.GetComponent<Animation>().Play("Speak03");
-                //Debug.Log("animacion 1 : " + animacionSpeak1.IsPlaying("Speak01"));
-                //Debug.Log("animacion 2 : " + animacionSpeak2.IsPlaying("Speak02"));
                 Debug.Log("animacion 3 : " + animacionSpeak3.IsPlaying("Speak03"));
 
                 //Random de Simbolos 
                 y = Random.Range(1, 4);
-                //Debug.Log(y);
                 simbolo3.GetComponent<Image>().enabled = true;
                 switch (y)
                 {
                     case 1:
                         simbolo3.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje 3 + triangulo");
                         sign = "triangulo";
                         break;
                     case 2:
                         simbolo3.GetComponent<Image>().sprite = Circulo;
-                        //Debug.Log("Personaje 3 + circulo");
                         sign = "circulo";
                         break;
                     case 3:
                         simbolo3.GetComponent<Image>().sprite = Cuadrado;
-                        //Debug.Log("Personaje 3 + cuadrado");
                         sign = "cuadrado";
                         break;
                 }
@@ -151,12 +133,9 @@ public class Minijuego3 : MonoBehaviour {
             //Luego de verificar si simbolo1 esta activado, se activa el simbolo2 
             simbolo2.GetComponent<Image>().enabled = true;
             simbolo3.GetComponent<Image>().enabled = true;
-            //Debug.Log("Izquierda Activa, simbolo2 y 3 al azar");
             switch (sign)
             {
                 case "triangulo":
-                    //simbolo2.GetComponent<Image>().sprite = Circulo;
-                    //Debug.Log("Personaje1 tiene asignado triangulo");
                     z = Random.Range(1, 3);
                     switch (z)
                     {
@@ -171,8 +150,6 @@ public class Minijuego3 : MonoBehaviour {
                     }
                     break;
                 case "circulo":
-                    //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                    //Debug.Log("Personaje1 tiene asignado circulo");
                     z = Random.Range(1, 3);
                     switch (z)
                     {
@@ -187,8 +164,6 @@ public class Minijuego3 : MonoBehaviour {
                     }
                     break;
                 case "cuadrado":
-                    //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                    //Debug.Log("Personaje1 tiene asignado cuadrado");
                     z = Random.Range(1, 3);
                     switch (z)
                     {
@@ -210,12 +185,9 @@ public class Minijuego3 : MonoBehaviour {
             {
                 simbolo1.GetComponent<Image>().enabled = true;
                 simbolo3.GetComponent<Image>().enabled = true;
-                //Debug.Log("Centro Activo,  simbolo1 y 3 al azar");
                 switch (sign)
                 {
                     case "triangulo":
-                        //simbolo2.GetComponent<Image>().sprite = Circulo;
-                        //Debug.Log("Personaje2 tiene asignado triangulo");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -230,8 +202,6 @@ public class Minijuego3 : MonoBehaviour {
                         }
                         break;
                     case "circulo":
-                        //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje2 tiene asignado circulo");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -246,8 +216,6 @@ public class Minijuego3 : MonoBehaviour {
                         }
                         break;
                     case "cuadrado":
-                        //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje2 tiene asignado cuadrado");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -267,12 +235,9 @@ public class Minijuego3 : MonoBehaviour {
             {
                 simbolo1.GetComponent<Image>().enabled = true;
                 simbolo2.GetComponent<Image>().enabled = true;
-                //Debug.Log("Derecha Activo,  simbolo1 y 2 al azar");
                 switch (sign)
                 {
                     case "triangulo":
-                        //simbolo2.GetComponent<Image>().sprite = Circulo;
-                        //Debug.Log("Personaje3 tiene asignado triangulo");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -287,8 +252,6 @@ public class Minijuego3 : MonoBehaviour {
                         }
                         break;
                     case "circulo":
-                        //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje3 tiene asignado circulo");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -303,8 +266,6 @@ public class Minijuego3 : MonoBehaviour {
                         }
                         break;
                     case "cuadrado":
-                        //simbolo2.GetComponent<Image>().sprite = Triangulo;
-                        //Debug.Log("Personaje3 tiene asignado cuadrado");
                         z = Random.Range(1, 3);
                         switch (z)
                         {
@@ -326,6 +287,8 @@ public class Minijuego3 : MonoBehaviour {
 
     public void esCirculo()
     {
+        Debug.Log("Dentro de funcion esCirculo");
+
         if (btnCirculo.name == sign)
         {
             Debug.Log("CORRECTO");
