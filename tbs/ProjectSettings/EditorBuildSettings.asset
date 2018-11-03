@@ -44,34 +44,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Video/Historias/Historia4/H4.unity
     guid: a1cde471431692b4c8cf785f3cf789fe
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Historia 5/Minijuego 5.unity
+    guid: d9bf65f44ffb9aa4d9acd875ee517f90
+  - enabled: 1
+    path: Assets/Scenes/Historia 5/Animacion 5.unity
+    guid: e779794341bc796409b230607767e667
   m_configObjects: {}

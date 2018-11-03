@@ -257,7 +257,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\xA1Muy noche! \xA1No hagas ruido! "
+  m_Text: "\xA1P\xE1sala!"
 --- !u!222 &18590642
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -705,7 +705,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "El ba\xF1o de casa."
+  m_Text: 
 --- !u!222 &66083781
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6818,7 +6818,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1234275992}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1281812450}
+        m_MethodName: loadAnimation
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Animacion 5
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1234275992
@@ -9071,7 +9082,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reunion en Familia
+  m_Text: 
 --- !u!222 &1700323016
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10381,7 +10392,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Soy Importante
+  m_Text: 
 --- !u!222 &1915165990
 CanvasRenderer:
   m_ObjectHideFlags: 0
