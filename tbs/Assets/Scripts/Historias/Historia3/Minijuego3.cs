@@ -7,8 +7,8 @@ public class Minijuego3 : MonoBehaviour {
 
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
-    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano;
-
+    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue;
+    public GameObject msj_ok, msj_fail;
     //Manejo de Animaciones
     public AnimationClip speak01, speak02, speak03;
     private Animation animacionSpeak1, animacionSpeak2, animacionSpeak3;
@@ -35,8 +35,6 @@ public class Minijuego3 : MonoBehaviour {
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
-
-
 
         randomSpeak();
     }
@@ -294,35 +292,48 @@ public class Minijuego3 : MonoBehaviour {
 
     public void esCirculo()
     {
-        Debug.Log("Dentro de funcion esCirculo");
         if (btnCirculo.name == sign)
-        { Debug.Log("CORRECTO"); }
+        {
+            Ok();
+        }
         else
-        { Debug.Log("INCORRECTO"); }           
+        {
+            fail();
+        }
+
+        disabledButton();
     }
 
     public void esTriangulo()
     {
-        Debug.Log("Dentro de funcion esTriangulo");
         if (btnTriangulo.name == sign)
-        {   Debug.Log("CORRECTO");  }
+        {
+            Ok();
+        }
         else
-        {   Debug.Log("INCORRECTO");    }
-        
+        {
+            fail();
+        }
+
+        disabledButton();
     }
 
     public void esCuadrado()
     {
-        Debug.Log("Dentro de funcion esCuadrado");
         if (btnCuadrado.name == sign)
-        {   Debug.Log("CORRECTO");  }
+        {
+            Ok();
+        }
         else
-        {   Debug.Log("INCORRECTO");    }
+        {
+            fail();
+        }
+
+        disabledButton();
     }
 
     public void accionMano() {
-        Debug.Log("Click en Mano");
-
+        
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(true);
         btnCuadrado.SetActive(true);
@@ -332,6 +343,21 @@ public class Minijuego3 : MonoBehaviour {
 
     }
 
+    public void disabledButton() {
+        btnCirculo.SetActive(false);
+        btnCuadrado.SetActive(false);
+        btnTriangulo.SetActive(false);
+    }
 
+    public void Ok() {
+        msj_ok.SetActive(true);
+        btnContinue.SetActive(true);
+    }
 
+    public void fail() {
+        msj_fail.SetActive(true);
+        btnReset.SetActive(true);
+    }
+
+    
 }
