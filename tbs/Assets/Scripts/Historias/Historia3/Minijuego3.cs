@@ -48,13 +48,13 @@ public class Minijuego3 : MonoBehaviour {
     {
         //Random Animacion
         x = Random.Range(1, 4);
-        Debug.Log("Animacion "+ x + "Seleccionada");
+        Debug.Log("Animacion "+ x + " Seleccionada");
         switch (x)
         {
             case 1:
                 //Habla personaje 1
-                animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
-                animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
+                //animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
+                //animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                 animacionSpeak1.GetComponent<Animation>().Play("Speak01");
                 Debug.Log("reproduciendo animacion 1 : " + animacionSpeak1.IsPlaying("Speak01"));
                 
@@ -79,8 +79,8 @@ public class Minijuego3 : MonoBehaviour {
                 break;
             case 2:
                 //Habla personaje 2
-                animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
-                animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
+                //animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
+                //animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                 animacionSpeak2.GetComponent<Animation>().Play("Speak02");
                 Debug.Log("animacion 2 : " + animacionSpeak2.IsPlaying("Speak02"));
                 
@@ -105,8 +105,8 @@ public class Minijuego3 : MonoBehaviour {
                 break;
             case 3:
                 //Habla personaje 3
-                animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
-                animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
+                //animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
+                //animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
                 animacionSpeak3.GetComponent<Animation>().Play("Speak03");
                 Debug.Log("animacion 3 : " + animacionSpeak3.IsPlaying("Speak03"));
 
