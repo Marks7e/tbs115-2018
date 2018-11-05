@@ -7,8 +7,8 @@ public class Minijuego3 : MonoBehaviour {
 
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
-    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue;
-    public GameObject msj_ok, msj_fail;
+    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
+    public GameObject msj_ok, msj_fail, msj_complete;
 
     // Text
     public Text Nivel;
@@ -302,6 +302,8 @@ public class Minijuego3 : MonoBehaviour {
         else
         {
             Debug.Log("A completado el minijuego");
+            complete();
+
         }
     }
 
@@ -379,6 +381,14 @@ public class Minijuego3 : MonoBehaviour {
         btnReset.SetActive(true);
     }
 
+    //Mensaje de finalizacion de minijuego
+    public void complete()
+    {
+        btnMano.SetActive(false);
+        msj_complete.SetActive(true);
+        btnTermina.SetActive(true);
+    }
+    
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
     {
