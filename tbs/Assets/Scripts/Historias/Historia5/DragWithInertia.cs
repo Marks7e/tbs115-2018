@@ -28,21 +28,21 @@ public class DragWithInertia : MonoBehaviour
         {
             _underInertia = false;
             _time = 0.0f;
-            transform.position = new Vector3(0, -2.5f, 1);
+            transform.position = new Vector3(0, -2.5f, 0);
         }
     }
 
     void OnMouseDown()
     {
         _screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-        _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z));
+        _offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         _underInertia = false;
     }
 
     private void OnMouseDrag()
     {
         Vector3 _prevPosition = _curPosition;
-        _curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _screenPoint.z);
+        _curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
         _curPosition = Camera.main.ScreenToWorldPoint(_curScreenPoint) + _offset;
         _velocity = _curPosition - _prevPosition;
         transform.position = _curPosition;
