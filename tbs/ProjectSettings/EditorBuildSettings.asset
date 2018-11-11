@@ -44,6 +44,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Video/Historias/Historia4/H4.unity
     guid: a1cde471431692b4c8cf785f3cf789fe
+  - enabled: 1
+    path: Assets/Video/Historias/Historia6/H6.unity
+    guid: 88a5b9bbaaf4fb34d9d3cfb132854e7f
+  - enabled: 1
+    path: Assets/Video/Historias/Historia7/H7.unity
+    guid: 137ae928c0203f040bb814c14738ab36
+  - enabled: 1
+    path: Assets/Video/Historias/Historia9/H9.unity
+    guid: 99b241855349b114e98a60abf40c9dae
+  - enabled: 1
+    path: Assets/Video/Historias/Historia10/H10.unity
+    guid: d580f22ece4f2a14799fbef6450b9ed8
+  - enabled: 1
+    path: Assets/Video/Historias/Historia11/H11.unity
+    guid: 5b483772bbf128d4a82511f388fd42fa
+  - enabled: 1
+    path: Assets/Video/Historias/Historia12/H12.unity
+    guid: 32bb8fe7bf25a8d4794e63e65946c5ff
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
