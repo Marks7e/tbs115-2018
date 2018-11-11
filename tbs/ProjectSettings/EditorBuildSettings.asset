@@ -54,6 +54,9 @@ EditorBuildSettings:
     path: Assets/Video/Historias/Historia9/H9.unity
     guid: 99b241855349b114e98a60abf40c9dae
   - enabled: 1
+    path: Assets/Video/Historias/Historia10/H10.unity
+    guid: d580f22ece4f2a14799fbef6450b9ed8
+  - enabled: 1
     path: Assets/Video/Historias/Historia11/H11.unity
     guid: 5b483772bbf128d4a82511f388fd42fa
   - enabled: 1
