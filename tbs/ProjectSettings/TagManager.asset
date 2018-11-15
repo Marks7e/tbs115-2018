@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Smugie
+  - Conejo
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Fondo
+    uniqueID: 943354319
+    locked: 0
+  - name: Personaje
+    uniqueID: 2055274651
+    locked: 0
+  - name: PrimerPlano
+    uniqueID: 1918518065
     locked: 0
