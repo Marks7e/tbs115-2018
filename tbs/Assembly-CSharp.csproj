@@ -74,7 +74,6 @@
     <Compile Include="Assets\Scripts\Historias\PostGameTest\PostGameTest.cs" />
     <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
     <Compile Include="Assets\Scripts\SceneMgr.cs" />
-    <Compile Include="Assets\Scripts\Utils\AfterGame.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Utils\Randomize.cs" />
     <Reference Include="UnityEditor.StandardEvents">

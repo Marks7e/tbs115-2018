@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class GameStatus : MonoBehaviour, IPointerDownHandler
+public class GameStatus : ScriptableObject, IPointerDownHandler
 {
 
     public enum GameState
@@ -17,38 +17,42 @@ public class GameStatus : MonoBehaviour, IPointerDownHandler
     public AudioClip Repeat;
     public AudioSource source;
 
-    public void Start()
+    public void SettingSounds()
     {
         addPhysics2DRaycaster();
         Win = Resources.Load<AudioClip>("Sounds/Win");
         Repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
-
-        source = GetComponent<AudioSource>();
+        //  source = new AudioSource();
+        //  source = GetComponent<AudioSource>();
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("Evaluando enviar a TEST o a Menú principal");
+    }
+    public void PlayerWinGame(AudioSource audioSource)
+    {
+        source = new AudioSource();
+        source = audioSource;
+        SettingSounds();
+        CreateMessageWindow(GameState.Win);
+        source.PlayOneShot(Win);
+    }
+    public void PlayerNeedToRepeatGame(AudioSource audioSource)
+    {
+        source = new AudioSource();
+        source = audioSource;
+        SettingSounds();
+        CreateMessageWindow(GameState.TryAgain);
+        source.PlayOneShot(Repeat);
     }
 
-    void addPhysics2DRaycaster()
+    private void addPhysics2DRaycaster()
     {
         Physics2DRaycaster physicsRaycaster = GameObject.FindObjectOfType<Physics2DRaycaster>();
         if (physicsRaycaster == null)
         {
             Camera.main.gameObject.AddComponent<Physics2DRaycaster>();
         }
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("Evaluando enviar a TEST o a Menú principal");
-    }
-
-    public void PlayerWinGame()
-    {
-        CreateMessageWindow(GameState.Win);
-        source.PlayOneShot(Win);
-    }
-    public void PlayerNeedToRepeatGame()
-    {
-        CreateMessageWindow(GameState.TryAgain);
-        source.PlayOneShot(Repeat);
     }
     private void CreateMessageWindow(GameState state)
     {
@@ -81,9 +85,6 @@ public class GameStatus : MonoBehaviour, IPointerDownHandler
         GameObject panel = new GameObject("panel");
         panel.AddComponent<CanvasRenderer>();
         Image msg = panel.AddComponent<Image>();
-        // GameObject btnContinue = Instantiate(Resources.Load("Prefabs/BtnContinue")) as GameObject;
-
-
 
         switch (state)
         {

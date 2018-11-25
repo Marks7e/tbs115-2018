@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Minijuego3 : MonoBehaviour {
+public class Minijuego3 : MonoBehaviour
+{
 
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
     public GameObject msj_ok, msj_fail, msj_complete;
 
+    public GameStatus gs;
+    public AudioSource audioSource;
+    public AudioClip bgMusic;
+    public float timeLeft = 10.00f;
+    public bool isGameDone = false;
+
+
+    public GameObject texto;
+
+
     // Text
     public Text Nivel;
+    public Text timing;
 
     //Manejo de Animaciones
     public AnimationClip speak01, speak02, speak03;
@@ -21,11 +33,23 @@ public class Minijuego3 : MonoBehaviour {
 
     private int x, y, z, count = 1;
     private string sign;
-    
 
-    
+
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
+        audioSource.PlayOneShot(bgMusic);
+
+
+        texto = new GameObject();
+        texto = GameObject.Find("Timing");
+        timing = texto.GetComponent<Text>();
+
+        timing.text = "Tiempo";
+
         animacionSpeak1 = personaje1.AddComponent<Animation>();
         animacionSpeak2 = personaje2.AddComponent<Animation>();
         animacionSpeak3 = personaje3.AddComponent<Animation>();
@@ -41,16 +65,30 @@ public class Minijuego3 : MonoBehaviour {
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
-        Debug.Log("Valor de count: "+count);
+        Debug.Log("Valor de count: " + count);
         randomSpeak();
-        
-       
+
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (!isGameDone)
+        {
+            timeLeft -= Time.deltaTime;
+            timing.text = "Tiempo: " + timeLeft.ToString("0.0");
+
+            if (timeLeft <= 0 && !isGameDone)
+            {
+                audioSource.Stop();
+                isGameDone = true;
+                gs = new GameStatus();
+                gs.PlayerNeedToRepeatGame(audioSource);
+            }
+        }
+    }
 
     public void randomSpeak()
     {
@@ -350,8 +388,9 @@ public class Minijuego3 : MonoBehaviour {
     }
 
     //Accion oculta mano y activa simbolos
-    public void accionMano() {
-        
+    public void accionMano()
+    {
+
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(true);
         btnCuadrado.SetActive(true);
@@ -362,21 +401,24 @@ public class Minijuego3 : MonoBehaviour {
     }
 
     //Oculta simbolos de botones
-    public void disabledButton() {
+    public void disabledButton()
+    {
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
     }
 
     //Mensaje de respuesta correcta
-    public void Ok() {
+    public void Ok()
+    {
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
         //count++;
     }
 
     //Mensaje de Respuesta incorrecta
-    public void fail() {
+    public void fail()
+    {
         msj_fail.SetActive(true);
         btnReset.SetActive(true);
     }
@@ -384,11 +426,15 @@ public class Minijuego3 : MonoBehaviour {
     //Mensaje de finalizacion de minijuego
     public void complete()
     {
+        audioSource.Stop();
+        isGameDone = true;
         btnMano.SetActive(false);
-        msj_complete.SetActive(true);
-        btnTermina.SetActive(true);
+        //msj_complete.SetActive(true);
+        // btnTermina.SetActive(true);
+        gs = new GameStatus();
+        gs.PlayerWinGame(audioSource);
     }
-    
+
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
     {
@@ -404,7 +450,7 @@ public class Minijuego3 : MonoBehaviour {
         btnMano.SetActive(true);
 
         //Setando Texto
-        Nivel.text = count+"/3";
+        Nivel.text = count + "/3";
 
         //Contador
         count++;
@@ -422,7 +468,7 @@ public class Minijuego3 : MonoBehaviour {
 
     public void pruebaRandom()
     {
-        Debug.Log("Valor Random: "+Random.Range(1, 4));
+        Debug.Log("Valor Random: " + Random.Range(1, 4));
     }
-    
+
 }
