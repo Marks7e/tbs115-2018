@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class IconGetter : MonoBehaviour, IDropHandler {
 
@@ -12,22 +13,34 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 
 		if(this.gameObject.CompareTag(droppedIcon.tag))
 		{
-			IconDragger.draggedIcon = null;
+			if(transform.childCount > 0)
+			{	
+				IconDragger.draggedIcon = transform.GetChild(0);
+				//Destroy(droppedIcon.gameObject);
+			}
+			else
+			{
+				IconDragger.draggedIcon = null;
+			}
 			droppedIcon.SetParent(transform, false);
+			print("Excelente");
+			Barra.slots[GetComponent<Slot>().id] = 1;
 		}
 		else
-		{
+		{	
+			if(transform.childCount > 0)
+			{
+				IconDragger.draggedIcon = transform.GetChild(0);
+				//Destroy(droppedIcon.gameObject);
+			}
+			else
+			{
+				IconDragger.draggedIcon = null;
+			}
+			droppedIcon.SetParent(transform, false);
 			print("Error");
+			SceneManager.LoadScene("Minijuego 4");
+			Barra.slots[GetComponent<Slot>().id] = 0;
 		}
-	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

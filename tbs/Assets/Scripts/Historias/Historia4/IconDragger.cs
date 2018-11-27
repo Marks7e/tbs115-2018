@@ -32,6 +32,9 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		if(draggedIcon == null) return;
+
+		draggedIcon.SetParent(transform, false);
+		draggedIcon = null;
 	}
 
 	// Use this for initialization

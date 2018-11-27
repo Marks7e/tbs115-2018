@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 20069270}
   - component: {fileID: 20069269}
   - component: {fileID: 20069271}
+  - component: {fileID: 20069272}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Smugie
@@ -291,6 +292,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696641be910fe4b479696ff923c035ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &20069272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 20069267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61bb1e2ef10f734aa214dbc23fe027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
 --- !u!1 &126083722
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +384,7 @@ GameObject:
   - component: {fileID: 232889979}
   - component: {fileID: 232889978}
   - component: {fileID: 232889980}
+  - component: {fileID: 232889981}
   m_Layer: 5
   m_Name: Slot4
   m_TagString: Smugie
@@ -441,6 +455,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696641be910fe4b479696ff923c035ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &232889981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 232889976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61bb1e2ef10f734aa214dbc23fe027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 3
 --- !u!1 &236081203
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +529,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -293, y: -4.950001}
+  m_AnchoredPosition: {x: -253, y: -17.05}
   m_SizeDelta: {x: -990.8, y: -9.900002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &383136186
@@ -596,7 +622,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 15}
-  m_SizeDelta: {x: -40, y: -170}
+  m_SizeDelta: {x: 0, y: -170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &427903858
 MonoBehaviour:
@@ -643,6 +669,7 @@ GameObject:
   - component: {fileID: 447434952}
   - component: {fileID: 447434951}
   - component: {fileID: 447434953}
+  - component: {fileID: 447434954}
   m_Layer: 5
   m_Name: Slot5
   m_TagString: Smugie
@@ -713,6 +740,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696641be910fe4b479696ff923c035ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &447434954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 447434949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61bb1e2ef10f734aa214dbc23fe027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 4
 --- !u!1 &472944949
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +916,7 @@ GameObject:
   - component: {fileID: 524556197}
   - component: {fileID: 524556196}
   - component: {fileID: 524556198}
+  - component: {fileID: 524556199}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Smugie
@@ -947,6 +987,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696641be910fe4b479696ff923c035ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &524556199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 524556194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61bb1e2ef10f734aa214dbc23fe027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 2
 --- !u!1 &615292530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1100,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1087, y: 233}
+  m_SizeDelta: {x: 925, y: 233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &958617590
 MonoBehaviour:
@@ -1118,8 +1170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -439.40002, y: 1.0999985}
-  m_SizeDelta: {x: -990.8, y: -11.8}
+  m_AnchoredPosition: {x: -428, y: -3.9}
+  m_SizeDelta: {x: -990.8, y: -18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054532811
 MonoBehaviour:
@@ -1263,6 +1315,7 @@ GameObject:
   - component: {fileID: 1078733321}
   - component: {fileID: 1078733320}
   - component: {fileID: 1078733319}
+  - component: {fileID: 1078733322}
   m_Layer: 5
   m_Name: Barra
   m_TagString: Untagged
@@ -1349,6 +1402,19 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1078733317}
   m_CullTransparentMesh: 0
+--- !u!114 &1078733322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1078733317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fc2d2e6a381fe4badcd7c2d76b3669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTime: 0
+  sceneToChange: Minijuego 4
 --- !u!1 &1096777224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,6 +1426,7 @@ GameObject:
   - component: {fileID: 1096777227}
   - component: {fileID: 1096777226}
   - component: {fileID: 1096777228}
+  - component: {fileID: 1096777229}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Smugie
@@ -1430,6 +1497,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696641be910fe4b479696ff923c035ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1096777229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1096777224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c61bb1e2ef10f734aa214dbc23fe027c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &1266664768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 159, y: 0}
+  m_AnchoredPosition: {x: 196.5, y: 0}
   m_SizeDelta: {x: -1000, y: -22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533398426
@@ -1955,7 +2034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -126, y: -9.1}
+  m_AnchoredPosition: {x: -172.4, y: -5.9}
   m_SizeDelta: {x: -990.8, y: -11.800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594322540
@@ -2108,7 +2187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 407, y: 1.0999985}
+  m_AnchoredPosition: {x: 423.8, y: 5.1}
   m_SizeDelta: {x: -990.8, y: -11.800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1869913706
@@ -2192,7 +2271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -500, y: 11}
+  m_AnchoredPosition: {x: -348, y: -11}
   m_SizeDelta: {x: -1000, y: -22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920984817
