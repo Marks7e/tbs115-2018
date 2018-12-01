@@ -37,10 +37,10 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 			{
 				IconDragger.draggedIcon = null;
 			}
+			Barra.slots[GetComponent<Slot>().id] = 0;
 			droppedIcon.SetParent(transform, false);
 			print("Error");
 			SceneManager.LoadScene("Minijuego 4");
-			Barra.slots[GetComponent<Slot>().id] = 0;
 		}
 	}
 }

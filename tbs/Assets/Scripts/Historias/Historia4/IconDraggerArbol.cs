@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class IconDraggerArbol : MonoBehaviour, IBeginDragHandler, IDragHandler{
 
 	public bool clonable;
 	public static Transform draggedIcon;
@@ -20,6 +20,7 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		if(!this.clonable)
 		{
 			draggedIcon = transform.GetChild(0);
+			Destroy(transform.gameObject);
 			draggedIcon.SetParent(this.hand, false);
 		}
 	}
@@ -28,13 +29,4 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	{
 		this.hand.position = Input.mousePosition;
 	}
-
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		if(draggedIcon == null) return;
-
-		draggedIcon.SetParent(transform, false);
-		draggedIcon = null;
-	}
 }
-
