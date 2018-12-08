@@ -10,12 +10,14 @@ public class Minijuego3 : MonoBehaviour
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
     public GameObject msj_ok, msj_fail, msj_complete;
+    public Button BtMano, BtCirculo, BtCuadrado, BtTriangulo;
 
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    public float timeLeft = 10.00f;
+    public float timeLeft = 5.00f;
     public bool isGameDone = false;
+    public bool isRoundDone = false;
 
 
     public GameObject texto;
@@ -35,40 +37,14 @@ public class Minijuego3 : MonoBehaviour
     private string sign;
 
 
+    private
 
     // Use this for initialization
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
-        audioSource.PlayOneShot(bgMusic);
-
-
-        texto = new GameObject();
-        texto = GameObject.Find("Timing");
-        timing = texto.GetComponent<Text>();
-
-        timing.text = "Tiempo";
-
-        animacionSpeak1 = personaje1.AddComponent<Animation>();
-        animacionSpeak2 = personaje2.AddComponent<Animation>();
-        animacionSpeak3 = personaje3.AddComponent<Animation>();
-        animacionSpeak1.AddClip(speak01, "Speak01");
-        animacionSpeak2.AddClip(speak02, "Speak02");
-        animacionSpeak3.AddClip(speak03, "Speak03");
-
-        simbolo1.GetComponent<Image>().enabled = false;
-        simbolo2.GetComponent<Image>().enabled = false;
-        simbolo3.GetComponent<Image>().enabled = false;
-
-        //Ocultar Botones con simbolos
-        btnCirculo.SetActive(false);
-        btnCuadrado.SetActive(false);
-        btnTriangulo.SetActive(false);
-        Debug.Log("Valor de count: " + count);
+        SettingTimeOfGame();
+        GetAndInitializeAllGameObjects();
         randomSpeak();
-
-
     }
 
     // Update is called once per frame
@@ -77,19 +53,22 @@ public class Minijuego3 : MonoBehaviour
 
         if (!isGameDone)
         {
-            timeLeft -= Time.deltaTime;
-            timing.text = "Tiempo: " + timeLeft.ToString("0.0");
-
-            if (timeLeft <= 0 && !isGameDone)
+            if (!isRoundDone)
             {
-                audioSource.Stop();
-                isGameDone = true;
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource);
+                timeLeft -= Time.deltaTime;
+                timing.text = "Tiempo: " + timeLeft.ToString("0");
             }
+                if (timeLeft <= 0 && !isGameDone)
+                {
+                    UnableGameControls();
+                    audioSource.Stop();
+                    isGameDone = true;
+                    gs = new GameStatus();
+                    gs.PlayerNeedToRepeatGame(audioSource);
+                }
+            
         }
     }
-
     public void randomSpeak()
     {
         Debug.Log("Valor de count: " + count);
@@ -344,7 +323,6 @@ public class Minijuego3 : MonoBehaviour
 
         }
     }
-
     public void esCirculo()
     {
         if (btnCirculo.name == sign)
@@ -358,7 +336,6 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
-
     public void esTriangulo()
     {
         if (btnTriangulo.name == sign)
@@ -372,7 +349,6 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
-
     public void esCuadrado()
     {
         if (btnCuadrado.name == sign)
@@ -386,7 +362,6 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
-
     //Accion oculta mano y activa simbolos
     public void accionMano()
     {
@@ -399,7 +374,6 @@ public class Minijuego3 : MonoBehaviour
         btnMano.SetActive(false);
 
     }
-
     //Oculta simbolos de botones
     public void disabledButton()
     {
@@ -407,22 +381,23 @@ public class Minijuego3 : MonoBehaviour
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
     }
-
     //Mensaje de respuesta correcta
     public void Ok()
     {
+        SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
+        isRoundDone = true;
+
         //count++;
     }
-
     //Mensaje de Respuesta incorrecta
     public void fail()
     {
         msj_fail.SetActive(true);
         btnReset.SetActive(true);
+        isRoundDone = true;
     }
-
     //Mensaje de finalizacion de minijuego
     public void complete()
     {
@@ -434,10 +409,10 @@ public class Minijuego3 : MonoBehaviour
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource);
     }
-
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
     {
+        isRoundDone = false;
         //Deshabilitar simbolos
         simbolo1.GetComponent<Image>().enabled = false;
         simbolo2.GetComponent<Image>().enabled = false;
@@ -465,10 +440,60 @@ public class Minijuego3 : MonoBehaviour
 
         randomSpeak();
     }
-
-    public void pruebaRandom()
+    private void UnableGameControls()
     {
-        Debug.Log("Valor Random: " + Random.Range(1, 4));
+        disabledButton();
+        btnMano.SetActive(false);
+        animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
+        animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
+        animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
     }
+    private void GetAndInitializeAllGameObjects()
+    {
+        audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
+        audioSource.PlayOneShot(bgMusic);
+        btnMano = GameObject.Find("btnMano");
+        btnCirculo = GameObject.Find("circulo");
+        btnCuadrado = GameObject.Find("cuadrado");
+        btnTriangulo = GameObject.Find("triangulo");
 
+        BtMano = btnMano.GetComponent<Button>();
+        BtCirculo = btnCirculo.GetComponent<Button>();
+        BtCuadrado = btnCuadrado.GetComponent<Button>();
+        BtTriangulo = btnTriangulo.GetComponent<Button>();
+
+
+        texto = new GameObject();
+        texto = GameObject.Find("Timing");
+        timing = texto.GetComponent<Text>();
+
+        timing.text = "Tiempo";
+
+        animacionSpeak1 = personaje1.AddComponent<Animation>();
+        animacionSpeak2 = personaje2.AddComponent<Animation>();
+        animacionSpeak3 = personaje3.AddComponent<Animation>();
+        animacionSpeak1.AddClip(speak01, "Speak01");
+        animacionSpeak2.AddClip(speak02, "Speak02");
+        animacionSpeak3.AddClip(speak03, "Speak03");
+
+        simbolo1.GetComponent<Image>().enabled = false;
+        simbolo2.GetComponent<Image>().enabled = false;
+        simbolo3.GetComponent<Image>().enabled = false;
+
+        //Ocultar Botones con simbolos
+        btnCirculo.SetActive(false);
+        btnCuadrado.SetActive(false);
+        btnTriangulo.SetActive(false);
+    }
+    private void SettingTimeOfGame(float GameTime = 5.00f)
+    {
+        if (GameTime > 0.00f)
+        { this.timeLeft = GameTime; }
+        else
+        {
+            throw new System.Exception("El tiempo establecido para la ronda de juego debe ser mayor a 0.0 segundos.");
+        }
+
+    }
 }

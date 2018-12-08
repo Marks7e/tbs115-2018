@@ -998,11 +998,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 469236430}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -259, y: 176}
+  m_AnchoredPosition: {x: -251.1, y: 82.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &457448559
@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.6746522, b: 0.3460751, a: 1}
+  m_Color: {r: 0.21176471, g: 0.4392157, b: 0.58431375, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2833,10 +2833,16 @@ MonoBehaviour:
   msj_ok: {fileID: 224741032}
   msj_fail: {fileID: 1819633052}
   msj_complete: {fileID: 2004927986}
+  BtMano: {fileID: 0}
+  BtCirculo: {fileID: 0}
+  BtCuadrado: {fileID: 0}
+  BtTriangulo: {fileID: 0}
   gs: {fileID: 0}
   audioSource: {fileID: 0}
+  bgMusic: {fileID: 0}
   timeLeft: 10
   isGameDone: 0
+  isRoundDone: 0
   texto: {fileID: 0}
   Nivel: {fileID: 1629103619}
   timing: {fileID: 0}
