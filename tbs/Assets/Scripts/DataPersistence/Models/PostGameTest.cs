@@ -16,6 +16,7 @@ namespace Assets.Scripts.DataPersistence.Models
         public Dictionary<string, string> Level1 = new Dictionary<string, string>();
         public Dictionary<string, string> Level2 = new Dictionary<string, string>();
 
+
         public TestGame()
         {
             Level1.Clear();

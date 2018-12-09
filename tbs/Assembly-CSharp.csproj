@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\DataPersistence\Models\OptionTest.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PlayerAnswerData.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PostGameTest.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\RealmsQuestions.cs" />
     <Compile Include="Assets\Scripts\HelloWorld.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\Player.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\SheCollider.cs" />
@@ -81,7 +82,7 @@
     <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
     <Compile Include="Assets\Scripts\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
-    <Compile Include="Assets\Scripts\Utils\Randomize.cs" />
+    <Compile Include="Assets\Scripts\Utils\RandomizeTest.cs" />
     <Compile Include="Assets\Scripts\VideoControl.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/tbs115/tbs115-2018/tbs/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

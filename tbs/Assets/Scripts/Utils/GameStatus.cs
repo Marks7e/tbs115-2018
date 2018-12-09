@@ -36,7 +36,6 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
         SettingSounds();
         CreateMessageWindow(GameState.Win);
         source.PlayOneShot(Win);
-        new WaitForSeconds(waitSeconds);
     }
     public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds)
     {
@@ -88,7 +87,9 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
     }
     private void ContinueWithGame()
     {
-        SceneManager.LoadScene("MainMenu");
+        string actualLvlName = SceneManager.GetActiveScene().name;
+        RandomizeTest rt = new RandomizeTest();
+        rt.RandomizeForTest(actualLvlName);
     }
     private void RepeatGame()
     {
@@ -102,12 +103,12 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
         GameObject panel = new GameObject("panel");
 
         MainCanvas = GameObject.Find("Canvas");
-        
+
         Canvas canvas = MsgPanel.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.pixelPerfect = true;
         MsgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        
+
         panel.AddComponent<CanvasRenderer>();
         Image msg = panel.AddComponent<Image>();
 
@@ -144,11 +145,11 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
 
         MainCanvas = GameObject.Find("Canvas");
 
-        Canvas canvas = MsgPanel.AddComponent<Canvas>();    
+        Canvas canvas = MsgPanel.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.pixelPerfect = true;
         MsgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        
+
         panel.AddComponent<CanvasRenderer>();
         Image msg = panel.AddComponent<Image>();
 

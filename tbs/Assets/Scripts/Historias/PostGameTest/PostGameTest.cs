@@ -8,9 +8,9 @@ public class PostGameTest : MonoBehaviour
 {
 
     /*Declarando "contenedores" de UI*/
-    GameObject txtQuestion;
-    GameObject btnYES;
-    GameObject btnNO;
+    GameObject TxtQuestion;
+    GameObject BtnYes;
+    GameObject BtnNo;
     GameDataPersistence gdp = new GameDataPersistence();
     PlayerAnswerData pad = new PlayerAnswerData();
 
@@ -22,34 +22,32 @@ public class PostGameTest : MonoBehaviour
     /*Recuperando nombre de nivel*/
     void Start()
     {
-        txtQuestion = GameObject.Find("Question");
-        btnYES = GameObject.Find("BtnYes");
-        btnNO = GameObject.Find("BtnNo");
+        TxtQuestion = GameObject.Find("Question");
+        BtnYes = GameObject.Find("BtnYes");
+        BtnNo = GameObject.Find("BtnNo");
 
-        txtQuestion.SetActive(true);
-        btnYES.SetActive(true);
-        btnNO.SetActive(true);
+        TxtQuestion.SetActive(true);
+        BtnYes.SetActive(true);
+        BtnNo.SetActive(true);
 
         IDataType data = gdp.LoadData(GameDataPersistence.DataType.TestData);
-        SendQuestionToPlayer(data, txtQuestion);
+        SendQuestionToPlayer(data, TxtQuestion);
     }
 
     public void PositiveAnswer()
     {
         Debug.Log("Contestó que Sí!");
-        string res = txtQuestion.GetComponent<UnityEngine.UI.Text>().text;
+        string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
         pad.SavePlayerAnswer(res, "Y");
         EvaluatingNewQuestion(gdp, counter, 3);
     }
-
     public void NegativeAnswer()
     {
         Debug.Log("Contestó que No!");
-        string res = txtQuestion.GetComponent<UnityEngine.UI.Text>().text;
+        string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
         pad.SavePlayerAnswer(res, "N");
-        EvaluatingNewQuestion(gdp, counter, 3); 
+        EvaluatingNewQuestion(gdp, counter, 3);
     }
-
     private void SendQuestionToPlayer(IDataType data, GameObject qText)
     {
         try
@@ -77,7 +75,7 @@ public class PostGameTest : MonoBehaviour
     {
         EvaluatingTimes(times);
         IDataType data = gdp.LoadData(GameDataPersistence.DataType.TestData);
-        SendQuestionToPlayer(data, txtQuestion);
+        SendQuestionToPlayer(data, TxtQuestion);
     }
 
 }

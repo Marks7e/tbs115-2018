@@ -15,12 +15,12 @@ public class RandomizeTest : MonoBehaviour
     {
         try
         {
+            tg = new TestGame();
+            gdp = new GameDataPersistence();
 
             if (Random.Range(0, 100.00f) >= 0.00f)
             {
                 Debug.Log("Random >= 75.00f");
-                tg = new TestGame();
-                gdp = new GameDataPersistence();
 
                 if (tg.data.ContainsKey("SceneName"))
                     tg.data.Remove("SceneName");
