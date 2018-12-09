@@ -4,8 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Randomize : MonoBehaviour
+public class RandomizeTest : MonoBehaviour
 {
+
+    //Reservando memoria para variables
+    private TestGame tg = null;
+    private GameDataPersistence gdp = null;
+
     public void RandomizeForTest(string levelName)
     {
         try
@@ -14,8 +19,8 @@ public class Randomize : MonoBehaviour
             if (Random.Range(0, 100.00f) >= 0.00f)
             {
                 Debug.Log("Random >= 75.00f");
-                TestGame tg = new TestGame();
-                GameDataPersistence gdp = new GameDataPersistence();
+                tg = new TestGame();
+                gdp = new GameDataPersistence();
 
                 if (tg.data.ContainsKey("SceneName"))
                     tg.data.Remove("SceneName");
@@ -34,8 +39,7 @@ public class Randomize : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogError("Stacktrace: " + e.StackTrace);
-
+            throw new System.Exception("Stacktrace: " + e.StackTrace);
         }
 
 

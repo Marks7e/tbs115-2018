@@ -2833,6 +2833,7 @@ MonoBehaviour:
   msj_ok: {fileID: 224741032}
   msj_fail: {fileID: 1819633052}
   msj_complete: {fileID: 2004927986}
+  texto: {fileID: 0}
   BtMano: {fileID: 0}
   BtCirculo: {fileID: 0}
   BtCuadrado: {fileID: 0}
@@ -2841,9 +2842,9 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   bgMusic: {fileID: 0}
   timeLeft: 10
+  waitingTime: 3
   isGameDone: 0
   isRoundDone: 0
-  texto: {fileID: 0}
   Nivel: {fileID: 1629103619}
   timing: {fileID: 0}
   speak01: {fileID: 7400000, guid: 7bfb6f7142a0cf6428ba54e057ba58f3, type: 2}

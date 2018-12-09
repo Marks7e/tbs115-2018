@@ -5,25 +5,21 @@ using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
-
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
     public GameObject msj_ok, msj_fail, msj_complete;
+    public GameObject texto;
     public Button BtMano, BtCirculo, BtCuadrado, BtTriangulo;
-
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
     public float timeLeft = 5.00f;
+    public int waitingTime = 3;
     public bool isGameDone = false;
     public bool isRoundDone = false;
 
-
-    public GameObject texto;
-
-
-    // Text
+    //Texto a mostrar al usuario
     public Text Nivel;
     public Text timing;
 
@@ -36,15 +32,12 @@ public class Minijuego3 : MonoBehaviour
     private int x, y, z, count = 1;
     private string sign;
 
-
-    private
-
     // Use this for initialization
     void Start()
     {
         SettingTimeOfGame();
         GetAndInitializeAllGameObjects();
-        randomSpeak();
+        RandomSpeak();
     }
 
     // Update is called once per frame
@@ -58,34 +51,28 @@ public class Minijuego3 : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 timing.text = "Tiempo: " + timeLeft.ToString("0");
             }
-                if (timeLeft <= 0 && !isGameDone)
-                {
-                    UnableGameControls();
-                    audioSource.Stop();
-                    isGameDone = true;
-                    gs = new GameStatus();
-                    gs.PlayerNeedToRepeatGame(audioSource);
-                }
-            
+            if (timeLeft <= 0 && !isGameDone)
+            {
+                UnableGameControls();
+                audioSource.Stop();
+                isGameDone = true;
+                gs = new GameStatus();
+                gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
+            }
+
         }
     }
-    public void randomSpeak()
+    public void RandomSpeak()
     {
-        Debug.Log("Valor de count: " + count);
-
         if (count <= 3)
         {
             //Random Animacion
             x = Random.Range(1, 4);
-            Debug.Log("Animacion " + x + " Seleccionada");
             switch (x)
             {
                 case 1:
                     //Habla personaje 1
-                    //animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
-                    //animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                     animacionSpeak1.GetComponent<Animation>().Play("Speak01");
-                    Debug.Log("reproduciendo animacion 1 : " + animacionSpeak1.IsPlaying("Speak01"));
 
                     //Random de Simbolo para el personaje que habla 
                     y = Random.Range(1, 4);
@@ -108,11 +95,9 @@ public class Minijuego3 : MonoBehaviour
                     break;
                 case 2:
                     //Habla personaje 2
-                    //animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
-                    //animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
                     animacionSpeak2.GetComponent<Animation>().Play("Speak02");
-                    Debug.Log("animacion 2 : " + animacionSpeak2.IsPlaying("Speak02"));
 
+                    //Random de Simbolos 
                     //Random de Simbolos 
                     y = Random.Range(1, 4);
                     simbolo2.GetComponent<Image>().enabled = true;
@@ -134,10 +119,7 @@ public class Minijuego3 : MonoBehaviour
                     break;
                 case 3:
                     //Habla personaje 3
-                    //animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
-                    //animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
                     animacionSpeak3.GetComponent<Animation>().Play("Speak03");
-                    Debug.Log("animacion 3 : " + animacionSpeak3.IsPlaying("Speak03"));
 
                     //Random de Simbolos 
                     y = Random.Range(1, 4);
@@ -318,9 +300,7 @@ public class Minijuego3 : MonoBehaviour
         }
         else
         {
-            Debug.Log("A completado el minijuego");
             complete();
-
         }
     }
     public void esCirculo()
@@ -388,8 +368,6 @@ public class Minijuego3 : MonoBehaviour
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
         isRoundDone = true;
-
-        //count++;
     }
     //Mensaje de Respuesta incorrecta
     public void fail()
@@ -404,10 +382,8 @@ public class Minijuego3 : MonoBehaviour
         audioSource.Stop();
         isGameDone = true;
         btnMano.SetActive(false);
-        //msj_complete.SetActive(true);
-        // btnTermina.SetActive(true);
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource);
+        gs.PlayerWinGame(audioSource, waitingTime);
     }
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
@@ -438,7 +414,7 @@ public class Minijuego3 : MonoBehaviour
         animacionSpeak2.GetComponent<Animation>().Stop("Speak02");
         animacionSpeak3.GetComponent<Animation>().Stop("Speak03");
 
-        randomSpeak();
+        RandomSpeak();
     }
     private void UnableGameControls()
     {
