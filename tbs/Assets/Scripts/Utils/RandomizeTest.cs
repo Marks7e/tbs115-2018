@@ -8,26 +8,21 @@ public class RandomizeTest : MonoBehaviour
 {
 
     //Reservando memoria para variables
-    private TestGame tg = null;
+    private RealmData rd = null;
     private GameDataPersistence gdp = null;
 
     public void RandomizeForTest(string levelName)
     {
         try
         {
-            tg = new TestGame();
+            rd = new RealmData();
             gdp = new GameDataPersistence();
 
             if (Random.Range(0, 100.00f) >= 0.00f)
             {
                 Debug.Log("Random >= 75.00f");
-
-                if (tg.data.ContainsKey("SceneName"))
-                    tg.data.Remove("SceneName");
-
-                tg.SaveData("SceneName", levelName);
-                gdp.SaveData(GameDataPersistence.DataType.TestData, tg);
-
+                rd.SaveData("LevelName", levelName);
+                gdp.SaveData(GameDataPersistence.DataType.LevelData, rd);
                 SceneManager.LoadScene("PostGameTest");
             }
             else

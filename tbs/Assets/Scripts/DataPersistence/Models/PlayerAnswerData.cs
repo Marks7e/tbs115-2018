@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
+    [Serializable]
     public class PlayerAnswerData : IDataType
     {
 

@@ -13,13 +13,13 @@ public class GameDataPersistence
     {
         OptionsData,
         PlayerData,
-        TestData
+        PostGameTestData,
+        LevelData
     }
     public bool SaveData(DataType type, IDataType data)
     {
         return Persist(type, data);
     }
-
     public IDataType LoadData(DataType type)
     {
 
@@ -28,32 +28,42 @@ public class GameDataPersistence
         return GetDataFromFile(type);
 
     }
-
-    private string DataPath(DataType type)
-    { return Application.persistentDataPath + "/" + type.ToString() + ".dat"; }
     private bool Persist(DataType type, IDataType data)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(DataPath(type), FileMode.OpenOrCreate);
-        try
+        using (FileStream fs = File.Open(DataPath(type),
+                        FileMode.OpenOrCreate,
+                        FileAccess.ReadWrite,
+                        FileShare.ReadWrite))
         {
-            bf.Serialize(fs, data);
-            fs.Close();
-            return true;
+            try
+            {
+                bf.Serialize(fs, data);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-            fs.Close();
-            return false;
-        }
+            
     }
+
+    private string DataPath(DataType type)
+    { return Application.persistentDataPath + "/" + type.ToString() + ".dat"; }
+
     private IDataType GetDataFromFile(DataType type)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream fs = File.Open(DataPath(type), FileMode.Open);
-        IDataType data = (IDataType)bf.Deserialize(fs);
-        fs.Close();
+        IDataType data = null;
+        using (FileStream fs = File.Open(DataPath(type),
+                        FileMode.OpenOrCreate,
+                        FileAccess.ReadWrite,
+                        FileShare.ReadWrite))
+        {
+            data = (IDataType)bf.Deserialize(fs);
+        }        
         return data;
     }
 }

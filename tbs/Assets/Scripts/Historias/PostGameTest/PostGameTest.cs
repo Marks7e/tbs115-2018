@@ -13,6 +13,9 @@ public class PostGameTest : MonoBehaviour
     GameObject BtnNo;
     GameDataPersistence gdp = new GameDataPersistence();
     PlayerAnswerData pad = new PlayerAnswerData();
+    RealmData rd = new RealmData();
+    RealmsQuestions rq = null;
+    IDataType lvlData = null;
 
     /*Declarando Variables de preguntas y respuestas*/
     public string question;
@@ -26,12 +29,14 @@ public class PostGameTest : MonoBehaviour
         BtnYes = GameObject.Find("BtnYes");
         BtnNo = GameObject.Find("BtnNo");
 
+        rq = new RealmsQuestions();
+        lvlData = gdp.LoadData(GameDataPersistence.DataType.LevelData);
+
         TxtQuestion.SetActive(true);
         BtnYes.SetActive(true);
         BtnNo.SetActive(true);
 
-        IDataType data = gdp.LoadData(GameDataPersistence.DataType.TestData);
-        SendQuestionToPlayer(data, TxtQuestion);
+        SendQuestionToPlayer(TxtQuestion);
     }
 
     public void PositiveAnswer()
@@ -39,24 +44,24 @@ public class PostGameTest : MonoBehaviour
         Debug.Log("Contestó que Sí!");
         string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
         pad.SavePlayerAnswer(res, "Y");
-        EvaluatingNewQuestion(gdp, counter, 3);
+        EvaluatingNewQuestion(counter, 3);
     }
     public void NegativeAnswer()
     {
         Debug.Log("Contestó que No!");
         string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
         pad.SavePlayerAnswer(res, "N");
-        EvaluatingNewQuestion(gdp, counter, 3);
+        EvaluatingNewQuestion(counter, 3);
     }
-    private void SendQuestionToPlayer(IDataType data, GameObject qText)
+    private void SendQuestionToPlayer(GameObject qText)
     {
         try
         {
-            qText.GetComponent<UnityEngine.UI.Text>().text = data.GetData("SceneName");
+            qText.GetComponent<UnityEngine.UI.Text>().text = rq.GetData(lvlData.GetData("LevelName"));
         }
         catch (System.Exception e)
         {
-            Debug.LogError(e.StackTrace);
+            Debug.LogError(e.Message);
         }
     }
     private void EvaluatingTimes(int times)
@@ -71,11 +76,10 @@ public class PostGameTest : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
     }
-    private void EvaluatingNewQuestion(GameDataPersistence gdp, int counter, int times)
+    private void EvaluatingNewQuestion(int counter, int times)
     {
         EvaluatingTimes(times);
-        IDataType data = gdp.LoadData(GameDataPersistence.DataType.TestData);
-        SendQuestionToPlayer(data, TxtQuestion);
+        SendQuestionToPlayer(TxtQuestion);
     }
 
 }
