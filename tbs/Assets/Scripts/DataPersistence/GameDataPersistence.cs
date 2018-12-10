@@ -28,6 +28,7 @@ public class GameDataPersistence
         return GetDataFromFile(type);
 
     }
+
     private bool Persist(DataType type, IDataType data)
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -47,12 +48,10 @@ public class GameDataPersistence
                 return false;
             }
         }
-            
-    }
 
+    }
     private string DataPath(DataType type)
     { return Application.persistentDataPath + "/" + type.ToString() + ".dat"; }
-
     private IDataType GetDataFromFile(DataType type)
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -63,7 +62,7 @@ public class GameDataPersistence
                         FileShare.ReadWrite))
         {
             data = (IDataType)bf.Deserialize(fs);
-        }        
+        }
         return data;
     }
 }

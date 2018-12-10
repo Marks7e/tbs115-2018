@@ -10,14 +10,14 @@ namespace Assets.Scripts.DataPersistence.Models
     {
 
         public Dictionary<string, List<string>> rQuestions;
-        public List<string> Reino1;
+        public List<string> reino1;
         private GameDataPersistence gdp = new GameDataPersistence();
 
 
         public RealmsQuestions()
         {
             rQuestions = new Dictionary<string, List<string>>();
-            Reino1 = new List<string>
+            reino1 = new List<string>
             {
                 "¿Caminas sin hacer ruido cuando vas a tu cuarto?",
                 "¿Compartes el baño de la casa con tu familia o visitas?",
@@ -31,7 +31,7 @@ namespace Assets.Scripts.DataPersistence.Models
                 "¿Sueles saludar a tus amigos, aunque los veas todos los dias?",
                 "¿Eres capaz de controlar el temor por los sonidos fuertes?"
             };
-            rQuestions.Add("Realm1", Reino1);
+            rQuestions.Add("Realm1", reino1);
             gdp.SaveData(GameDataPersistence.DataType.PostGameTestData, this);
           
         }

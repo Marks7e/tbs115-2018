@@ -12,10 +12,9 @@ namespace Assets.Scripts.DataPersistence.Models
         private int p;
         private string question;
         public Dictionary<string, string> data = new Dictionary<string, string>();
-        public Dictionary<string, string> PlayerAnswerData = new Dictionary<string, string>();
+        public Dictionary<string, string> playeranswerdata = new Dictionary<string, string>();
         public Dictionary<string, string> Level1 = new Dictionary<string, string>();
         public Dictionary<string, string> Level2 = new Dictionary<string, string>();
-
 
         public TestGame()
         {
@@ -52,8 +51,7 @@ namespace Assets.Scripts.DataPersistence.Models
             Level2.Add("14", "Reino 2, Pregunta 14 ?");
             Level2.Add("15", "Reino 2, Pregunta 15 ?");
         }
-
-
+        
         public string GetValueOfKey(string key)
         {
             return data[key].ToString();
@@ -61,13 +59,13 @@ namespace Assets.Scripts.DataPersistence.Models
         public string GetData(string key)
         {
             string Level = data[key].ToString();
-            if (getSetOfQuestions(Level).Count > 0)
+            if (GetSetOfQuestions(Level).Count > 0)
             {
                 r = new Random();
-                p = r.Next(1, getSetOfQuestions(Level).Count);
+                p = r.Next(1, GetSetOfQuestions(Level).Count);
                 Console.WriteLine(p);
-                question = getSetOfQuestions(Level).ElementAt(p).Value;
-                deleteAskedQuestion(Level, p);
+                question = GetSetOfQuestions(Level).ElementAt(p).Value;
+                DeleteAskedQuestion(Level, p);
                 return question;
             }
             else
@@ -80,8 +78,8 @@ namespace Assets.Scripts.DataPersistence.Models
         {
             data.Add(key, value);
         }
-        
-        private Dictionary<string, string> getSetOfQuestions(string level)
+
+        private Dictionary<string, string> GetSetOfQuestions(string level)
         {
             try
             {
@@ -97,9 +95,9 @@ namespace Assets.Scripts.DataPersistence.Models
                 throw e;
             }
         }
-        private void deleteAskedQuestion(string level, int index)
+        private void DeleteAskedQuestion(string level, int index)
         {
-            getSetOfQuestions(level).Remove(getSetOfQuestions(level).ElementAt(index).Key);
+            GetSetOfQuestions(level).Remove(GetSetOfQuestions(level).ElementAt(index).Key);
         }
 
 

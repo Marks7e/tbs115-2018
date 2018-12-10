@@ -11,8 +11,7 @@ namespace Assets.Scripts.DataPersistence.Models
 
         public Dictionary<string, string> data = new Dictionary<string, string>();
         GameDataPersistence gdp = new GameDataPersistence();
-
-
+        
         public void SavePlayerAnswer(string question, string answer)
         {
             if (data.Select(d => d).Where(dr => dr.Key == question).Any())

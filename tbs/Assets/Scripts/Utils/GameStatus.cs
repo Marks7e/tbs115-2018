@@ -6,28 +6,23 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.SceneManagement;
 
-public class GameStatus : ScriptableObject, IPointerDownHandler
+public class GameStatus : ScriptableObject
 {
-
+    
     public enum GameState
     {
         Win = 1,
         TryAgain = 2
     }
 
-    public AudioClip Win;
-    public AudioClip Repeat;
+    public AudioClip win;
+    public AudioClip repeat;
     public AudioSource source;
 
     public void SettingSounds()
     {
-        //addPhysics2DRaycaster();
-        Win = Resources.Load<AudioClip>("Sounds/Win");
-        Repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        Debug.Log("Evaluando enviar a TEST o a Menú principal");
+        win = Resources.Load<AudioClip>("Sounds/Win");
+        repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
     }
     public void PlayerWinGame(AudioSource audioSource, int waitSeconds)
     {
@@ -35,7 +30,7 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
         source = audioSource;
         SettingSounds();
         CreateMessageWindow(GameState.Win);
-        source.PlayOneShot(Win);
+        source.PlayOneShot(win);
     }
     public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds)
     {
@@ -43,7 +38,7 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
         source = audioSource;
         SettingSounds();
         CreateMessageWindow(GameState.TryAgain);
-        source.PlayOneShot(Repeat);
+        source.PlayOneShot(repeat);
         new WaitForSeconds(waitSeconds);
     }
 
@@ -80,7 +75,6 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
                 break;
         }
     }
-
     private void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -95,7 +89,6 @@ public class GameStatus : ScriptableObject, IPointerDownHandler
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     private void SettingSizePositionAndHierarchyWhenWinGame()
     {
         GameObject MainCanvas = new GameObject();

@@ -66,10 +66,9 @@
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataType.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\OptionTest.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PlayerAnswerData.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Models\PostGameTest.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\RealmData.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\RealmsQuestions.cs" />
-    <Compile Include="Assets\Scripts\HelloWorld.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\TestGame.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\Player.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\SheCollider.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia3\Minijuego3.cs" />

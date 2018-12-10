@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-
-    //Reservando memoria para variables
     private RealmData rd = null;
     private GameDataPersistence gdp = null;
 
@@ -18,16 +16,14 @@ public class RandomizeTest : MonoBehaviour
             rd = new RealmData();
             gdp = new GameDataPersistence();
 
-            if (Random.Range(0, 100.00f) >= 0.00f)
+            if (Random.Range(0, 100.00f) >= 75.00f)
             {
-                Debug.Log("Random >= 75.00f");
                 rd.SaveData("LevelName", levelName);
                 gdp.SaveData(GameDataPersistence.DataType.LevelData, rd);
                 SceneManager.LoadScene("PostGameTest");
             }
             else
             {
-                Debug.Log("Random < 75.00f");
                 SceneManager.LoadScene("MainMenu");
             }
 
