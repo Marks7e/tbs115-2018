@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
 	GameObject FerrejeMenu;
 	GameObject BanMenu;
 	GameObject KanslorMenu;
+    GameObject ModalPanel;
     Slider VolumeSlider;
     AudioSource MainAudio;
 
@@ -33,6 +34,7 @@ public class MainMenu : MonoBehaviour
 		FerrejeMenu = GameObject.Find("FerrejeMenu");
 		BanMenu = GameObject.Find ("BanMenu");
 		KanslorMenu = GameObject.Find ("KanslorMenu");
+        ModalPanel = GameObject.Find("Modal Panel");
         VolumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
         MainAudio = Camera.main.GetComponent<AudioSource>();
 
@@ -50,7 +52,9 @@ public class MainMenu : MonoBehaviour
 		FerrejeMenu.SetActive (false);
 		BanMenu.SetActive (false);
 		KanslorMenu.SetActive (false);
-        
+        ModalPanel.SetActive(false);
+
+
     }
 
     public void ValueChangeCheck()
@@ -85,6 +89,12 @@ public class MainMenu : MonoBehaviour
         OptionsMenu.SetActive(false);
 
         Debug.Log("Backing to PrincipalMenu...");
+    }
+
+    public void DeleteGameFiles()
+    {
+        DeleteFilesModal dfm = new DeleteFilesModal();
+        dfm.SendModalToView();
     }
 
 	public void Extras()

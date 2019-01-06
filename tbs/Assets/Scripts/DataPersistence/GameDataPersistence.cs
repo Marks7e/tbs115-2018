@@ -9,6 +9,7 @@ public class GameDataPersistence
 {
     public object BynaryFormatter { get; private set; }
 
+    #region Public Methods and Enums
     public enum DataType
     {
         OptionsData,
@@ -28,7 +29,10 @@ public class GameDataPersistence
         return GetDataFromFile(type);
 
     }
+    #endregion
 
+
+    #region Private Methods
     private bool Persist(DataType type, IDataType data)
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -65,4 +69,30 @@ public class GameDataPersistence
         }
         return data;
     }
+    public void DeleteDatFiles()
+    {
+        DeleteFiles(GetDatFiles(Application.persistentDataPath));
+    }
+    private List<string> GetDatFiles(string path)
+    {
+        string[] datFilesArray = null;
+        datFilesArray = Directory.GetFiles(path, "*.dat");
+
+        if (datFilesArray.Length > 0)
+            return new List<string>(datFilesArray);
+        return null;
+    }
+    private void DeleteFiles(List<string> filesToDelete)
+    {
+        if (filesToDelete != null)
+        {
+            foreach (string file in filesToDelete)
+            {
+                File.Delete(file);
+            }
+        }
+        
+    }
+    #endregion
+
 }
