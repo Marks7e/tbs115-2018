@@ -83,7 +83,8 @@
     <Compile Include="Assets\Scripts\Modal\Base\BringToFront.cs" />
     <Compile Include="Assets\Scripts\Modal\Base\DisplayManager.cs" />
     <Compile Include="Assets\Scripts\Modal\Base\ModalPanel.cs" />
-    <Compile Include="Assets\Scripts\Modal\DeleteFilesModal.cs" />
+    <Compile Include="Assets\Scripts\Modal\Base\NoPointsForLevelModal.cs" />
+    <Compile Include="Assets\Scripts\Modal\ShowModal.cs" />
     <Compile Include="Assets\Scripts\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Utils\RandomizeTest.cs" />

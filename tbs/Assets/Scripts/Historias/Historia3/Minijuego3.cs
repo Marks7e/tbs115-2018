@@ -14,6 +14,7 @@ public class Minijuego3 : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
+    public int score = 0;
     public float timeLeft = 5.00f;
     public int waitingTime = 3;
     public bool isGameDone = false;
@@ -364,6 +365,7 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void Ok()
     {
+        score += 1000;
         SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
@@ -372,6 +374,7 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de Respuesta incorrecta
     public void fail()
     {
+        score -= 800;
         msj_fail.SetActive(true);
         btnReset.SetActive(true);
         isRoundDone = true;

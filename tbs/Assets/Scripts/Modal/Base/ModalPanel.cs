@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ModalPanel : MonoBehaviour
 {
-
     public Text question;
     public Button yesButton;
     public Button noButton;

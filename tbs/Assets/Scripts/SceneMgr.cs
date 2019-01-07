@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SceneMgr : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	//Carga las Animaciones
 	public void loadAnimation(string pAnimacion){
+
+
 		SceneManager.LoadScene (pAnimacion);
 	}
+
+
+    private void ValidatingEnoughtPointsForLevel(string lvl)
+    {
+        ShowModal sm = new ShowModal();
+        sm.SendNoPointsForLevelModalToView();
+    }
+
 }

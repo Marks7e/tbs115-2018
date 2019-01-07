@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
 	GameObject BanMenu;
 	GameObject KanslorMenu;
     GameObject ModalPanel;
+    GameObject NoPointsModalPanel;
     Slider VolumeSlider;
     AudioSource MainAudio;
 
@@ -35,6 +36,7 @@ public class MainMenu : MonoBehaviour
 		BanMenu = GameObject.Find ("BanMenu");
 		KanslorMenu = GameObject.Find ("KanslorMenu");
         ModalPanel = GameObject.Find("Modal Panel");
+        NoPointsModalPanel = GameObject.Find("NoPointsModalPanel");
         VolumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
         MainAudio = Camera.main.GetComponent<AudioSource>();
 
@@ -53,6 +55,7 @@ public class MainMenu : MonoBehaviour
 		BanMenu.SetActive (false);
 		KanslorMenu.SetActive (false);
         ModalPanel.SetActive(false);
+        NoPointsModalPanel.SetActive(false);
 
 
     }
@@ -93,8 +96,8 @@ public class MainMenu : MonoBehaviour
 
     public void DeleteGameFiles()
     {
-        DeleteFilesModal dfm = new DeleteFilesModal();
-        dfm.SendModalToView();
+        ShowModal sw = new ShowModal();
+        sw.SendDeleteModalToView();
     }
 
 	public void Extras()
