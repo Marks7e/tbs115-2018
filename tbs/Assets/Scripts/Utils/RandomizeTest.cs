@@ -19,7 +19,7 @@ public class RandomizeTest : MonoBehaviour
             if (Random.Range(0, 100.00f) >= 75.00f)
             {
                 rd.SaveData("LevelName", levelName);
-                gdp.SaveData(GameDataPersistence.DataType.LevelData, rd);
+                gdp.SaveData(GameDataPersistence.DataType.RealmData, rd);
                 SceneManager.LoadScene("PostGameTest");
             }
             else

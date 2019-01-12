@@ -9,13 +9,14 @@ public class GameDataPersistence
 {
     public object BynaryFormatter { get; private set; }
 
+
     #region Public Methods and Enums
     public enum DataType
     {
-        OptionsData,
+        GeneralGameData,
         PlayerData,
         PostGameTestData,
-        LevelData
+        RealmData
     }
     public bool SaveData(DataType type, IDataType data)
     {
@@ -29,6 +30,16 @@ public class GameDataPersistence
         return GetDataFromFile(type);
 
     }
+    public void DeleteDatFiles()
+    {
+        DeleteFiles(GetDatFiles(Application.persistentDataPath));
+    }
+    public bool VerifyIfDatFileExist(DataType dataType)
+    {
+        string dataPath = DataPath(dataType);
+        return File.Exists(dataPath);
+    }
+
     #endregion
 
 
@@ -69,10 +80,6 @@ public class GameDataPersistence
         }
         return data;
     }
-    public void DeleteDatFiles()
-    {
-        DeleteFiles(GetDatFiles(Application.persistentDataPath));
-    }
     private List<string> GetDatFiles(string path)
     {
         string[] datFilesArray = null;
@@ -91,7 +98,7 @@ public class GameDataPersistence
                 File.Delete(file);
             }
         }
-        
+
     }
     #endregion
 
