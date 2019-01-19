@@ -16,6 +16,7 @@ namespace Assets.Scripts.DataPersistence.Models
 
         public enum LevelNumber
         {
+            TotalizedScore = 0,
             Realm1Lvl1 = 1,
             Realm1Lvl2 = 2,
             Realm1Lvl3 = 3,

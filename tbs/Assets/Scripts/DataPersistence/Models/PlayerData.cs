@@ -56,14 +56,22 @@ namespace Assets.Scripts.DataPersistence.Models
         public void SaveTotalizedScore(int score)
         {
             int totalizedScore = 0;
-            totalizedScore = GetTotalizedScore();
-            SaveData(TOTALIZED_SCORE, (totalizedScore + score).ToString());
+            if(VerifyIfKeyExist(TOTALIZED_SCORE))
+            {
+                totalizedScore = GetTotalizedScore();
+                SaveData(TOTALIZED_SCORE, (totalizedScore + score).ToString());
+            }
+            else
+            {
+                SaveData(TOTALIZED_SCORE, "0" );
+            }
+            
             gdp.SaveData(GameDataPersistence.DataType.RealmData, this);
         }
         public void SaveBestScoreForLevel(GeneralGameData.LevelNumber level, int score)
         {
             SaveData(BEST_SCORE_FOR_LEVEL + level, score.ToString());
-            gdp.SaveData(GameDataPersistence.DataType.RealmData,this);
+            gdp.SaveData(GameDataPersistence.DataType.PlayerData,this);
 
         }
         public int GetTotalizedScore()
@@ -101,11 +109,20 @@ namespace Assets.Scripts.DataPersistence.Models
 
         }
         #endregion
+
+        #region Private Methods
         private void PersistToFile(GameDataPersistence.DataType type, IDataType data)
         {
             gdp.SaveData(type, data);
         }
-        #region Private Methods
+        private IDataType GetPersistenceData()
+        {
+            return gdp.LoadData(GameDataPersistence.DataType.PlayerData);
+        }
+        private bool VerifyIfKeyExist(string key)
+        {
+            return data.ContainsKey(key);
+        }
         #endregion
 
     }

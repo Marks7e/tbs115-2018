@@ -1,19 +1,26 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.DataPersistence.Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
+    private const string BEST_SCORE_FOR_LEVEL = "BestScoreForGame3";
+
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
     public GameObject msj_ok, msj_fail, msj_complete;
     public GameObject texto;
+    public Text BestScore, Score;
     public Button BtMano, BtCirculo, BtCuadrado, BtTriangulo;
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
+    public GameDataPersistence gdp;
+    public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 5.00f;
     public int waitingTime = 3;
@@ -36,8 +43,9 @@ public class Minijuego3 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        SettingTimeOfGame();
         GetAndInitializeAllGameObjects();
+        SettingTimeOfGame();
+        InitializeRecordAndScore();
         RandomSpeak();
     }
 
@@ -68,7 +76,7 @@ public class Minijuego3 : MonoBehaviour
         if (count <= 3)
         {
             //Random Animacion
-            x = Random.Range(1, 4);
+            x = UnityEngine.Random.Range(1, 4);
             switch (x)
             {
                 case 1:
@@ -76,7 +84,7 @@ public class Minijuego3 : MonoBehaviour
                     animacionSpeak1.GetComponent<Animation>().Play("Speak01");
 
                     //Random de Simbolo para el personaje que habla 
-                    y = Random.Range(1, 4);
+                    y = UnityEngine.Random.Range(1, 4);
                     simbolo1.GetComponent<Image>().enabled = true;
                     switch (y)
                     {
@@ -100,7 +108,7 @@ public class Minijuego3 : MonoBehaviour
 
                     //Random de Simbolos 
                     //Random de Simbolos 
-                    y = Random.Range(1, 4);
+                    y = UnityEngine.Random.Range(1, 4);
                     simbolo2.GetComponent<Image>().enabled = true;
                     switch (y)
                     {
@@ -123,7 +131,7 @@ public class Minijuego3 : MonoBehaviour
                     animacionSpeak3.GetComponent<Animation>().Play("Speak03");
 
                     //Random de Simbolos 
-                    y = Random.Range(1, 4);
+                    y = UnityEngine.Random.Range(1, 4);
                     simbolo3.GetComponent<Image>().enabled = true;
                     switch (y)
                     {
@@ -150,7 +158,7 @@ public class Minijuego3 : MonoBehaviour
                 switch (sign)
                 {
                     case "triangulo":
-                        z = Random.Range(1, 3);
+                        z = UnityEngine.Random.Range(1, 3);
                         switch (z)
                         {
                             case 1:
@@ -164,7 +172,7 @@ public class Minijuego3 : MonoBehaviour
                         }
                         break;
                     case "circulo":
-                        z = Random.Range(1, 3);
+                        z = UnityEngine.Random.Range(1, 3);
                         switch (z)
                         {
                             case 1:
@@ -178,7 +186,7 @@ public class Minijuego3 : MonoBehaviour
                         }
                         break;
                     case "cuadrado":
-                        z = Random.Range(1, 3);
+                        z = UnityEngine.Random.Range(1, 3);
                         switch (z)
                         {
                             case 1:
@@ -202,7 +210,7 @@ public class Minijuego3 : MonoBehaviour
                     switch (sign)
                     {
                         case "triangulo":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -216,7 +224,7 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "circulo":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -230,7 +238,7 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "cuadrado":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -252,7 +260,7 @@ public class Minijuego3 : MonoBehaviour
                     switch (sign)
                     {
                         case "triangulo":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -266,7 +274,7 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "circulo":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -280,7 +288,7 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "cuadrado":
-                            z = Random.Range(1, 3);
+                            z = UnityEngine.Random.Range(1, 3);
                             switch (z)
                             {
                                 case 1:
@@ -365,11 +373,13 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void Ok()
     {
-        score += 1000;
+        //score += 1000;
+       // UpdateScore();
         SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
         isRoundDone = true;
+
     }
     //Mensaje de Respuesta incorrecta
     public void fail()
@@ -460,6 +470,13 @@ public class Minijuego3 : MonoBehaviour
         simbolo2.GetComponent<Image>().enabled = false;
         simbolo3.GetComponent<Image>().enabled = false;
 
+        /*Para control de puntajes.*/
+        var objBestScore = GameObject.Find("BestScore") ;
+        var objScore = GameObject.Find("Score");
+        BestScore = objBestScore.GetComponent<Text>(); 
+        Score = objScore.GetComponent<Text>();
+        gdp = new GameDataPersistence();
+        
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
@@ -475,4 +492,22 @@ public class Minijuego3 : MonoBehaviour
         }
 
     }
+    private void InitializeRecordAndScore()
+    {
+        
+        PlayerData pd = new PlayerData();
+        pd = (PlayerData) gdp.LoadData(GameDataPersistence.DataType.PlayerData);
+
+        if (pd.GetData(BEST_SCORE_FOR_LEVEL) != string.Empty)
+            bestScore = int.Parse(pd.GetData(BEST_SCORE_FOR_LEVEL));
+
+        BestScore.text = "Record: " + bestScore;
+    }
+    private void UpdateScore()
+    {
+        double res = 100 + 100 * (timeLeft * 0.25);
+        score += (int)res;
+        Score.text = "Puntaje: " + score;
+    }
 }
+

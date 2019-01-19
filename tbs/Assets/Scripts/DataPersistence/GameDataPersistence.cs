@@ -55,6 +55,7 @@ public class GameDataPersistence
             try
             {
                 bf.Serialize(fs, data);
+                fs.Position = 0;
                 return true;
             }
             catch (Exception e)
@@ -76,6 +77,7 @@ public class GameDataPersistence
                         FileAccess.ReadWrite,
                         FileShare.ReadWrite))
         {
+            fs.Position = 0;
             data = (IDataType)bf.Deserialize(fs);
         }
         return data;

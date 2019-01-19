@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public PlayerData pd;
+    public GameDataPersistence gdp;
     GameObject PrincipalMenu;
     GameObject OptionsMenu;
     GameObject ExtrasMenu;
@@ -60,11 +61,10 @@ public class MainMenu : MonoBehaviour
         ModalPanel.SetActive(false);
         NoPointsModalPanel.SetActive(false);
 
+        /*Cargando información de scores.*/
         pd = new PlayerData();
         pd.InitializeScoreForNewPlayer();
-
-
-
+               
     }
     public void ValueChangeCheck()
     {
