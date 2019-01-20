@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\change.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataServices\PlayerDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameDataPersistence.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataType.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\GeneralGameData.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PlayerData.cs" />

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDataType
 {
-    void SaveData(string key, string value);
-    string GetData(string key);
+    void SaveDataLocally(string key, string value);
+    string LoadDataLocally(string key);
 
 }

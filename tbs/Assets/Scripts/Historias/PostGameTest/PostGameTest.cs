@@ -57,7 +57,7 @@ public class PostGameTest : MonoBehaviour
     {
         try
         {
-            qText.GetComponent<UnityEngine.UI.Text>().text = rq.GetData(lvlData.GetData("LevelName"));
+            qText.GetComponent<UnityEngine.UI.Text>().text = rq.LoadDataLocally(lvlData.LoadDataLocally("LevelName"));
         }
         catch (System.Exception e)
         {

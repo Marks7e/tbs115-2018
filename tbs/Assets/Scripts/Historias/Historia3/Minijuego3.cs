@@ -45,7 +45,7 @@ public class Minijuego3 : MonoBehaviour
     {
         GetAndInitializeAllGameObjects();
         SettingTimeOfGame();
-        InitializeRecordAndScore();
+       // InitializeRecordAndScore();
         RandomSpeak();
     }
 
@@ -498,8 +498,8 @@ public class Minijuego3 : MonoBehaviour
         PlayerData pd = new PlayerData();
         pd = (PlayerData) gdp.LoadData(GameDataPersistence.DataType.PlayerData);
 
-        if (pd.GetData(BEST_SCORE_FOR_LEVEL) != string.Empty)
-            bestScore = int.Parse(pd.GetData(BEST_SCORE_FOR_LEVEL));
+        if (pd.LoadDataLocally(BEST_SCORE_FOR_LEVEL) != string.Empty)
+            bestScore = int.Parse(pd.LoadDataLocally(BEST_SCORE_FOR_LEVEL));
 
         BestScore.text = "Record: " + bestScore;
     }

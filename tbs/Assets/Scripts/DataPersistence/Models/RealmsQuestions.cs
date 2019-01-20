@@ -36,7 +36,7 @@ namespace Assets.Scripts.DataPersistence.Models
           
         }
 
-        public string GetData(string key)
+        public string LoadDataLocally(string key)
         {
             if (key == "Minijuego 1" || key == "Minijuego 2" || key == "Minijuego 3")
                 return GetRealmRandomQuestion("Realm1");
@@ -57,7 +57,7 @@ namespace Assets.Scripts.DataPersistence.Models
             return null;
 
         }
-        public void SaveData(string key, string value)
+        public void SaveDataLocally(string key, string value)
         {
             throw new NotImplementedException();
         }

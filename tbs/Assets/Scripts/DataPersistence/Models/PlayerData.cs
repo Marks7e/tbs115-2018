@@ -29,11 +29,11 @@ namespace Assets.Scripts.DataPersistence.Models
 
 
         #region Public Methods
-        public void SaveData(string key, string value)
+        public void SaveDataLocally(string key, string value)
         {
             data.Add(key, value);
         }
-        public string GetData(string key)
+        public string LoadDataLocally(string key)
         {
             if (data.ContainsKey(key))
                 return data[key].ToString();
@@ -59,18 +59,18 @@ namespace Assets.Scripts.DataPersistence.Models
             if(VerifyIfKeyExist(TOTALIZED_SCORE))
             {
                 totalizedScore = GetTotalizedScore();
-                SaveData(TOTALIZED_SCORE, (totalizedScore + score).ToString());
+                SaveDataLocally(TOTALIZED_SCORE, (totalizedScore + score).ToString());
             }
             else
             {
-                SaveData(TOTALIZED_SCORE, "0" );
+                SaveDataLocally(TOTALIZED_SCORE, "0" );
             }
             
             gdp.SaveData(GameDataPersistence.DataType.RealmData, this);
         }
         public void SaveBestScoreForLevel(GeneralGameData.LevelNumber level, int score)
         {
-            SaveData(BEST_SCORE_FOR_LEVEL + level, score.ToString());
+            SaveDataLocally(BEST_SCORE_FOR_LEVEL + level, score.ToString());
             gdp.SaveData(GameDataPersistence.DataType.PlayerData,this);
 
         }
@@ -78,7 +78,7 @@ namespace Assets.Scripts.DataPersistence.Models
         {
             int totalizedScore = 0;
             bool successParse = false;
-            successParse = int.TryParse(GetData(TOTALIZED_SCORE), out totalizedScore);
+            successParse = int.TryParse(LoadDataLocally(TOTALIZED_SCORE), out totalizedScore);
 
             if (successParse)
                 return totalizedScore;
@@ -88,7 +88,7 @@ namespace Assets.Scripts.DataPersistence.Models
         {
             int BestScore = 0;
             bool successParse = false;
-            successParse = int.TryParse(GetData(BEST_SCORE_FOR_LEVEL + levelNumber), out BestScore);
+            successParse = int.TryParse(LoadDataLocally(BEST_SCORE_FOR_LEVEL + levelNumber), out BestScore);
 
             if (successParse)
                 return BestScore;

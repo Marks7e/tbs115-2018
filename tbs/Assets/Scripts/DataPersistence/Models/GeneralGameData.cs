@@ -31,13 +31,13 @@ namespace Assets.Scripts.DataPersistence.Models
         #endregion
 
         #region Public Methods
-        public string GetData(string key)
+        public string LoadDataLocally(string key)
         {
             if (data.ContainsKey(key))
                 return data[key].ToString();
             throw new ArgumentException("El Key solicitado no existe en el Dictionary correspondiente.", key);
         }
-        public void SaveData(string key, string value)
+        public void SaveDataLocally(string key, string value)
         {
             data.Add(key, value);
         }

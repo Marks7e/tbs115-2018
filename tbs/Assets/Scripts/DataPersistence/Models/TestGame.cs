@@ -56,7 +56,7 @@ namespace Assets.Scripts.DataPersistence.Models
         {
             return data[key].ToString();
         }
-        public string GetData(string key)
+        public string LoadDataLocally(string key)
         {
             string Level = data[key].ToString();
             if (GetSetOfQuestions(Level).Count > 0)
@@ -74,7 +74,7 @@ namespace Assets.Scripts.DataPersistence.Models
             }
 
         }
-        public void SaveData(string key, string value)
+        public void SaveDataLocally(string key, string value)
         {
             data.Add(key, value);
         }
