@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
     [Serializable]
     public class TestGame : IDataType
     {
-        private Random r;
+        private System.Random r;
         private int p;
         private string question;
         public Dictionary<string, string> data = new Dictionary<string, string>();
@@ -61,7 +62,7 @@ namespace Assets.Scripts.DataPersistence.Models
             string Level = data[key].ToString();
             if (GetSetOfQuestions(Level).Count > 0)
             {
-                r = new Random();
+                r = new System.Random();
                 p = r.Next(1, GetSetOfQuestions(Level).Count);
                 Console.WriteLine(p);
                 question = GetSetOfQuestions(Level).ElementAt(p).Value;
@@ -74,9 +75,26 @@ namespace Assets.Scripts.DataPersistence.Models
             }
 
         }
-        public void SaveDataLocally(string key, string value)
+        public bool SaveDataLocally(string key, string value)
         {
-            data.Add(key, value);
+            try
+            {
+                if (!data.ContainsKey(key))
+                {
+                    data.Add(key, value);
+                    return true;
+                }
+                else
+                {
+                    data[key] = value;
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                return false;
+            }
         }
 
         private Dictionary<string, string> GetSetOfQuestions(string level)

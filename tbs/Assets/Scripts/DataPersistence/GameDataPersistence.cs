@@ -13,16 +13,17 @@ public class GameDataPersistence
     #region Public Methods and Enums
     public enum DataType
     {
+
         GeneralGameData,
         PlayerData,
         PostGameTestData,
         RealmData
     }
-    public bool SaveData(DataType type, IDataType data)
+    public bool SaveDataToFile(DataType type, IDataType data)
     {
         return Persist(type, data);
     }
-    public IDataType LoadData(DataType type)
+    public IDataType LoadDataFromFile(DataType type)
     {
 
         if (!File.Exists(DataPath(type)))
@@ -47,22 +48,17 @@ public class GameDataPersistence
     private bool Persist(DataType type, IDataType data)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        using (FileStream fs = File.Open(DataPath(type),
-                        FileMode.OpenOrCreate,
-                        FileAccess.ReadWrite,
-                        FileShare.ReadWrite))
+        FileStream file = File.Open(DataPath(type),FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
+        try
         {
-            try
-            {
-                bf.Serialize(fs, data);
-                fs.Position = 0;
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
+            bf.Serialize(file, data);
+            file.Close();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
         }
 
     }
@@ -70,16 +66,14 @@ public class GameDataPersistence
     { return Application.persistentDataPath + "/" + type.ToString() + ".dat"; }
     private IDataType GetDataFromFile(DataType type)
     {
-        BinaryFormatter bf = new BinaryFormatter();
         IDataType data = null;
-        using (FileStream fs = File.Open(DataPath(type),
-                        FileMode.OpenOrCreate,
-                        FileAccess.ReadWrite,
-                        FileShare.ReadWrite))
-        {
-            fs.Position = 0;
-            data = (IDataType)bf.Deserialize(fs);
-        }
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(DataPath(type), FileMode.Open, FileAccess.Read, FileShare.Read);
+                        
+        data = (IDataType)bf.Deserialize(file);
+        file.Close();
+        
         return data;
     }
     private List<string> GetDatFiles(string path)

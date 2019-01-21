@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
@@ -23,15 +24,33 @@ namespace Assets.Scripts.DataPersistence.Models
         public PlayerData()
         {
             data = new Dictionary<string, string>();
-            gdp = new GameDataPersistence();
+            //gdp = new GameDataPersistence();
         }
         #endregion
 
 
         #region Public Methods
-        public void SaveDataLocally(string key, string value)
+        public bool SaveDataLocally(string key, string value)
         {
-            data.Add(key, value);
+            try
+            {
+                if (!data.ContainsKey(key))
+                {
+                    data.Add(key, value);
+                    return true;
+                }
+                else
+                {
+                    data[key] = value;
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                return false;
+            }
+
         }
         public string LoadDataLocally(string key)
         {
@@ -44,85 +63,85 @@ namespace Assets.Scripts.DataPersistence.Models
             if (data.Select(d => d).Where(dr => dr.Key == question).Any())
             {
                 data[question] = answer;
-                gdp.SaveData(GameDataPersistence.DataType.PlayerData, this);
+                gdp.SaveDataToFile(GameDataPersistence.DataType.PlayerData, this);
             }
             else
             {
                 data.Add(question, answer);
-                gdp.SaveData(GameDataPersistence.DataType.PlayerData, this);
+                gdp.SaveDataToFile(GameDataPersistence.DataType.PlayerData, this);
             }
 
         }
-        public void SaveTotalizedScore(int score)
-        {
-            int totalizedScore = 0;
-            if(VerifyIfKeyExist(TOTALIZED_SCORE))
-            {
-                totalizedScore = GetTotalizedScore();
-                SaveDataLocally(TOTALIZED_SCORE, (totalizedScore + score).ToString());
-            }
-            else
-            {
-                SaveDataLocally(TOTALIZED_SCORE, "0" );
-            }
-            
-            gdp.SaveData(GameDataPersistence.DataType.RealmData, this);
-        }
-        public void SaveBestScoreForLevel(GeneralGameData.LevelNumber level, int score)
-        {
-            SaveDataLocally(BEST_SCORE_FOR_LEVEL + level, score.ToString());
-            gdp.SaveData(GameDataPersistence.DataType.PlayerData,this);
+        //public void SaveTotalizedScore(int score)
+        //{
+        //    int totalizedScore = 0;
+        //    if (VerifyIfKeyExist(TOTALIZED_SCORE))
+        //    {
+        //        totalizedScore = GetTotalizedScore();
+        //        SaveDataLocally(TOTALIZED_SCORE, (totalizedScore + score).ToString());
+        //    }
+        //    else
+        //    {
+        //        SaveDataLocally(TOTALIZED_SCORE, "0");
+        //    }
 
-        }
-        public int GetTotalizedScore()
-        {
-            int totalizedScore = 0;
-            bool successParse = false;
-            successParse = int.TryParse(LoadDataLocally(TOTALIZED_SCORE), out totalizedScore);
+        //    gdp.SaveDataToFile(GameDataPersistence.DataType.RealmData, this);
+        //}
+        //public bool SaveBestScoreForLevel(GeneralGameData.LevelNumber level, int score)
+        //{
+        //    SaveDataLocally(BEST_SCORE_FOR_LEVEL + level, score.ToString());
+        //    return gdp.SaveDataToFile(GameDataPersistence.DataType.PlayerData, this);
 
-            if (successParse)
-                return totalizedScore;
-            return -1;
-        }
-        public int GetPlayerBestScoreForLevel(string levelNumber)
-        {
-            int BestScore = 0;
-            bool successParse = false;
-            successParse = int.TryParse(LoadDataLocally(BEST_SCORE_FOR_LEVEL + levelNumber), out BestScore);
+        //}
+        //public int GetTotalizedScore()
+        //{
+        //    int totalizedScore = 0;
+        //    bool successParse = false;
+        //    successParse = int.TryParse(LoadDataLocally(TOTALIZED_SCORE), out totalizedScore);
 
-            if (successParse)
-                return BestScore;
-            return -1;
+        //    if (successParse)
+        //        return totalizedScore;
+        //    return -1;
+        //}
+        //public int GetPlayerBestScoreForLevel(string levelNumber)
+        //{
+        //    int BestScore = 0;
+        //    bool successParse = false;
+        //    successParse = int.TryParse(LoadDataLocally(BEST_SCORE_FOR_LEVEL + levelNumber), out BestScore);
+
+        //    if (successParse)
+        //        return BestScore;
+        //    return -1;
 
 
-        }
-        public void InitializeScoreForNewPlayer()
-        {
-            if (!gdp.VerifyIfDatFileExist(GameDataPersistence.DataType.RealmData))
-            {
-                SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl1, 0);
-                SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl2, 0);
-                SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl3, 0);
-                SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl4, 0);
-                SaveTotalizedScore(0);
-            }
+        //}
+        //public void InitializeScoreForNewPlayer()
+        //{
+        //    if (!gdp.VerifyIfDatFileExist(GameDataPersistence.DataType.RealmData))
+        //    {
+        //        SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl1, 0);
+        //        SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl2, 0);
+        //        SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl3, 0);
+        //        SaveBestScoreForLevel(GeneralGameData.LevelNumber.Realm1Lvl4, 0);
+        //        SaveTotalizedScore(0);
+        //    }
 
-        }
+        //}
         #endregion
 
         #region Private Methods
-        private void PersistToFile(GameDataPersistence.DataType type, IDataType data)
-        {
-            gdp.SaveData(type, data);
-        }
-        private IDataType GetPersistenceData()
-        {
-            return gdp.LoadData(GameDataPersistence.DataType.PlayerData);
-        }
-        private bool VerifyIfKeyExist(string key)
-        {
-            return data.ContainsKey(key);
-        }
+        //private void PersistToFile(GameDataPersistence.DataType type, IDataType data)
+        //{
+        //    gdp.SaveDataToFile(type, data);
+        //}
+        //private IDataType GetPersistenceData()
+        //{
+        //    return gdp.LoadDataFromFile(GameDataPersistence.DataType.PlayerData);
+        //}
+        //private bool VerifyIfKeyExist(string key)
+        //{
+        //    return data.ContainsKey(key);
+        //}
         #endregion
 
     }

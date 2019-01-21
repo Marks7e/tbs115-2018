@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.DataPersistence.Interfaces
 {
-    public interface IDataService
+     public interface IDataService
     {
-        bool SaveDataToFile();
-        bool LoadDataFromFile();
+         bool SaveDataToFile();
+         bool LoadDataFromFile();
     }
 }

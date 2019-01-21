@@ -30,7 +30,7 @@ public class PostGameTest : MonoBehaviour
         BtnNo = GameObject.Find("BtnNo");
 
         rq = new RealmsQuestions();
-        lvlData = gdp.LoadData(GameDataPersistence.DataType.RealmData);
+        lvlData = gdp.LoadDataFromFile(GameDataPersistence.DataType.RealmData);
 
         TxtQuestion.SetActive(true);
         BtnYes.SetActive(true);

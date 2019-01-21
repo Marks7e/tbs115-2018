@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
@@ -17,9 +18,27 @@ namespace Assets.Scripts.DataPersistence.Models
             return null;
         }
 
-        public void SaveDataLocally(string key, string value)
+        public bool SaveDataLocally(string key, string value)
         {
-                data.Add(key, value);
+            try
+            {
+                if (!data.ContainsKey(key))
+                {
+                    data.Add(key, value);
+                    return true;
+                }
+                else
+                {
+                    data[key] = value;
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                return false;
+            }
+            
                 
         }
     }

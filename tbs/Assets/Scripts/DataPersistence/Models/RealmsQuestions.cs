@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
@@ -32,7 +33,7 @@ namespace Assets.Scripts.DataPersistence.Models
                 "¿Eres capaz de controlar el temor por los sonidos fuertes?"
             };
             rQuestions.Add("Realm1", reino1);
-            gdp.SaveData(GameDataPersistence.DataType.PostGameTestData, this);
+            gdp.SaveDataToFile(GameDataPersistence.DataType.PostGameTestData, this);
           
         }
 
@@ -48,7 +49,7 @@ namespace Assets.Scripts.DataPersistence.Models
             if (rQuestions.ContainsKey(realm))
             {
                 List<string> questions = rQuestions[realm];
-                Random r = new Random();
+                System.Random r = new System.Random();
                 int pQuestion = r.Next(0, questions.Count - 1);
                 string question = questions[pQuestion].ToString();
                 question.Remove(pQuestion, 1);
@@ -57,7 +58,7 @@ namespace Assets.Scripts.DataPersistence.Models
             return null;
 
         }
-        public void SaveDataLocally(string key, string value)
+        public bool SaveDataLocally(string key, string value)
         {
             throw new NotImplementedException();
         }

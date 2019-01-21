@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DataPersistence.Models;
+﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ public class Minijuego3 : MonoBehaviour
     public bool isGameDone = false;
     public bool isRoundDone = false;
 
+    public DependencyInjector di;
+
     //Texto a mostrar al usuario
     public Text Nivel;
     public Text timing;
@@ -43,9 +46,13 @@ public class Minijuego3 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        di = new DependencyInjector();
+
         GetAndInitializeAllGameObjects();
         SettingTimeOfGame();
-       // InitializeRecordAndScore();
+        InitializeRecordAndScore();
+
+
         RandomSpeak();
     }
 
@@ -55,16 +62,20 @@ public class Minijuego3 : MonoBehaviour
 
         if (!isGameDone)
         {
+
+
             if (!isRoundDone)
             {
                 timeLeft -= Time.deltaTime;
                 timing.text = "Tiempo: " + timeLeft.ToString("0");
             }
+
             if (timeLeft <= 0 && !isGameDone)
             {
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
+                di.SaveScoreForLevel3(score);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
             }
@@ -373,8 +384,7 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void Ok()
     {
-        //score += 1000;
-       // UpdateScore();
+        UpdateScore();
         SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
@@ -395,6 +405,9 @@ public class Minijuego3 : MonoBehaviour
         audioSource.Stop();
         isGameDone = true;
         btnMano.SetActive(false);
+
+        di.SaveScoreForLevel3(score);
+
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime);
     }
@@ -471,12 +484,12 @@ public class Minijuego3 : MonoBehaviour
         simbolo3.GetComponent<Image>().enabled = false;
 
         /*Para control de puntajes.*/
-        var objBestScore = GameObject.Find("BestScore") ;
+        var objBestScore = GameObject.Find("BestScore");
         var objScore = GameObject.Find("Score");
-        BestScore = objBestScore.GetComponent<Text>(); 
+        BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
         gdp = new GameDataPersistence();
-        
+
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
@@ -494,20 +507,19 @@ public class Minijuego3 : MonoBehaviour
     }
     private void InitializeRecordAndScore()
     {
-        
-        PlayerData pd = new PlayerData();
-        pd = (PlayerData) gdp.LoadData(GameDataPersistence.DataType.PlayerData);
-
-        if (pd.LoadDataLocally(BEST_SCORE_FOR_LEVEL) != string.Empty)
-            bestScore = int.Parse(pd.LoadDataLocally(BEST_SCORE_FOR_LEVEL));
-
+        bestScore = di.LoadPlayerBestScoreForLevel3();
         BestScore.text = "Record: " + bestScore;
+
     }
     private void UpdateScore()
     {
         double res = 100 + 100 * (timeLeft * 0.25);
         score += (int)res;
         Score.text = "Puntaje: " + score;
+
+        if (bestScore <= score)
+        { BestScore.text = "Record: " + score; }
     }
+
 }
 

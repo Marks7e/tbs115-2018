@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DataPersistence.Models;
+﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class MainMenu : MonoBehaviour
 
     public PlayerData pd;
     public GameDataPersistence gdp;
+    public DependencyInjector di;
     GameObject PrincipalMenu;
     GameObject OptionsMenu;
     GameObject ExtrasMenu;
@@ -62,9 +64,12 @@ public class MainMenu : MonoBehaviour
         NoPointsModalPanel.SetActive(false);
 
         /*Cargando información de scores.*/
-        pd = new PlayerData();
-        pd.InitializeScoreForNewPlayer();
-               
+        //pd = new PlayerData();
+        //pd.InitializeScoreForNewPlayer();
+        di = new DependencyInjector();
+        di.InitializeScoreForNewPlayer();
+
+
     }
     public void ValueChangeCheck()
     {
