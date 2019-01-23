@@ -62,16 +62,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\change.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataBaseConnector.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\PlayerDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DependecyInjector\DependencyInjector.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\GameDataPersistence.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataService.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataType.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Models\GeneralGameData.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\GameOptions.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\LevelData.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Models\RealmData.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Models\RealmsQuestions.cs" />
-    <Compile Include="Assets\Scripts\DataPersistence\Models\TestGame.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\QuestionData.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\Player.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\SheCollider.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia3\Minijuego3.cs" />
@@ -308,6 +307,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>C:/vsprojects/tbs115-2018/tbs/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data">
       <HintPath>C:/vsprojects/tbs115-2018/tbs/Assets/Plugins/System.Data.dll</HintPath>
     </Reference>
@@ -325,9 +327,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/vsprojects/tbs115-2018/tbs/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Data.Sqlite">
-      <HintPath>C:/vsprojects/tbs115-2018/tbs/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
@@ -356,6 +355,11 @@
     <Reference Include="Boo.Lang">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.0f2/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="Assets\Plugins\Mono.Data.Sqlite.dll" />
+    <Analyzer Include="Assets\Plugins\sqlite3.dll" />
+    <Analyzer Include="Assets\Plugins\System.Data.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -75,7 +75,7 @@ public class Minijuego3 : MonoBehaviour
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
-                di.SaveScoreForLevel3(score);
+                //di.SaveScoreForLevel3(score);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
             }
@@ -406,7 +406,7 @@ public class Minijuego3 : MonoBehaviour
         isGameDone = true;
         btnMano.SetActive(false);
 
-        di.SaveScoreForLevel3(score);
+        //di.SaveScoreForLevel3(score);
 
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime);
@@ -507,7 +507,7 @@ public class Minijuego3 : MonoBehaviour
     }
     private void InitializeRecordAndScore()
     {
-        bestScore = di.LoadPlayerBestScoreForLevel3();
+        //bestScore = di.LoadPlayerBestScoreForLevel3();
         BestScore.text = "Record: " + bestScore;
 
     }

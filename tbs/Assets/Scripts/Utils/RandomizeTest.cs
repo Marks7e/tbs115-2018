@@ -6,20 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-    private RealmData rd = null;
     private GameDataPersistence gdp = null;
 
     public void RandomizeForTest(string levelName)
     {
         try
         {
-            rd = new RealmData();
             gdp = new GameDataPersistence();
 
             if (Random.Range(0, 100.00f) >= 75.00f)
             {
-                rd.SaveDataLocally("LevelName", levelName);
-                gdp.SaveDataToFile(GameDataPersistence.DataType.RealmData, rd);
                 SceneManager.LoadScene("PostGameTest");
             }
             else

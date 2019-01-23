@@ -13,9 +13,6 @@ public class PostGameTest : MonoBehaviour
     GameObject BtnNo;
     GameDataPersistence gdp = new GameDataPersistence();
     PlayerData pad = new PlayerData();
-    RealmData rd = new RealmData();
-    RealmsQuestions rq = null;
-    IDataType lvlData = null;
 
     /*Declarando Variables de preguntas y respuestas*/
     public string question;
@@ -29,9 +26,6 @@ public class PostGameTest : MonoBehaviour
         BtnYes = GameObject.Find("BtnYes");
         BtnNo = GameObject.Find("BtnNo");
 
-        rq = new RealmsQuestions();
-        lvlData = gdp.LoadDataFromFile(GameDataPersistence.DataType.RealmData);
-
         TxtQuestion.SetActive(true);
         BtnYes.SetActive(true);
         BtnNo.SetActive(true);
@@ -43,21 +37,19 @@ public class PostGameTest : MonoBehaviour
     {
         Debug.Log("Contestó que Sí!");
         string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
-        pad.SavePlayerAnswer(res, "Y");
         EvaluatingNewQuestion(counter, 3);
     }
     public void NegativeAnswer()
     {
         Debug.Log("Contestó que No!");
         string res = TxtQuestion.GetComponent<UnityEngine.UI.Text>().text;
-        pad.SavePlayerAnswer(res, "N");
         EvaluatingNewQuestion(counter, 3);
     }
     private void SendQuestionToPlayer(GameObject qText)
     {
         try
         {
-            qText.GetComponent<UnityEngine.UI.Text>().text = rq.LoadDataLocally(lvlData.LoadDataLocally("LevelName"));
+            //qText.GetComponent<UnityEngine.UI.Text>().text = rq.LoadDataLocally(lvlData.LoadDataLocally("LevelName"));
         }
         catch (System.Exception e)
         {
