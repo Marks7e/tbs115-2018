@@ -488,7 +488,7 @@ public class Minijuego3 : MonoBehaviour
         var objScore = GameObject.Find("Score");
         BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
-        gdp = new GameDataPersistence();
+        //gdp = new GameDataPersistence();
 
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);

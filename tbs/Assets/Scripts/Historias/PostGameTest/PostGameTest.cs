@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.Models;
+using Mono.Data.Sqlite;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,8 @@ public class PostGameTest : MonoBehaviour
     GameObject TxtQuestion;
     GameObject BtnYes;
     GameObject BtnNo;
-    GameDataPersistence gdp = new GameDataPersistence();
+    public SqliteConnection sql = null;
+    //GameDataPersistence gdp = new GameDataPersistence(sql);
     PlayerData pad = new PlayerData();
 
     /*Declarando Variables de preguntas y respuestas*/
