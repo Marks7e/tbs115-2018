@@ -52,7 +52,6 @@ public class ModalPanel : MonoBehaviour
     public void YesFunction()
     {
         Debug.Log("Eliminando archivos .dat");
-        GameDataPersistence gdp = new GameDataPersistence(sql);
         //gdp.DeleteDatFiles();
         SceneManager.LoadScene("MainMenu");
     }

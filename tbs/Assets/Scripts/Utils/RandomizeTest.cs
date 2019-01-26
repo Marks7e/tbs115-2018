@@ -7,14 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-    private GameDataPersistence gdp = null;
     private SqliteConnection sql = null;
 
     public void RandomizeForTest(string levelName)
     {
         try
         {
-            gdp = new GameDataPersistence(sql);
 
             if (Random.Range(0, 100.00f) >= 75.00f)
             {

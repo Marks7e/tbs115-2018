@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour
 {
 
     public PlayerData pd;
-    public GameDataPersistence gdp;
     public DependencyInjector di;
     GameObject PrincipalMenu;
     GameObject OptionsMenu;

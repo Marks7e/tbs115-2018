@@ -20,7 +20,6 @@ public class Minijuego3 : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    public GameDataPersistence gdp;
     public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 5.00f;
@@ -46,7 +45,7 @@ public class Minijuego3 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        di = new DependencyInjector();
+
 
         GetAndInitializeAllGameObjects();
         SettingTimeOfGame();
@@ -75,7 +74,6 @@ public class Minijuego3 : MonoBehaviour
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
-                //di.SaveScoreForLevel3(score);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
             }
@@ -389,7 +387,6 @@ public class Minijuego3 : MonoBehaviour
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
         isRoundDone = true;
-
     }
     //Mensaje de Respuesta incorrecta
     public void fail()
@@ -405,6 +402,11 @@ public class Minijuego3 : MonoBehaviour
         audioSource.Stop();
         isGameDone = true;
         btnMano.SetActive(false);
+
+        if (bestScore < score)
+        {
+            di.UpdateTotalizedScore(score);
+        }
 
         //di.SaveScoreForLevel3(score);
 
@@ -507,8 +509,9 @@ public class Minijuego3 : MonoBehaviour
     }
     private void InitializeRecordAndScore()
     {
-        //bestScore = di.LoadPlayerBestScoreForLevel3();
-        BestScore.text = "Record: " + bestScore;
+        di = new DependencyInjector();
+        int record = di.GetAllPlayerData().TotalScore;
+        BestScore.text = "Record: " + record;
 
     }
     private void UpdateScore()
@@ -517,8 +520,8 @@ public class Minijuego3 : MonoBehaviour
         score += (int)res;
         Score.text = "Puntaje: " + score;
 
-        if (bestScore <= score)
-        { BestScore.text = "Record: " + score; }
+        //if (bestScore <= score)
+        //{ BestScore.text = "Record: " + score; }
     }
 
 }

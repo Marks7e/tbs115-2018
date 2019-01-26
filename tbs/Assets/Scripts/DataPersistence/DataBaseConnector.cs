@@ -8,7 +8,13 @@ namespace Assets.Scripts.DataPersistence
     {
         private SqliteConnection sqlite;
 
-        public DataBaseConnector()
+        public SqliteConnection getDBInstance()
+        {
+            SetConnection();
+            return sqlite;
+        }
+
+        private void SetConnection()
         {
             sqlite = new SqliteConnection("Data Source=" + Application.dataPath + "/Database/dbgame.db");
         }
