@@ -20,6 +20,8 @@ public class Minijuego3 : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
+    public PlayerData pd;
+    public LevelData ld;
     public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 5.00f;
@@ -45,13 +47,8 @@ public class Minijuego3 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-
         GetAndInitializeAllGameObjects();
-        SettingTimeOfGame();
         InitializeRecordAndScore();
-
-
         RandomSpeak();
     }
 
@@ -403,12 +400,9 @@ public class Minijuego3 : MonoBehaviour
         isGameDone = true;
         btnMano.SetActive(false);
 
-        if (bestScore < score)
-        {
-            di.UpdateTotalizedScore(score);
-        }
-
-        //di.SaveScoreForLevel3(score);
+        if (bestScore == score)
+            di.UpdateBestScoreForLevel(3, score);
+        di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime);
@@ -497,31 +491,39 @@ public class Minijuego3 : MonoBehaviour
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
     }
-    private void SettingTimeOfGame(float GameTime = 5.00f)
+    private void SettingTimeOfGame()
     {
-        if (GameTime > 0.00f)
-        { this.timeLeft = GameTime; }
-        else
-        {
-            throw new System.Exception("El tiempo establecido para la ronda de juego debe ser mayor a 0.0 segundos.");
-        }
-
+        timeLeft = ld.RoundTime;
     }
     private void InitializeRecordAndScore()
     {
         di = new DependencyInjector();
-        int record = di.GetAllPlayerData().TotalScore;
-        BestScore.text = "Record: " + record;
+        pd = new PlayerData();
+        ld = new LevelData();
+
+        pd = di.GetAllPlayerData();
+        ld = di.GetLevelData(3);
+
+        score = 0;
+        bestScore = ld.BestScore;
+
+        BestScore.text = "Record: " + ld.BestScore;
+        Score.text = "Puntaje: " + score;
+        SettingTimeOfGame();
 
     }
     private void UpdateScore()
     {
-        double res = 100 + 100 * (timeLeft * 0.25);
+        double res = 100 * (timeLeft * ld.PointMultiplier);
         score += (int)res;
         Score.text = "Puntaje: " + score;
 
-        //if (bestScore <= score)
-        //{ BestScore.text = "Record: " + score; }
+        if (bestScore < score)
+        {
+            bestScore = score;
+            BestScore.text = "Record: " + score;
+        }
+
     }
 
 }

@@ -61,6 +61,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
             try
             {
                 PlayerData pd = (PlayerData)data;
+                LoadAllDataFromDB();
 
                 _db.Open();
                 IDbCommand cmd = _db.CreateCommand();
@@ -68,7 +69,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
 
                 IDbDataParameter parameter = cmd.CreateParameter();
                 parameter.ParameterName = "@param";
-                parameter.Value = pd.TotalScore;
+                parameter.Value = pd.TotalScore + PlayerModel.TotalScore;
                 cmd.Parameters.Add(parameter);
 
                 return cmd.ExecuteNonQuery() > 0;

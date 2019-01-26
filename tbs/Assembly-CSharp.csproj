@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\change.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataBaseConnector.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataServices\LevelDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\PlayerDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DependecyInjector\DependencyInjector.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataModel.cs" />
