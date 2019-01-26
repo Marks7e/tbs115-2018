@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Barra : MonoBehaviour {
-
+public class Bar : MonoBehaviour {
+    
 	public static int [] slots;
 	public float currentTime = 0;
 	float maxTime = 1;

@@ -19,8 +19,18 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 		if(!this.clonable)
 		{
-			draggedIcon = transform.GetChild(0);
-			draggedIcon.SetParent(this.hand, false);
+			if(this.gameObject.CompareTag("Arbol"))
+			{
+				draggedIcon = transform.GetChild(0);
+				Destroy(transform.gameObject);
+				draggedIcon.SetParent(this.hand, false);
+			}
+			else
+			{
+				draggedIcon = transform.GetChild(0);
+				draggedIcon.SetParent(this.hand, false);
+			}
+			
 		}
 	}
 
@@ -32,15 +42,9 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		if(draggedIcon == null) return;
-	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		draggedIcon.SetParent(transform, false);
+		draggedIcon = null;
 	}
 }
+
