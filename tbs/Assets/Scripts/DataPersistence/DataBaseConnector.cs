@@ -7,7 +7,7 @@ namespace Assets.Scripts.DataPersistence
     public class DataBaseConnector
     {
         private SqliteConnection sqlite;
-
+         
         public SqliteConnection getDBInstance()
         {
             SetConnection();
