@@ -55,6 +55,20 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         #endregion
 
 
+        #region PlayerDataAndLevelData
+
+        public bool UnlockGame(int level)
+        {
+            PlayerData pd = GetAllPlayerData();
+            LevelData ld = GetAllLevelData().FirstOrDefault(l=>l.LevelID == level);
+
+            return ld.UnlockLevelAt <= pd.TotalScore;
+
+        }
+        
+        #endregion
+
+
 
 
 

@@ -45,9 +45,9 @@ namespace Assets.Scripts.DataPersistence.DataServices
                     {
                         LevelID = reader.GetInt32(0),
                         BestScore = reader.GetInt32(1),
-                        ActualScore = reader.GetInt32(2),
-                        RoundTime = reader.GetInt32(3),
-                        PointMultiplier = reader.GetDouble(4)
+                        RoundTime = reader.GetInt32(2),
+                        PointMultiplier = reader.GetDouble(3),
+                        UnlockLevelAt = reader.GetInt32(4),
                     };
                     listLevelData.Add(LevelModel);
                 }
