@@ -53,8 +53,7 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             return _lds.SaveDataToDB(ld);
         }
         #endregion
-
-
+        
         #region PlayerDataAndLevelData
 
         public bool UnlockGame(int level)
@@ -63,9 +62,12 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             LevelData ld = GetAllLevelData().FirstOrDefault(l=>l.LevelID == level);
 
             return ld.UnlockLevelAt <= pd.TotalScore;
-
         }
-        
+
+        #endregion
+
+        #region ResetAllData
+
         #endregion
 
 
