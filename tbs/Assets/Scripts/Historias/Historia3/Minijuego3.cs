@@ -449,7 +449,7 @@ public class Minijuego3 : MonoBehaviour
     private void GetAndInitializeAllGameObjects()
     {
         audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
+        bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
         audioSource.PlayOneShot(bgMusic);
         btnMano = GameObject.Find("btnMano");
         btnCirculo = GameObject.Find("circulo");
