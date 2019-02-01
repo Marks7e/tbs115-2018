@@ -45,7 +45,7 @@ public class Minijuego3 : MonoBehaviour
     {
         GetAndInitializeAllGameObjects();
         SettingTimeOfGame();
-        InitializeRecordAndScore();
+        //InitializeRecordAndScore();
         RandomSpeak();
     }
 
