@@ -3061,6 +3061,8 @@ MonoBehaviour:
   msj_fail: {fileID: 1819633052}
   msj_complete: {fileID: 2004927986}
   texto: {fileID: 0}
+  BestScore: {fileID: 0}
+  Score: {fileID: 0}
   BtMano: {fileID: 0}
   BtCirculo: {fileID: 0}
   BtCuadrado: {fileID: 0}
@@ -3068,6 +3070,7 @@ MonoBehaviour:
   gs: {fileID: 0}
   audioSource: {fileID: 0}
   bgMusic: {fileID: 0}
+  bestScore: 0
   score: 0
   timeLeft: 10
   waitingTime: 3

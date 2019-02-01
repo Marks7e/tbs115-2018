@@ -6,6 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class IconGetter : MonoBehaviour, IDropHandler {
 
+	public GameStatus gs;
+    public AudioSource audioSource;
+	public int waitingTime = 3;
+	//public AudioClip bgMusic;
+
+	/*void Start(){
+		audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
+        audioSource.PlayOneShot(bgMusic);
+	}*/
+
 	public void OnDrop(PointerEventData eventData)
 	{
 		Transform droppedIcon;
@@ -39,6 +50,9 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 			}
 			Bar.slots[GetComponent<Slot>().id] = 0;
 			droppedIcon.SetParent(transform, false);
+			//audioSource.Stop();
+			gs = new GameStatus();
+            gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
 			print("Error");
 			SceneManager.LoadScene("Minijuego 4");
 		}

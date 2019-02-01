@@ -9,6 +9,16 @@ public class Bar : MonoBehaviour {
 	public float currentTime = 0;
 	float maxTime = 1;
 	public string sceneToChange;
+	public GameStatus gs;
+	public AudioSource audioSource;
+	public int waitingTime = 3;
+	//public AudioClip bgMusic;
+
+	/*void Start(){
+		audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
+        audioSource.PlayOneShot(bgMusic);
+	}*/
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +42,10 @@ public class Bar : MonoBehaviour {
 						{
 							if(slots[4] == 1)
 							{
-								SceneManager.LoadScene(sceneToChange);
+								//audioSource.Stop();
+								gs = new GameStatus();
+								gs.PlayerWinGame(audioSource, waitingTime);
+								//SceneManager.LoadScene(sceneToChange);
 							}
 						}
 					}

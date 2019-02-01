@@ -11,10 +11,44 @@ public class ImageChanger : MonoBehaviour
     private int i = 0, j = 0;
     private Image imgBtn; //Imagen sobre boton
     private string imgName = " ";
+    private float speedX, speedY;
+    public GameObject[] sleepers;
+    public GameObject[] colliders;
+
+
+
+
+
+    //Animaciones
+    //public AnimationClip sleep1, sleep11;
+    //private Animation aniSleep1, aniSleep11;
+
+    public GameObject sleeper;
+
+    
+    private Animator animator;
+
+
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        
+        
+        
+        //SendAnimation("sleep0");
+        
+        
+        //GetAnimations();
+
+
+
+        sleepers[0].GetComponent<SpriteRenderer>().enabled = false;
+        //btnSend.SetActive(false);
         RandomPosition();
         ImageChangerBtn();
         btnSend.onClick.AddListener(ImageSendBtn);
@@ -22,6 +56,7 @@ public class ImageChanger : MonoBehaviour
 
     public void NextSprite()
     {
+        //btnSend.SetActive(true);
         imgBtn.sprite = imageList[i];
         imgName = imageList[i].name;
 
@@ -71,11 +106,32 @@ public class ImageChanger : MonoBehaviour
     { 
         if(imgNameArg == "sleep"){
 
-                j++;
-
                 switch(j){
+                    case 0:
+                        Debug.Log(imgNameArg + " " + j);
+                        speedX = -200f;
+                        speedY = 100f;
+                        sleepers[j].GetComponent<SpriteRenderer>().enabled = true;
+                        sleepers[j].GetComponent<Rigidbody2D>().velocity = new Vector3(speedX, speedY, 0);
+                        /* if (OnTriggerEnter2D(colliders[0].GetComponent<Collider2D>())){
+                               
+                        }*/
+
+
+                        if(sleepers[j].transform.position.y > 235 || sleepers[j].transform.position.x < -121){
+                            sleepers[j].GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
+                        }
+
+                        SendAnimation("sleep1");
+                        //aniSleep1.GetComponent<Animation>().Play("sleep1");
+                        //aniSleep11.GetComponent<Animation>.Play("sleep11");
+                        
+
+                    break;
                     case 1:
                         Debug.Log(imgNameArg + " " + j);
+                        speedX = 2f;
+
                     break;
                     case 2:
                         Debug.Log(imgNameArg + " " + j);
@@ -86,14 +142,12 @@ public class ImageChanger : MonoBehaviour
                     case 4:
                         Debug.Log(imgNameArg + " " + j);
                     break;
-                    case 5:
-                        Debug.Log(imgNameArg + " " + j);
-                    break;
                     default:
                         Debug.Log("El juego ha terminado");
                     break;
                 }
             
+            j++;
             NextSprite();
 
         } 
@@ -107,6 +161,24 @@ public class ImageChanger : MonoBehaviour
         if(j < 5){
             ImageSend(imgName);
         }
+    }
+
+    //public void GetAnimations(){
+        //aniSleep1 = sleeper.AddComponent<Animation>();
+        //aniSleep1.AddClip(sleep1, "Animations/sleep1");
+    //}
+
+    /* bool OnTriggerEnter2D(Collider2D other){
+        Debug.Log("Encontrado");
+        return true;
+    }
+
+    */
+    public void SendAnimation(string state = null){
+
+        if(state != null)
+            animator.Play(state);
+
     }
 
 
