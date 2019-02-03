@@ -8,8 +8,7 @@ using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
-    private const string BEST_SCORE_FOR_LEVEL = "BestScoreForGame3";
-
+    
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;

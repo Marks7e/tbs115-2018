@@ -14,12 +14,14 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
 
         private PlayerDataService _pds = null;
         private LevelDataService _lds = null;
+        private QuestionDataService _qds = null;
 
         public DependencyInjector()
         {
             _dbc = new DataBaseConnector();
             _pds = new PlayerDataService(_dbc);
             _lds = new LevelDataService(_dbc);
+            _qds = new QuestionDataService(_dbc);
         }
 
         #region PlayerData
@@ -55,7 +57,6 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         #endregion
         
         #region PlayerDataAndLevelData
-
         public bool UnlockGame(int level)
         {
             PlayerData pd = GetAllPlayerData();
@@ -63,7 +64,19 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
 
             return ld.UnlockLevelAt <= pd.TotalScore;
         }
+        #endregion
 
+
+        #region QuestionData
+        public List<QuestionData> GetAllQuestionData()
+        {
+            return _qds.GetAllQuestions();
+
+        }
+        public bool SaveAnswerForQuestion(IDataModel data)
+        {
+            return _qds.SaveDataToDB(data);
+        }
         #endregion
 
         #region ResetAllData

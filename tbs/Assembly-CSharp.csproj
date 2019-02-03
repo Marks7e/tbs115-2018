@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\GameOptionsService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\LevelDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\PlayerDataService.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataServices\QuestionDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DependecyInjector\DependencyInjector.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataModel.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataService.cs" />
