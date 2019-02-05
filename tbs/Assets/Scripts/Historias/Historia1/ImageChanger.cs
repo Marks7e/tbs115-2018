@@ -11,44 +11,26 @@ public class ImageChanger : MonoBehaviour
     private int i = 0, j = 0;
     private Image imgBtn; //Imagen sobre boton
     private string imgName = " ";
-    private float speedX, speedY;
-    public GameObject[] sleepers;
-    public GameObject[] colliders;
+    public Sprite icono;
+    private string iName = "sleep";
+    public GameObject imageSelector;
 
+    public GameObject[] sleepers; //Lista animaciones
+    private Animator animator; //Animator de las animaciones
 
-
-
-
-    //Animaciones
-    //public AnimationClip sleep1, sleep11;
-    //private Animation aniSleep1, aniSleep11;
-
-    public GameObject sleeper;
-
-    
-    private Animator animator;
-
-
-
-
-
-
+    //Ganar/Perder
+    public GameStatus gs;
+    public AudioSource audioSource;
+    public AudioClip bgMusic;
+    public int waitingTime = 3;
+    private string musicName = "Sounds/Minigame";
 
     // Start is called before the first frame update
     void Start()
     {   
-        
-        
-        
-        //SendAnimation("sleep0");
-        
-        
-        //GetAnimations();
-
-
-
-        sleepers[0].GetComponent<SpriteRenderer>().enabled = false;
-        //btnSend.SetActive(false);
+        GetInitializeMusic();
+        ButtonInit();
+        SleepersInactive();
         RandomPosition();
         ImageChangerBtn();
         btnSend.onClick.AddListener(ImageSendBtn);
@@ -56,7 +38,7 @@ public class ImageChanger : MonoBehaviour
 
     public void NextSprite()
     {
-        //btnSend.SetActive(true);
+        ButtonActive();
         imgBtn.sprite = imageList[i];
         imgName = imageList[i].name;
 
@@ -72,6 +54,7 @@ public class ImageChanger : MonoBehaviour
     {
         btn.onClick.AddListener(NextSprite);
         imgBtn = GameObject.Find("imgChange").GetComponent<Image>();
+        imgBtn.sprite = icono;
     }
 
     public void RandomPosition()
@@ -104,55 +87,37 @@ public class ImageChanger : MonoBehaviour
 
     public void ImageSend(string imgNameArg)
     { 
-        if(imgNameArg == "sleep"){
+        if(imgNameArg == iName){
 
                 switch(j){
                     case 0:
-                        Debug.Log(imgNameArg + " " + j);
-                        speedX = -200f;
-                        speedY = 100f;
-                        sleepers[j].GetComponent<SpriteRenderer>().enabled = true;
-                        sleepers[j].GetComponent<Rigidbody2D>().velocity = new Vector3(speedX, speedY, 0);
-                        /* if (OnTriggerEnter2D(colliders[0].GetComponent<Collider2D>())){
-                               
-                        }*/
-
-
-                        if(sleepers[j].transform.position.y > 235 || sleepers[j].transform.position.x < -121){
-                            sleepers[j].GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
-                        }
-
-                        SendAnimation("sleep1");
-                        //aniSleep1.GetComponent<Animation>().Play("sleep1");
-                        //aniSleep11.GetComponent<Animation>.Play("sleep11");
-                        
-
+                        SleepersActive();
                     break;
                     case 1:
-                        Debug.Log(imgNameArg + " " + j);
-                        speedX = 2f;
-
+                        SleepersActive();
                     break;
                     case 2:
-                        Debug.Log(imgNameArg + " " + j);
+                        SleepersActive();
                     break;
                     case 3:
-                        Debug.Log(imgNameArg + " " + j);
+                        SleepersActive();
                     break;
                     case 4:
-                        Debug.Log(imgNameArg + " " + j);
+                        SleepersActive();
+                        WinGame();
                     break;
                     default:
-                        Debug.Log("El juego ha terminado");
+                        LoseGame();
                     break;
                 }
             
             j++;
-            NextSprite();
+
+            ButtonInit();
 
         } 
         else{
-            Debug.Log("NOOOOO");
+            LoseGame();
         }
     }
 
@@ -163,23 +128,57 @@ public class ImageChanger : MonoBehaviour
         }
     }
 
-    //public void GetAnimations(){
-        //aniSleep1 = sleeper.AddComponent<Animation>();
-        //aniSleep1.AddClip(sleep1, "Animations/sleep1");
-    //}
-
-    /* bool OnTriggerEnter2D(Collider2D other){
-        Debug.Log("Encontrado");
-        return true;
+    void SleepersInactive()
+    {
+        for(int k=0; k<sleepers.Length; k++)
+        {
+            sleepers[k].SetActive(false);
+        }
     }
 
-    */
-    public void SendAnimation(string state = null){
-
-        if(state != null)
-            animator.Play(state);
-
+    void SleepersActive()
+    {
+        sleepers[j].SetActive(true);
+        animator = sleepers[j].GetComponent<Animator>();
+        animator.SetTrigger("SleepActivate");
     }
 
+    void ButtonInit()
+    {
+        btnSend.enabled = false;
+        btnSend.GetComponent<Image>().enabled = false;
+        btn.GetComponent<Image>().enabled = false;
+        ImageChangerBtn();
+    }
 
+    void ButtonActive()
+    {
+        btnSend.enabled = true;
+        btnSend.GetComponent<Image>().enabled = true;
+        btn.GetComponent<Image>().enabled = true;
+    }
+
+    void GetInitializeMusic()
+    {
+        audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>(musicName);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
+    }
+
+    void WinGame()
+    {
+        audioSource.Stop();
+        gs = new GameStatus();
+        gs.PlayerWinGame(audioSource, waitingTime = 3);
+        imageSelector.SetActive(false);
+    }
+
+    void LoseGame()
+    {
+        audioSource.Stop();
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
+        imageSelector.SetActive(false);
+    }
 }
