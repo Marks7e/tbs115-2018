@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Historia 1/Animacion 1.unity
     guid: 44c0e3ae120ff9b4a9080681f78ee294
   - enabled: 1
-    path: Assets/Scenes/Historia 1/Minijuego 1.unity
+    path: Assets/Scenes/Historia 1/Minijuego 1.1.unity
     guid: 80dc831a5773f1d458fd79a4c86ff19c
   - enabled: 1
     path: Assets/Video/Historias/Historia1/H1.unity
