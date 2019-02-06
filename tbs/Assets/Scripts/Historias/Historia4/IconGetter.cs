@@ -7,16 +7,14 @@ using UnityEngine.SceneManagement;
 public class IconGetter : MonoBehaviour, IDropHandler {
 
 	public GameStatus gs;
-    public AudioSource audioSource;
+	public AudioSource audioSource;
 	public int waitingTime = 3;
-	//public AudioClip bgMusic;
 
-	/*void Start(){
-		audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
-        audioSource.PlayOneShot(bgMusic);
-	}*/
-
+	void Start()
+	{
+		GetInitializeMusic();
+	}
+	
 	public void OnDrop(PointerEventData eventData)
 	{
 		Transform droppedIcon;
@@ -27,14 +25,12 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 			if(transform.childCount > 0)
 			{	
 				IconDragger.draggedIcon = transform.GetChild(0);
-				//Destroy(droppedIcon.gameObject);
 			}
 			else
 			{
 				IconDragger.draggedIcon = null;
 			}
 			droppedIcon.SetParent(transform, false);
-			print("Excelente");
 			Bar.slots[GetComponent<Slot>().id] = 1;
 		}
 		else
@@ -42,7 +38,6 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 			if(transform.childCount > 0)
 			{
 				IconDragger.draggedIcon = transform.GetChild(0);
-				//Destroy(droppedIcon.gameObject);
 			}
 			else
 			{
@@ -50,11 +45,19 @@ public class IconGetter : MonoBehaviour, IDropHandler {
 			}
 			Bar.slots[GetComponent<Slot>().id] = 0;
 			droppedIcon.SetParent(transform, false);
-			//audioSource.Stop();
-			gs = new GameStatus();
-            gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
-			print("Error");
-			SceneManager.LoadScene("Minijuego 4");
+			LoseGame();
 		}
 	}
+
+	void GetInitializeMusic()
+    {
+        audioSource = GameObject.Find("Barra").GetComponent<AudioSource>();
+    }
+
+	void LoseGame()
+    {
+        audioSource.Stop();
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
+    }
 }
