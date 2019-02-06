@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
@@ -19,11 +20,11 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 		if(!this.clonable)
 		{
+		
 			if(this.gameObject.CompareTag("Arbol"))
 			{
 				draggedIcon = transform.GetChild(0);
-				Destroy(transform.gameObject);
-				draggedIcon.SetParent(this.hand, false);
+				DestroyImmediate(transform.gameObject);
 			}
 			else
 			{
@@ -47,4 +48,3 @@ public class IconDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		draggedIcon = null;
 	}
 }
-
