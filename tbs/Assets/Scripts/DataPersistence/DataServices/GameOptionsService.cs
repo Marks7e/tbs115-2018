@@ -50,11 +50,14 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 }
                 reader.Close();
                 _db.Close();
+                _db.Dispose();
                 return true;
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
                 return false;
             }
         }
@@ -75,7 +78,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 volumenParam.Value = go.PValue;
                 cmd.Parameters.Add(volumenParam);
 
-                return cmd.ExecuteNonQuery() > 0;
+                bool res = cmd.ExecuteNonQuery() > 0;
+                _db.Close();
+                _db.Dispose();
+
+                return res;
+                
             }
             catch (Exception e)
             {

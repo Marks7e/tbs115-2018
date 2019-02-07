@@ -47,6 +47,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 }
                 reader.Close();
                 _db.Close();
+                _db.Dispose();
                 return true;
             }
             catch (Exception e)
@@ -72,11 +73,17 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 parameter.Value = pd.TotalScore + PlayerModel.TotalScore;
                 cmd.Parameters.Add(parameter);
 
-                return cmd.ExecuteNonQuery() > 0;
+                bool res = cmd.ExecuteNonQuery() > 0;
+                _db.Close();
+                _db.Dispose();
+
+                return res;               
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
                 return false;
             }
         }

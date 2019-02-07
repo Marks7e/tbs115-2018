@@ -53,11 +53,14 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 }
                 reader.Close();
                 _db.Close();
+                _db.Dispose();
                 return true;
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
                 return false;
             }
         }
@@ -84,8 +87,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 levelParam.Value = ld.LevelID;
                 cmd.Parameters.Add(levelParam);
 
+                bool res = cmd.ExecuteNonQuery() > 0;
+                _db.Close();
+                _db.Dispose();
 
-                return cmd.ExecuteNonQuery() > 0;
+                return res;               
             }
             catch (Exception e)
             {

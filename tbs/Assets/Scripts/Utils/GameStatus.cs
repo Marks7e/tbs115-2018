@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.DataPersistence.DependecyInjector;
 
 public class GameStatus : ScriptableObject
 {
@@ -18,21 +19,24 @@ public class GameStatus : ScriptableObject
     public AudioClip win;
     public AudioClip repeat;
     public AudioSource source;
+    public DependencyInjector di;
+    public int levelID { get; set; }
 
     public void SettingSounds()
     {
         win = Resources.Load<AudioClip>("Sounds/Win");
         repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
     }
-    public void PlayerWinGame(AudioSource audioSource, int waitSeconds)
+    public void PlayerWinGame(AudioSource audioSource, int waitSeconds, int levelID)
     {
+        this.levelID = levelID;
         source = new AudioSource();
         source = audioSource;
         SettingSounds();
         CreateMessageWindow(GameState.Win);
         source.PlayOneShot(win);
     }
-    public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds)
+    public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds, int levelID)
     {
         source = new AudioSource();
         source = audioSource;
@@ -81,9 +85,8 @@ public class GameStatus : ScriptableObject
     }
     private void ContinueWithGame()
     {
-        string actualLvlName = SceneManager.GetActiveScene().name;
         RandomizeTest rt = new RandomizeTest();
-        rt.RandomizeForTest(actualLvlName);
+        rt.RandomizeForTest(levelID);
     }
     private void RepeatGame()
     {

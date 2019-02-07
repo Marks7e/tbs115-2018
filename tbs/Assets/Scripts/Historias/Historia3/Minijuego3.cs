@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
-    
+
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
@@ -57,8 +57,6 @@ public class Minijuego3 : MonoBehaviour
 
         if (!isGameDone)
         {
-
-
             if (!isRoundDone)
             {
                 timeLeft -= Time.deltaTime;
@@ -71,7 +69,7 @@ public class Minijuego3 : MonoBehaviour
                 audioSource.Stop();
                 isGameDone = true;
                 gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
+                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
 
         }
@@ -404,7 +402,7 @@ public class Minijuego3 : MonoBehaviour
         di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime);
+        gs.PlayerWinGame(audioSource, waitingTime, 3);
     }
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()

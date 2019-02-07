@@ -50,6 +50,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 }
                 reader.Close();
                 _db.Close();
+                _db.Dispose();
                 return true;
             }
             catch (Exception e)
@@ -80,7 +81,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 levelParam.Value = qd.QuestionID;
                 cmd.Parameters.Add(levelParam);
 
-                return cmd.ExecuteNonQuery() > 0;
+                bool res  = cmd.ExecuteNonQuery() > 0;
+                _db.Close();
+                _db.Dispose();
+
+                return res;                
             }
             catch (Exception e)
             {
