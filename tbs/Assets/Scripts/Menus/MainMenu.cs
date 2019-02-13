@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.DataPersistence.Models;
+﻿using Assets.Scripts.DataPersistence;
+using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +11,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public PlayerData pd;
-    public GameDataPersistence gdp;
+    public DependencyInjector di;
     GameObject PrincipalMenu;
     GameObject OptionsMenu;
     GameObject ExtrasMenu;
@@ -25,6 +27,8 @@ public class MainMenu : MonoBehaviour
     GameObject NoPointsModalPanel;
     Slider VolumeSlider;
     AudioSource MainAudio;
+
+    public DataBaseConnector dbc;
 
     void Start()
     {
@@ -60,11 +64,7 @@ public class MainMenu : MonoBehaviour
         KanslorMenu.SetActive(false);
         ModalPanel.SetActive(false);
         NoPointsModalPanel.SetActive(false);
-
-        /*Cargando información de scores.*/
-        pd = new PlayerData();
-        pd.InitializeScoreForNewPlayer();
-               
+     
     }
     public void ValueChangeCheck()
     {
@@ -206,5 +206,10 @@ public class MainMenu : MonoBehaviour
                 break;
         }
     }
+
+
+
+
 }
+
 

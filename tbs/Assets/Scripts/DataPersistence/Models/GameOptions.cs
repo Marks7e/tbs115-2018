@@ -6,10 +6,11 @@ using System.Text;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
-    public class PlayerData : IDataModel
+    public class GameOptions : IDataModel
     {
-        public int PlayerID { get; set; }
-        public int TotalScore { get; set; }
+        public int QuestionID { get; set; }
+        public string Parameter { get; set; }
+        public string PValue { get; set; }
 
         public IDataModel ReturnModel()
         {

@@ -6,10 +6,13 @@ using System.Text;
 
 namespace Assets.Scripts.DataPersistence.Models
 {
-    public class PlayerData : IDataModel
+    public class LevelData : IDataModel
     {
-        public int PlayerID { get; set; }
-        public int TotalScore { get; set; }
+        public int LevelID { get; set; }
+        public int BestScore { get; set; }
+        public int RoundTime { get; set; }
+        public double PointMultiplier { get; set; }
+        public int UnlockLevelAt { get; set; }
 
         public IDataModel ReturnModel()
         {
