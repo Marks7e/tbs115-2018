@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.DataPersistence.DependecyInjector;
-using Assets.Scripts.DataPersistence.Models;
-using Mono.Data.Sqlite;
+﻿using Assets.Scripts.DataPersistence.Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,20 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-    private SqliteConnection sql = null;
-    private DependencyInjector di = null;
+    private RealmData rd = null;
+    private GameDataPersistence gdp = null;
 
-    public void RandomizeForTest(int levelID)
+    public void RandomizeForTest(string levelName)
     {
         try
         {
+            rd = new RealmData();
+            gdp = new GameDataPersistence();
+
             if (Random.Range(0, 100.00f) >= 75.00f)
+            {
+                rd.SaveData("LevelName", levelName);
+                gdp.SaveData(GameDataPersistence.DataType.RealmData, rd);
                 SceneManager.LoadScene("PostGameTest");
-            SceneManager.LoadScene("MainMenu");
+            }
+            else
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+
         }
         catch (System.Exception e)
         {
             throw new System.Exception("Stacktrace: " + e.StackTrace);
         }
+
+
     }
 }

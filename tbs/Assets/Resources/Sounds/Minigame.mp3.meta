@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 7c8a0178d5bf7214d84af55677b228f7
-=======
-guid: 5a3e7dc5d44f6cf49a7ed831d771b5fd
->>>>>>> development_DependencyInjector
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6

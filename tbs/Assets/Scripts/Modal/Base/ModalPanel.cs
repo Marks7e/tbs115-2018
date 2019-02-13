@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Mono.Data.Sqlite;
 
 public class ModalPanel : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class ModalPanel : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public GameObject modalPanelObject;
-    private SqliteConnection sql = null;
 
     private static ModalPanel modalPanel;
 
@@ -52,7 +50,8 @@ public class ModalPanel : MonoBehaviour
     public void YesFunction()
     {
         Debug.Log("Eliminando archivos .dat");
-        //gdp.DeleteDatFiles();
+        GameDataPersistence gdp = new GameDataPersistence();
+        gdp.DeleteDatFiles();
         SceneManager.LoadScene("MainMenu");
     }
 }

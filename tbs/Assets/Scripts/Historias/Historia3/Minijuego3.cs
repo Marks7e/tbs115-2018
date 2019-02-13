@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.DataPersistence.DependecyInjector;
-using Assets.Scripts.DataPersistence.Models;
+﻿using Assets.Scripts.DataPersistence.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
+    private const string BEST_SCORE_FOR_LEVEL = "BestScoreForGame3";
 
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
@@ -19,16 +19,13 @@ public class Minijuego3 : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    public PlayerData pd;
-    public LevelData ld;
+    public GameDataPersistence gdp;
     public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 5.00f;
     public int waitingTime = 3;
     public bool isGameDone = false;
     public bool isRoundDone = false;
-
-    public DependencyInjector di;
 
     //Texto a mostrar al usuario
     public Text Nivel;
@@ -47,12 +44,8 @@ public class Minijuego3 : MonoBehaviour
     void Start()
     {
         GetAndInitializeAllGameObjects();
-<<<<<<< HEAD
         SettingTimeOfGame();
         //InitializeRecordAndScore();
-=======
-        InitializeRecordAndScore();
->>>>>>> development_DependencyInjector
         RandomSpeak();
     }
 
@@ -67,14 +60,13 @@ public class Minijuego3 : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 timing.text = "Tiempo: " + timeLeft.ToString("0");
             }
-
             if (timeLeft <= 0 && !isGameDone)
             {
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
                 gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+                gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
             }
 
         }
@@ -381,11 +373,13 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void Ok()
     {
-        UpdateScore();
+        //score += 1000;
+       // UpdateScore();
         SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
         isRoundDone = true;
+
     }
     //Mensaje de Respuesta incorrecta
     public void fail()
@@ -401,13 +395,8 @@ public class Minijuego3 : MonoBehaviour
         audioSource.Stop();
         isGameDone = true;
         btnMano.SetActive(false);
-
-        if (bestScore == score)
-            di.UpdateBestScoreForLevel(3, score);
-        di.UpdateTotalizedScore(score);
-
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 3);
+        gs.PlayerWinGame(audioSource, waitingTime);
     }
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
@@ -451,7 +440,7 @@ public class Minijuego3 : MonoBehaviour
     private void GetAndInitializeAllGameObjects()
     {
         audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
+        bgMusic = Resources.Load<AudioClip>("Sounds/TalkingAbout");
         audioSource.PlayOneShot(bgMusic);
         btnMano = GameObject.Find("btnMano");
         btnCirculo = GameObject.Find("circulo");
@@ -482,51 +471,43 @@ public class Minijuego3 : MonoBehaviour
         simbolo3.GetComponent<Image>().enabled = false;
 
         /*Para control de puntajes.*/
-        var objBestScore = GameObject.Find("BestScore");
+        var objBestScore = GameObject.Find("BestScore") ;
         var objScore = GameObject.Find("Score");
-        BestScore = objBestScore.GetComponent<Text>();
+        BestScore = objBestScore.GetComponent<Text>(); 
         Score = objScore.GetComponent<Text>();
-        //gdp = new GameDataPersistence();
-
+        gdp = new GameDataPersistence();
+        
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
     }
-    private void SettingTimeOfGame()
+    private void SettingTimeOfGame(float GameTime = 5.00f)
     {
-        timeLeft = ld.RoundTime;
-    }
-    private void InitializeRecordAndScore()
-    {
-        di = new DependencyInjector();
-        pd = new PlayerData();
-        ld = new LevelData();
-
-        pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(3);
-
-        score = 0;
-        bestScore = ld.BestScore;
-
-        BestScore.text = "Record: " + ld.BestScore;
-        Score.text = "Puntaje: " + score;
-        SettingTimeOfGame();
-
-    }
-    private void UpdateScore()
-    {
-        double res = 100 * (timeLeft * ld.PointMultiplier);
-        score += (int)res;
-        Score.text = "Puntaje: " + score;
-
-        if (bestScore < score)
+        if (GameTime > 0.00f)
+        { this.timeLeft = GameTime; }
+        else
         {
-            bestScore = score;
-            BestScore.text = "Record: " + score;
+            throw new System.Exception("El tiempo establecido para la ronda de juego debe ser mayor a 0.0 segundos.");
         }
 
     }
+    private void InitializeRecordAndScore()
+    {
+        
+        PlayerData pd = new PlayerData();
+        pd = (PlayerData) gdp.LoadData(GameDataPersistence.DataType.PlayerData);
 
+        if (pd.GetData(BEST_SCORE_FOR_LEVEL) != string.Empty)
+            bestScore = int.Parse(pd.GetData(BEST_SCORE_FOR_LEVEL));
+
+        BestScore.text = "Record: " + bestScore;
+    }
+    private void UpdateScore()
+    {
+        double res = 100 + 100 * (timeLeft * 0.25);
+        score += (int)res;
+        Score.text = "Puntaje: " + score;
+    }
 }
 
