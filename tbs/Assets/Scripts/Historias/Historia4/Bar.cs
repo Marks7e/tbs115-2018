@@ -64,7 +64,7 @@ public class Bar : MonoBehaviour {
 		{
 			audioSource.Stop();
         	gs = new GameStatus();
-        	gs.PlayerWinGame(audioSource, waitingTime);
+        	gs.PlayerWinGame(audioSource, waitingTime, 4);
 			index++;
 		}
 	}

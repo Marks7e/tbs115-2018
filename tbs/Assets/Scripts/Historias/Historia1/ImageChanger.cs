@@ -170,7 +170,7 @@ public class ImageChanger : MonoBehaviour
     {
         audioSource.Stop();
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime = 3);
+        gs.PlayerWinGame(audioSource, waitingTime = 3, 1);
         imageSelector.SetActive(false);
     }
 
@@ -178,7 +178,7 @@ public class ImageChanger : MonoBehaviour
     {
         audioSource.Stop();
         gs = new GameStatus();
-        gs.PlayerNeedToRepeatGame(audioSource, waitingTime);
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
         imageSelector.SetActive(false);
     }
 }
