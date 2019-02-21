@@ -17,6 +17,7 @@ namespace Assets.Scripts.DataPersistence
         private void SetConnection()
         {
             sqlite = new SqliteConnection("Data Source=" + Application.dataPath + "/Database/dbgame.db");
+            //sqlite = new SqliteConnection("Data Source=" + Application.persistentDataPath + "/Database/dbgame.db");
         }
 
     }
