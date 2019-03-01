@@ -53,6 +53,7 @@ public class ModalPanel : MonoBehaviour
     {
         Debug.Log("Eliminando archivos .dat");
         //gdp.DeleteDatFiles();
-        SceneManager.LoadScene("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
+        modalPanel.ClosePanel();
     }
 }
