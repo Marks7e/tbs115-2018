@@ -17,7 +17,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private LevelData LevelModel;
         private SqliteConnection _db;
 
-
+    
         /*Queries a base de datos (LevelData)*/
         private string LEVEL_ALL_DATA = "SELECT * FROM LEVELDATA ;";
         private string LEVEL_UPDATE_BEST_SCORE_DATA = "UPDATE LEVELDATA SET BESTSCORE = @bestScore WHERE LEVELID = @level ;";
@@ -48,6 +48,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
                         RoundTime = reader.GetInt32(2),
                         PointMultiplier = reader.GetDouble(3),
                         UnlockLevelAt = reader.GetInt32(4),
+                        TimesPlayed = reader.GetInt32(5)
                     };
                     listLevelData.Add(LevelModel);
                 }

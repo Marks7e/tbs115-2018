@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\DataPersistence\DataBaseConnector.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\GameOptionsService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\LevelDataService.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\DataServices\LevelSuccessTimeService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\PlayerDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DataServices\QuestionDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\DependecyInjector\DependencyInjector.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\Scripts\DataPersistence\Interfaces\IDataService.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\GameOptions.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\LevelData.cs" />
+    <Compile Include="Assets\Scripts\DataPersistence\Models\LevelSuccessTime.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\PlayerData.cs" />
     <Compile Include="Assets\Scripts\DataPersistence\Models\QuestionData.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia1\ButtonController.cs" />
