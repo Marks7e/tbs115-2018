@@ -68,4 +68,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Historia 1/Minijuego 1.unity
     guid: 108ffc3b776c5d8498c0aec055490276
+  - enabled: 1
+    path: Assets/Scenes/Test/DBTest.unity
+    guid: c190c5522be3c2e4abe69178bfe2ae65
   m_configObjects: {}

@@ -74,16 +74,21 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             return _qds.GetAllQuestions();
 
         }
-        public bool SaveAnswerForQuestion(IDataModel data)
+        public bool SaveAnswerForQuestion(IDataModel QuestionData)
         {
-            return _qds.SaveDataToDB(data);
+            return _qds.SaveDataToDB(QuestionData);
         }
         #endregion
 
         #region LevelSuccessTime
         public List<LevelSuccessTime> GetAllLevelSuccessTime()
         {
-            return null;
+            return _lst.GetAllSuccessTimeFromDB();
+        }
+
+        public bool SaveSuccesTime(IDataModel LevelSuccessTime)
+        {
+            return _lst.SavePerformanceForLevel(LevelSuccessTime);
         }
         #endregion
 
