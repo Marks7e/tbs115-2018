@@ -145,6 +145,7 @@ MonoBehaviour:
   btnEmoji2: {fileID: 1069881277}
   btnEmoji3: {fileID: 952380482}
   btnEmoji4: {fileID: 134999772}
+  btnCompare: {fileID: 1074597707}
   panel: {fileID: 198184382}
   emoji:
   - {fileID: 305708808}
@@ -680,7 +681,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 59}
+  m_AnchoredPosition: {x: 0, y: 34}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409077019

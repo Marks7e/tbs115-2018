@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Minijuego10Controller : MonoBehaviour
 {
     
-    public Button btnEmoji1,btnEmoji2,btnEmoji3,btnEmoji4;
+    public Button btnEmoji1,btnEmoji2,btnEmoji3,btnEmoji4,btnCompare;
 	private Image imgEmo1,imgEmo2,imgEmo3,imgEmo4; //Imagen sobre boton
 	public GameObject panel;
 	public GameObject[] emoji; 
@@ -23,12 +23,14 @@ public class Minijuego10Controller : MonoBehaviour
 		btnEmoji2.onClick.AddListener(() => actions(2));
 		btnEmoji3.onClick.AddListener(() => actions(3));
 		btnEmoji4.onClick.AddListener(() => actions(4));
-		//btncompare.onClick.AddListener(compareEmojis);
+		btnCompare.onClick.AddListener(compareEmojis);
 
 		imgEmo1 = GameObject.Find("imgEmo1").GetComponent<Image>();
 		imgEmo2 = GameObject.Find("imgEmo2").GetComponent<Image>();
 		imgEmo3 = GameObject.Find("imgEmo3").GetComponent<Image>();
 		imgEmo4 = GameObject.Find("imgEmo4").GetComponent<Image>();
+
+		panel.SetActive(false);
 
 		/* Funcion que crea secuencia de emojis de manera aleatoria */
 		randomSequence();
@@ -62,8 +64,6 @@ public class Minijuego10Controller : MonoBehaviour
             emoji[i].GetComponent<Image>().sprite = spriteList[indice];
         }
     }
-
-
     public void actions(int btn)
 	{
 		//Debug.Log("Nombre del Boton: "+btn);
@@ -88,9 +88,10 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 
 	}
-
     public void hideSequence()
 	{
+		panel.SetActive(true);
+
 		for (int i = 0; i < 4; i++)
 		{
 			emoji[i].GetComponent<Image>().enabled = false;
@@ -99,14 +100,10 @@ public class Minijuego10Controller : MonoBehaviour
 		panel.GetComponent<Animation>().Play("Panel2");
 
 	}
-
     public void setEmoji(Image imgEmo, int index)
 	{
-		//Debug.Log("Clic en boton, Debe Setear Emoji: "+imgEmo.name);
 		imgEmo.sprite = spriteList[index];
-		//Debug.Log("Valor dibujo: "+imgEmo.sprite.name);
 	}
-
 	public void compareEmojis()
 	{
 		/* Comprobacion de secuencia con imagen del panel */
@@ -127,7 +124,5 @@ public class Minijuego10Controller : MonoBehaviour
 		else{	Debug.Log("Fallo, Termina el Juego");	}
 		
 	}
-
-
 
 }
