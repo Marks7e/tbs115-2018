@@ -56,6 +56,11 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             ld.BestScore = bestScore;
             return _lds.SaveDataToDB(ld);
         }
+
+        public bool UpdateLevelTimesPlayed(int level)
+        {
+            return _lds.UpdateTimesPlayedForLevelID(level);
+        }
         #endregion
 
         #region PlayerDataAndLevelData
@@ -63,7 +68,6 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         {
             PlayerData pd = GetAllPlayerData();
             LevelData ld = GetAllLevelData().FirstOrDefault(l => l.LevelID == level);
-
             return ld.UnlockLevelAt <= pd.TotalScore;
         }
         #endregion

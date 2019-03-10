@@ -65,6 +65,7 @@ public class Minijuego3 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
+                di.UpdateLevelTimesPlayed(3);
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
@@ -393,6 +394,8 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de finalizacion de minijuego
     public void complete()
     {
+        di.UpdateLevelTimesPlayed(3);
+
         audioSource.Stop();
         isGameDone = true;
         btnMano.SetActive(false);

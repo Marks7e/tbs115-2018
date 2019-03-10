@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,9 +11,11 @@ public class IconGetter : MonoBehaviour, IDropHandler
     public GameStatus gs;
     public AudioSource audioSource;
     public int waitingTime = 3;
+    public DependencyInjector di;
 
     void Start()
     {
+        di = new DependencyInjector();
         GetInitializeMusic();
     }
 
@@ -57,6 +60,7 @@ public class IconGetter : MonoBehaviour, IDropHandler
 
     void LoseGame()
     {
+        di.UpdateLevelTimesPlayed(3);
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 4);

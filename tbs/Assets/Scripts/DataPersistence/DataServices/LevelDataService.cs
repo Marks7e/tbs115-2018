@@ -30,6 +30,43 @@ namespace Assets.Scripts.DataPersistence.DataServices
             _db = _dbc.getDBInstance();
         }
 
+
+        public bool UpdateTimesPlayedForLevelID(int levelid)
+        {
+            try
+            {
+                LevelData lastLD = new LevelData();
+                lastLD = GetLevelData(levelid);
+
+                _db.Open();
+                IDbCommand cmd = _db.CreateCommand();
+                cmd.CommandText = LEVEL_UPDATE_TIMES_PLAYED;
+
+                IDbDataParameter bestScoreParam = cmd.CreateParameter();
+                bestScoreParam.ParameterName = "@param1";
+                bestScoreParam.Value = lastLD.TimesPlayed + 1;
+                cmd.Parameters.Add(bestScoreParam);
+
+                IDbDataParameter levelParam = cmd.CreateParameter();
+                levelParam.ParameterName = "@param2";
+                levelParam.Value = levelid;
+                cmd.Parameters.Add(levelParam);
+
+                bool res = cmd.ExecuteNonQuery() > 0;
+                _db.Close();
+                _db.Dispose();
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
+                return false;
+            }
+        }
+
         public bool LoadAllDataFromDB()
         {
             try
@@ -66,7 +103,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         public bool SaveDataToDB(IDataModel data)
         {
             try
@@ -140,7 +176,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return null;
             }
         }
-
         public List<LevelData> GetAllLevelData()
         {
             LoadAllDataFromDB();

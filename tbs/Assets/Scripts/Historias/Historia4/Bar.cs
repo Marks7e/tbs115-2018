@@ -84,7 +84,8 @@ public class Bar : MonoBehaviour {
 
 		if(index == 1)
 		{
-			audioSource.Stop();
+            di.UpdateLevelTimesPlayed(3);
+            audioSource.Stop();
         	gs = new GameStatus();
         	gs.PlayerWinGame(audioSource, waitingTime, 4);
 			index++;

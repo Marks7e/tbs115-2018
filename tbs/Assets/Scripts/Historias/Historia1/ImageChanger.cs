@@ -214,6 +214,7 @@ public class ImageChanger : MonoBehaviour
     }
     void WinGame()
     {
+        di.UpdateLevelTimesPlayed(1);
 
         if (bestScore == score)
             di.UpdateBestScoreForLevel(1, score);
@@ -226,6 +227,7 @@ public class ImageChanger : MonoBehaviour
     }
     void LoseGame()
     {
+        di.UpdateLevelTimesPlayed(1);
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
