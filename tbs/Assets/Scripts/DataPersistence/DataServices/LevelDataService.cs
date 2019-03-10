@@ -17,11 +17,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private LevelData LevelModel;
         private SqliteConnection _db;
 
-    
+
         /*Queries a base de datos (LevelData)*/
         private string LEVEL_ALL_DATA = "SELECT * FROM LEVELDATA ;";
         private string LEVEL_UPDATE_BEST_SCORE_DATA = "UPDATE LEVELDATA SET BESTSCORE = @bestScore WHERE LEVELID = @level ;";
-
+        private string LEVEL_UPDATE_TIMES_PLAYED = "UPDATE LEVELDATA SET TIMESPLAYED = @param1 WHERE LEVELID = @param2 ;";
+        private string LEVEL_GET_ENTRY_BY_LEVELID = "SELECT * FROM LEVELDATA WHERE LEVELID = @param1 ;";
 
         public LevelDataService(DataBaseConnector dbc)
         {
@@ -79,11 +80,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 /*Agregando Parametro para guardar Mejor Score del nivel*/
                 IDbDataParameter bestScoreParam = cmd.CreateParameter();
                 bestScoreParam.ParameterName = "@bestScore";
-                bestScoreParam.Value = ld. BestScore;
+                bestScoreParam.Value = ld.BestScore;
                 cmd.Parameters.Add(bestScoreParam);
 
                 /*Agregando Parametro para identificar a que nivel guardar los cambios*/
-                IDbDataParameter levelParam= cmd.CreateParameter();
+                IDbDataParameter levelParam = cmd.CreateParameter();
                 levelParam.ParameterName = "@level";
                 levelParam.Value = ld.LevelID;
                 cmd.Parameters.Add(levelParam);
@@ -92,7 +93,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 _db.Close();
                 _db.Dispose();
 
-                return res;               
+                return res;
             }
             catch (Exception e)
             {
@@ -103,8 +104,41 @@ namespace Assets.Scripts.DataPersistence.DataServices
 
         public LevelData GetLevelData(int level)
         {
-            LoadAllDataFromDB();
-            return listLevelData.FirstOrDefault(l => l.LevelID == level);
+            try
+            {
+                LevelData res = new LevelData();
+                _db.Open();
+                IDbCommand cmd = _db.CreateCommand();
+                cmd.CommandText = LEVEL_GET_ENTRY_BY_LEVELID;
+
+                IDbDataParameter bestScoreParam = cmd.CreateParameter();
+                bestScoreParam.ParameterName = "@param1";
+                bestScoreParam.Value = level;
+                cmd.Parameters.Add(bestScoreParam);
+
+                IDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    res.LevelID = reader.GetInt32(0);
+                    res.BestScore = reader.GetInt32(1);
+                    res.RoundTime = reader.GetInt32(2);
+                    res.PointMultiplier = reader.GetDouble(3);
+                    res.UnlockLevelAt = reader.GetInt32(4);
+                    res.TimesPlayed = reader.GetInt32(5);
+                }
+                reader.Close();
+                _db.Close();
+                _db.Dispose();
+                return res;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
+                return null;
+            }
         }
 
         public List<LevelData> GetAllLevelData()

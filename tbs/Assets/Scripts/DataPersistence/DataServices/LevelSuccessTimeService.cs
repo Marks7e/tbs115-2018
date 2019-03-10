@@ -7,7 +7,6 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-
 namespace Assets.Scripts.DataPersistence.DataServices
 {
     public class LevelSuccessTimeService : IDataService
@@ -36,7 +35,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
             LoadAllDataFromDB();
             return listLevelSuccessTime;
         }
-
         public bool SavePerformanceForLevel(IDataModel data)
         {
             LevelSuccessTime _lst = (LevelSuccessTime)data;
@@ -96,7 +94,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
             }
 
         }
-
         private LevelSuccessTime GetOldestEntryByLevelID(IDataModel data)
         {
             try
@@ -152,7 +149,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         private bool DeleteEntryBySuccessID(int SuccessID)
         {
             try

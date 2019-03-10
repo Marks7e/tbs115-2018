@@ -24,11 +24,7 @@ public class TestingDatabase : MonoBehaviour
         di = new DependencyInjector(); 
         lst = new LevelSuccessTime();
         llst = new List<LevelSuccessTime>();
-
         llst = di.GetAllLevelSuccessTime();
-        lst = llst[(int)Random.Range(1, llst.Count)];
-
-        Debug.Log("SuccessID = " + lst.SuccessID + " LevelID = " + lst.LevelID + " SuccessTime = " + lst.SuccessTime);
-
+        lst = llst[Random.Range(1, llst.Count)];
     }
 }
