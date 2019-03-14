@@ -18,14 +18,33 @@ public class Minijuego10Controller : MonoBehaviour
     private float elapsedTime = 0;
 	private float hideTime = 5;
 	private bool updateOn = true;
+
+	/* ******************* agregados para persistencia */
+    private int count = 1; //numero de rondas
+	public int bestScore = 0;
+    public int score = 0;
+    public float timeLeft = 5.00f;
+    //public int waitingTime = 3;
+    //public bool isGameDone = false;
+    //public bool isRoundDone = false;
+	public GameObject texto;
+    public Text BestScore, Score;
+	public Text timing;
 	public Text Nivel;
-    private int count = 1;
+	//public GameStatus gs;
+    //public AudioSource audioSource;
+    //public AudioClip bgMusic;
+   
+    public PlayerData pd;
+    public LevelData ld;
+    public DependencyInjector di;
+	/************************************* */
 
     // Start is called before the first frame update
     void Start()
     {
 		GetAndInitializeAllGameObjects();
-
+		InitializeRecordAndScore();
 		/* Funcion que crea secuencia de emojis de manera aleatoria */
 		randomSequence();
     }
@@ -36,7 +55,9 @@ public class Minijuego10Controller : MonoBehaviour
         /* Evita | Permite la Ejecucion del codigo */
 		if (updateOn == true)
 		{
-			elapsedTime += Time.deltaTime;
+			timeLeft -= Time.deltaTime; //tiempo de ronda para jugar 
+            timing.text = "Tiempo: " + timeLeft.ToString("0");
+			elapsedTime += Time.deltaTime; // Tiempo transcurrido
 			Debug.Log("Tiempo transcurrido: "+elapsedTime);
 			if(elapsedTime >= hideTime){
 				//Al alcanzar hideTime, oculta la secuencia de emojis
@@ -47,6 +68,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 
     }
+	/* randomSequence: Crea la secuencia de emojis de forma random */
     public void randomSequence()
     {
         /* Llena el vector de emojis que se van a mostrar como secuencia de emojis */
@@ -58,7 +80,8 @@ public class Minijuego10Controller : MonoBehaviour
 			Debug.Log("posicion: "+i+" ,nombre: "+spriteList[indice].name);
         }
     }
-    public void actions(int btn)
+    /* actions: proporciona accion de botones que tienen imagenes de emojis */
+	public void actions(int btn)
 	{
 		//Debug.Log("Nombre del Boton: "+btn);
 		switch (btn)
@@ -82,7 +105,8 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 
 	}
-    public void hideSequence()
+    /* hideSequence: oculta la secuencia de imagenes y activa la animacion de botones para interactuar */
+	public void hideSequence()
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -95,10 +119,12 @@ public class Minijuego10Controller : MonoBehaviour
 		panelBotones.GetComponent<Animation>().Play("Panel2");
 
 	}
-    public void setEmoji(Image imgEmo, int index)
+    /* setEmoji: cambia la imagen de emoji en los botones donde interactua el usuario */
+	public void setEmoji(Image imgEmo, int index)
 	{
 		imgEmo.sprite = spriteList[index];
 	}
+	/* compareEmojis: compara la secuencia inicial con los valores seteados por el usuario */
 	public void compareEmojis()
 	{
 		/* Comprobacion de secuencia con imagen del panel */
@@ -116,8 +142,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 		
 	}
-	
-	//Mensaje de respuesta correcta
+	/* OK: Mensaje de respuesta correcta */
     public void Ok()
     {
         //UpdateScore();
@@ -127,7 +152,7 @@ public class Minijuego10Controller : MonoBehaviour
 		btnCompare.enabled = false;
         //isRoundDone = true;
     }
-    //Mensaje de Respuesta incorrecta
+    /* fail: Mensaje de Respuesta incorrecta */
     public void fail()
     {
         //score -= 800;
@@ -135,6 +160,7 @@ public class Minijuego10Controller : MonoBehaviour
         btnReset.SetActive(true);
         //isRoundDone = true;
     }
+	/* iteracion:  */
 	public void iteracion()
     {
         //isRoundDone = false;
@@ -158,7 +184,6 @@ public class Minijuego10Controller : MonoBehaviour
 		panelBotones.SetActive(false);
 		
         //Generar una nueva secuencia
-		
 		if(count <= 3){
 			randomSequence();
 			updateOn = true;
@@ -170,7 +195,6 @@ public class Minijuego10Controller : MonoBehaviour
 		}else{
 			Debug.Log("----**********--- JUEGO FINALIZADO ----**********---");
 		}
-
     }
 	private void GetAndInitializeAllGameObjects()
     {
@@ -185,7 +209,40 @@ public class Minijuego10Controller : MonoBehaviour
 		imgEmo3 = GameObject.Find("imgEmo3").GetComponent<Image>();
 		imgEmo4 = GameObject.Find("imgEmo4").GetComponent<Image>();
 
+		texto = new GameObject();
+        texto = GameObject.Find("Timing");
+        timing = texto.GetComponent<Text>();
+
+        timing.text = "Tiempo";
+
+		/*Para control de puntajes.*/
+        var objBestScore = GameObject.Find("BestScore");
+        var objScore = GameObject.Find("Score");
+        BestScore = objBestScore.GetComponent<Text>();
+        Score = objScore.GetComponent<Text>();
+
 		panelBotones.SetActive(false);
 
 	}
+	private void InitializeRecordAndScore()
+    {
+        di = new DependencyInjector();
+        pd = new PlayerData();
+        ld = new LevelData();
+
+        pd = di.GetAllPlayerData();
+        ld = di.GetLevelData(3);
+
+        score = 0;
+        bestScore = ld.BestScore;
+
+        BestScore.text = "Record: " + ld.BestScore;
+        Score.text = "Puntaje: " + score;
+        SettingTimeOfGame();
+
+    }
+	private void SettingTimeOfGame()
+    {
+        timeLeft = ld.RoundTime;
+    }
 }
