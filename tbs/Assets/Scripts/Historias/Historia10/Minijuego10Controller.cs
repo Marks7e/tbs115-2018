@@ -24,7 +24,7 @@ public class Minijuego10Controller : MonoBehaviour
 	public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 10.00f;
-    //public int waitingTime = 3;
+    public int waitingTime = 3;
     public bool isGameDone = false;
     public bool isRoundDone = false;
 	private bool isPanelHide = false;
@@ -32,9 +32,9 @@ public class Minijuego10Controller : MonoBehaviour
     public Text BestScore, Score;
 	public Text timing;
 	public Text Nivel;
-	//public GameStatus gs;
-    //public AudioSource audioSource;
-    //public AudioClip bgMusic;
+	public GameStatus gs;
+    public AudioSource audioSource;
+    public AudioClip bgMusic;
    
     public PlayerData pd;
     public LevelData ld;
@@ -78,15 +78,16 @@ public class Minijuego10Controller : MonoBehaviour
 
 			if (timeLeft <= 0 && !isGameDone)
             {
-               /*  UnableGameControls();
+               	//UnableGameControls();
                 audioSource.Stop();
-                */
 				isGameDone = true;
-                /*gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1); */
+                gs = new GameStatus();
+                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
 			
 		}
+
+		
 
     }
 	/* randomSequence: Crea la secuencia de emojis de forma random */
@@ -222,6 +223,10 @@ public class Minijuego10Controller : MonoBehaviour
     }
 	private void GetAndInitializeAllGameObjects()
     {
+		audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
+        audioSource.PlayOneShot(bgMusic);
+
 		btnEmoji1.onClick.AddListener(() => actions(1));
 		btnEmoji2.onClick.AddListener(() => actions(2));
 		btnEmoji3.onClick.AddListener(() => actions(3));
