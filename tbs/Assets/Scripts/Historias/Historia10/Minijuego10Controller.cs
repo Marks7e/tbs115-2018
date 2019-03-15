@@ -182,6 +182,20 @@ public class Minijuego10Controller : MonoBehaviour
         btnReset.SetActive(true);
         isRoundDone = true;
     }
+	public void complete()
+    {
+        audioSource.Stop();
+        isGameDone = true;
+        
+
+        if (bestScore == score)
+            di.UpdateBestScoreForLevel(3, score);
+        di.UpdateTotalizedScore(score);
+
+        gs = new GameStatus();
+        gs.PlayerWinGame(audioSource, waitingTime, 3);
+    }
+	
 	/* iteracion:  */
 	public void iteracion()
     {
@@ -219,6 +233,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}else{
 			isGameDone = true;
 			Debug.Log("----**********--- JUEGO FINALIZADO ----**********---");
+			complete();
 		}
     }
 	private void GetAndInitializeAllGameObjects()
