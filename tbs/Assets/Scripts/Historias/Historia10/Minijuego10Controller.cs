@@ -90,6 +90,7 @@ public class Minijuego10Controller : MonoBehaviour
 		
 
     }
+	
 	/* randomSequence: Crea la secuencia de emojis de forma random */
     public void randomSequence()
     {
@@ -102,7 +103,8 @@ public class Minijuego10Controller : MonoBehaviour
 			Debug.Log("posicion: "+i+" ,nombre: "+spriteList[indice].name);
         }
     }
-    /* actions: proporciona accion de botones que tienen imagenes de emojis */
+    
+	/* actions: proporciona accion de botones que tienen imagenes de emojis */
 	public void actions(int btn)
 	{
 		//Debug.Log("Nombre del Boton: "+btn);
@@ -127,7 +129,8 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 
 	}
-    /* hideSequence: oculta la secuencia de imagenes y activa la animacion de botones para interactuar */
+    
+	/* hideSequence: oculta la secuencia de imagenes y activa la animacion de botones para interactuar */
 	public void hideSequence()
 	{
 		for (int i = 0; i < 4; i++)
@@ -141,11 +144,13 @@ public class Minijuego10Controller : MonoBehaviour
 		panelBotones.GetComponent<Animation>().Play("Panel2");
 		
 	}
-    /* setEmoji: cambia la imagen de emoji en los botones donde interactua el usuario */
+    
+	/* setEmoji: cambia la imagen de emoji en los botones donde interactua el usuario */
 	public void setEmoji(Image imgEmo, int index)
 	{
 		imgEmo.sprite = spriteList[index];
 	}
+	
 	/* compareEmojis: compara la secuencia inicial con los valores seteados por el usuario */
 	public void compareEmojis()
 	{
@@ -164,6 +169,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}
 		
 	}
+	
 	/* OK: Mensaje de respuesta correcta */
     public void Ok()
     {
@@ -174,7 +180,8 @@ public class Minijuego10Controller : MonoBehaviour
 		btnCompare.enabled = false;
         isRoundDone = true;
     }
-    /* fail: Mensaje de Respuesta incorrecta */
+    
+	/* fail: Mensaje de Respuesta incorrecta */
     public void fail()
     {
         score -= 800;
@@ -182,6 +189,7 @@ public class Minijuego10Controller : MonoBehaviour
         btnReset.SetActive(true);
         isRoundDone = true;
     }
+	
 	public void complete()
     {
         audioSource.Stop();
@@ -236,6 +244,7 @@ public class Minijuego10Controller : MonoBehaviour
 			complete();
 		}
     }
+	
 	private void GetAndInitializeAllGameObjects()
     {
 		audioSource = GetComponent<AudioSource>();
@@ -268,6 +277,7 @@ public class Minijuego10Controller : MonoBehaviour
 		panelBotones.SetActive(false);
 
 	}
+	
 	private void InitializeRecordAndScore()
     {
         di = new DependencyInjector();
@@ -285,10 +295,12 @@ public class Minijuego10Controller : MonoBehaviour
         SettingTimeOfGame();
 
     }
+	
 	private void SettingTimeOfGame()
     {
         timeLeft = ld.RoundTime;
     }
+	
 	private void UpdateScore()
     {
 		Debug.Log("timeLeft: -----------------------  "+timeLeft+"  ----------------------------");
