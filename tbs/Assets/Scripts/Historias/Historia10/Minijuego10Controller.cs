@@ -189,11 +189,11 @@ public class Minijuego10Controller : MonoBehaviour
         
 
         if (bestScore == score)
-            di.UpdateBestScoreForLevel(3, score);
+            di.UpdateBestScoreForLevel(10, score);
         di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 3);
+        gs.PlayerWinGame(audioSource, waitingTime, 10);
     }
 	
 	/* iteracion:  */
@@ -275,7 +275,7 @@ public class Minijuego10Controller : MonoBehaviour
         ld = new LevelData();
 
         pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(3);
+        ld = di.GetLevelData(10);
 
         score = 0;
         bestScore = ld.BestScore;
