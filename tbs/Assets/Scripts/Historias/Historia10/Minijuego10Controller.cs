@@ -17,7 +17,6 @@ public class Minijuego10Controller : MonoBehaviour
 	public Sprite defaultBoton;
     private float elapsedTime = 0;
 	private float hideTime = 5;
-	//private bool updateOn = true;
 
 	/* ******************* agregados para persistencia */
     private int count = 1; //numero de rondas
@@ -35,7 +34,6 @@ public class Minijuego10Controller : MonoBehaviour
 	public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-   
     public PlayerData pd;
     public LevelData ld;
     public DependencyInjector di;
