@@ -71,4 +71,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Historia 10/Minijuego 10.unity
     guid: 777ba765db8b50849b4bbb4f752256c8
+  - enabled: 1
+    path: Assets/Scenes/Historia 10/Animacion 10.unity
+    guid: 856ea5f407e6fed4a99926b4933d1f81
   m_configObjects: {}
