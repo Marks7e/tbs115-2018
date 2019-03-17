@@ -15,6 +15,7 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         private PlayerDataService _pds = null;
         private LevelDataService _lds = null;
         private QuestionDataService _qds = null;
+        private LevelSuccessTimeService _lst = null;
 
         public DependencyInjector()
         {
@@ -22,6 +23,7 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             _pds = new PlayerDataService(_dbc);
             _lds = new LevelDataService(_dbc);
             _qds = new QuestionDataService(_dbc);
+            _lst = new LevelSuccessTimeService(_dbc);
         }
 
         #region PlayerData
@@ -54,18 +56,21 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             ld.BestScore = bestScore;
             return _lds.SaveDataToDB(ld);
         }
+
+        public bool UpdateLevelTimesPlayed(int level)
+        {
+            return _lds.UpdateTimesPlayedForLevelID(level);
+        }
         #endregion
-        
+
         #region PlayerDataAndLevelData
         public bool UnlockGame(int level)
         {
             PlayerData pd = GetAllPlayerData();
-            LevelData ld = GetAllLevelData().FirstOrDefault(l=>l.LevelID == level);
-
+            LevelData ld = GetAllLevelData().FirstOrDefault(l => l.LevelID == level);
             return ld.UnlockLevelAt <= pd.TotalScore;
         }
         #endregion
-
 
         #region QuestionData
         public List<QuestionData> GetAllQuestionData()
@@ -73,19 +78,23 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             return _qds.GetAllQuestions();
 
         }
-        public bool SaveAnswerForQuestion(IDataModel data)
+        public bool SaveAnswerForQuestion(IDataModel QuestionData)
         {
-            return _qds.SaveDataToDB(data);
+            return _qds.SaveDataToDB(QuestionData);
         }
         #endregion
 
-        #region ResetAllData
+        #region LevelSuccessTime
+        public List<LevelSuccessTime> GetAllLevelSuccessTime()
+        {
+            return _lst.GetAllSuccessTimeFromDB();
+        }
 
+        public bool SaveSuccesTime(IDataModel LevelSuccessTime)
+        {
+            return _lst.SavePerformanceForLevel(LevelSuccessTime);
+        }
         #endregion
-
-
-
-
 
     }
 
