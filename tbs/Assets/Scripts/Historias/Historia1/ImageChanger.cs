@@ -192,7 +192,7 @@ public class ImageChanger : MonoBehaviour
     }
     void ButtonInit()
     {
-        timeLeft = 5.00f;
+        timeLeft = di.GetLevelData(1).RoundTime;
         btnSend.enabled = false;
         btnSend.GetComponent<Image>().enabled = false;
         btn.GetComponent<Image>().enabled = false;
@@ -238,6 +238,7 @@ public class ImageChanger : MonoBehaviour
     {
         /*Para control de puntajes.*/
         //Nivel = GetComponent("Nivel").GetComponent<Text>();
+        di = new DependencyInjector();
         var objBestScore = GameObject.Find("BestScore");
         var objScore = GameObject.Find("Score");
         BestScore = objBestScore.GetComponent<Text>();
@@ -251,7 +252,6 @@ public class ImageChanger : MonoBehaviour
     }
     private void InitializeRecordAndScore()
     {
-        di = new DependencyInjector();
         pd = new PlayerData();
         ld = new LevelData();
 
