@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Modal\Base\NoPointsForLevelModal.cs" />
     <Compile Include="Assets\Scripts\Modal\ShowModal.cs" />
     <Compile Include="Assets\Scripts\SceneMgr.cs" />
+    <Compile Include="Assets\Scripts\Utils\DynamicGameBalance.cs" />
     <Compile Include="Assets\Scripts\Utils\EnableSkip.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Utils\RandomizeTest.cs" />

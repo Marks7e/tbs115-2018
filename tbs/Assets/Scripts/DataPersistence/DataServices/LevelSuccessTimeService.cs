@@ -35,6 +35,52 @@ namespace Assets.Scripts.DataPersistence.DataServices
             LoadAllDataFromDB();
             return listLevelSuccessTime;
         }
+
+        public List<LevelSuccessTime> GetAllSuccessByLevel(int level)
+        {
+            try
+            {
+                LevelSuccessTime lst = null;
+                List<LevelSuccessTime> lstl = null;
+
+                _db.Open();
+                IDbCommand cmd = _db.CreateCommand();
+                cmd.CommandText = LEVEL_SUCCESS_TIME_DATA_BY_LEVELID;
+
+                IDbDataParameter levelId = cmd.CreateParameter();
+                levelId.ParameterName = "@param1";
+                levelId.Value = level;
+                cmd.Parameters.Add(levelId);
+
+                IDataReader reader = cmd.ExecuteReader();
+                lstl = new List<LevelSuccessTime>();
+
+                while (reader.Read())
+                {
+                    lst = new LevelSuccessTime
+                    {
+                        SuccessID = reader.GetInt32(0),
+                        LevelID = reader.GetInt32(1),
+                        SuccessTime = reader.GetInt32(2)
+                    };
+                    lstl.Add(lst);
+                }
+
+                reader.Close();
+                _db.Close();
+                _db.Dispose();
+
+                return lstl;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
+                return null;
+            }
+        }
+
         public bool SavePerformanceForLevel(IDataModel data)
         {
             LevelSuccessTime _lst = (LevelSuccessTime)data;

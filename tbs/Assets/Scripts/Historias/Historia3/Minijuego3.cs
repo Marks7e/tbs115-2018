@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,12 +24,15 @@ public class Minijuego3 : MonoBehaviour
     public LevelData ld;
     public int bestScore = 0;
     public int score = 0;
-    public float timeLeft = 5.00f;
+    public float timeLeft = 0f;
     public int waitingTime = 3;
+    public int totalTimeByGame = 0;
+    public int dbRoundtime = 0;
     public bool isGameDone = false;
     public bool isRoundDone = false;
 
     public DependencyInjector di;
+    public DynamicGameBalance dgb;
 
     //Texto a mostrar al usuario
     public Text Nivel;
@@ -377,6 +381,7 @@ public class Minijuego3 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void Ok()
     {
+        totalTimeByGame += dbRoundtime - (int)timeLeft;
         UpdateScore();
         SettingTimeOfGame();
         msj_ok.SetActive(true);
@@ -395,6 +400,10 @@ public class Minijuego3 : MonoBehaviour
     public void complete()
     {
         di.UpdateLevelTimesPlayed(3);
+        di.SaveSuccesTime(new LevelSuccessTime() {
+            LevelID = 3,
+            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 3)
+        });
 
         audioSource.Stop();
         isGameDone = true;
@@ -460,8 +469,7 @@ public class Minijuego3 : MonoBehaviour
         BtCirculo = btnCirculo.GetComponent<Button>();
         BtCuadrado = btnCuadrado.GetComponent<Button>();
         BtTriangulo = btnTriangulo.GetComponent<Button>();
-
-
+        
         texto = new GameObject();
         texto = GameObject.Find("Timing");
         timing = texto.GetComponent<Text>();
@@ -484,7 +492,10 @@ public class Minijuego3 : MonoBehaviour
         var objScore = GameObject.Find("Score");
         BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
-
+        di = new DependencyInjector();
+        dgb = new DynamicGameBalance();
+        timeLeft = di.GetRoundTime(3);
+        
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
@@ -492,7 +503,7 @@ public class Minijuego3 : MonoBehaviour
     }
     private void SettingTimeOfGame()
     {
-        timeLeft = ld.RoundTime;
+        timeLeft = di.GetRoundTime(3);
     }
     private void InitializeRecordAndScore()
     {
@@ -502,7 +513,7 @@ public class Minijuego3 : MonoBehaviour
 
         pd = di.GetAllPlayerData();
         ld = di.GetLevelData(3);
-
+        dbRoundtime = di.GetRoundTime(3);
         score = 0;
         bestScore = ld.BestScore;
 

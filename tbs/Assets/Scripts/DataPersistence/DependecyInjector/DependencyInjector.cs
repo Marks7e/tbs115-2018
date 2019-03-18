@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.DataPersistence.DataServices;
 using Assets.Scripts.DataPersistence.Interfaces;
 using Assets.Scripts.DataPersistence.Models;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,6 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
     public class DependencyInjector
     {
         private DataBaseConnector _dbc = null;
-
         private PlayerDataService _pds = null;
         private LevelDataService _lds = null;
         private QuestionDataService _qds = null;
@@ -56,10 +56,23 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             ld.BestScore = bestScore;
             return _lds.SaveDataToDB(ld);
         }
-
         public bool UpdateLevelTimesPlayed(int level)
         {
             return _lds.UpdateTimesPlayedForLevelID(level);
+        }
+        public int CalculateRoundTimeByDynamicGameBalancing(int level)
+        {
+            LevelData lvl = GetLevelData(level);
+            List<LevelSuccessTime> lst = GetAllLevelSuccessTimeByLevel(level);
+            DynamicGameBalance dgb = new DynamicGameBalance();
+            return dgb.CalculateRoundTime(lvl.RoundTime, lst);     
+        }
+        public int GetRoundTime(int level)
+        {
+            List<LevelSuccessTime> llst = GetAllLevelSuccessTimeByLevel(level);
+            if (llst.Count >= 5)
+            { return CalculateRoundTimeByDynamicGameBalancing(level);}
+            return GetLevelData(level).RoundTime;
         }
         #endregion
 
@@ -89,11 +102,16 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         {
             return _lst.GetAllSuccessTimeFromDB();
         }
-
+        public List<LevelSuccessTime> GetAllLevelSuccessTimeByLevel(int level)
+        {
+            return _lst.GetAllSuccessByLevel(level);
+        }
         public bool SaveSuccesTime(IDataModel LevelSuccessTime)
         {
             return _lst.SavePerformanceForLevel(LevelSuccessTime);
         }
+
+
         #endregion
 
     }
