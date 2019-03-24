@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +18,8 @@ public class ImageChanger : MonoBehaviour
 
     public GameObject[] sleepers; //Lista animaciones
     private Animator animator; //Animator de las animaciones
+    public DynamicGameBalance dgb = null;
+    public float timeLeft = 0f;
 
     //Texto a mostrar al usuario
     public Text Nivel;
@@ -29,8 +30,9 @@ public class ImageChanger : MonoBehaviour
     public int bestScore = 0;
     public int score = 0;
     public int count = 0;
-    public float timeLeft = 5.00f;
     public int waitingTime = 3;
+    public int dbRoundtime = 0;
+    public int totalTimeByGame = 0;
     public bool isGameDone = false;
     public bool isRoundDone = false;
     public PlayerData pd;
@@ -188,6 +190,7 @@ public class ImageChanger : MonoBehaviour
         sleepers[j].SetActive(true);
         animator = sleepers[j].GetComponent<Animator>();
         animator.SetTrigger("SleepActivate");
+        totalTimeByGame += dbRoundtime - (int)timeLeft;
         UpdateScore();
     }
     void ButtonInit()
@@ -220,6 +223,12 @@ public class ImageChanger : MonoBehaviour
             di.UpdateBestScoreForLevel(1, score);
         di.UpdateTotalizedScore(score);
 
+        di.SaveSuccesTime(new LevelSuccessTime()
+        {
+            LevelID = 1,
+            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 1)
+        });
+
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime = 3, 1);
@@ -228,6 +237,7 @@ public class ImageChanger : MonoBehaviour
     void LoseGame()
     {
         di.UpdateLevelTimesPlayed(1);
+        di.ResetLevelSuccessTimeByLevel(1);
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
@@ -245,6 +255,8 @@ public class ImageChanger : MonoBehaviour
         Score = objScore.GetComponent<Text>();
         texto = GameObject.Find("Timing");
         timing = texto.GetComponent<Text>();
+        dgb = new DynamicGameBalance();
+        timeLeft = di.GetRoundTime(1);
     }
     private void SettingTimeOfGame()
     {
@@ -257,6 +269,7 @@ public class ImageChanger : MonoBehaviour
 
         pd = di.GetAllPlayerData();
         ld = di.GetLevelData(1);
+        dbRoundtime = di.GetRoundTime(1);
 
         score = 0;
         bestScore = ld.BestScore;
