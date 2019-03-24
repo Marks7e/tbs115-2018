@@ -65,13 +65,13 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             LevelData lvl = GetLevelData(level);
             List<LevelSuccessTime> lst = GetAllLevelSuccessTimeByLevel(level);
             DynamicGameBalance dgb = new DynamicGameBalance();
-            return dgb.CalculateRoundTime(lvl.RoundTime, lst);     
+            return dgb.CalculateRoundTime(lvl.RoundTime, lst);
         }
         public int GetRoundTime(int level)
         {
             List<LevelSuccessTime> llst = GetAllLevelSuccessTimeByLevel(level);
             if (llst.Count >= 5)
-            { return CalculateRoundTimeByDynamicGameBalancing(level);}
+            { return CalculateRoundTimeByDynamicGameBalancing(level); }
             return GetLevelData(level).RoundTime;
         }
         #endregion
@@ -110,8 +110,10 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         {
             return _lst.SavePerformanceForLevel(LevelSuccessTime);
         }
-
-
+        public bool ResetLevelSuccessTimeByLevel(int level)
+        {
+            return _lst.DeleteLevelSuccessTimeByLevel(level);
+        }
         #endregion
 
     }

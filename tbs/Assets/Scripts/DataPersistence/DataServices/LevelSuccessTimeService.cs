@@ -22,6 +22,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private string OLDEST_LEVEL_SUCCESS_TIME_DATA_BY_LEVELID = "SELECT * FROM LevelSuccessTime WHERE LevelID = @param1 ORDER BY SuccessID ASC LIMIT 1;";
         private string LEVEL_SUCCESS_UPDATE_TIME = "UPDATE LevelSuccessTime SET SuccessTime = @param1 WHERE SUCCESSID = @successid;";
         private string LEVEL_SUCCESS_TIME_DETELE_BY_SUCCESSID = "DELETE FROM LevelSuccessTime WHERE SUCCESSID = @param1 ;";
+        private string LEVEL_SUCCESS_TIME_DETELE_BY_LEVELID = "DELETE FROM LevelSuccessTime WHERE LEVELID = @param1 ;";
         private string LEVEL_SUCCESS_INSERT_TIME = "INSERT INTO LevelSuccessTime(LevelID,SuccessTime) VALUES(@param1 , @param2);";
 
         public LevelSuccessTimeService(DataBaseConnector dbc)
@@ -124,6 +125,32 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
+
+        public bool DeleteLevelSuccessTimeByLevel(int level)
+        {
+            try
+            {
+                _db.Open();
+                IDbCommand command = _db.CreateCommand();
+                command.CommandText = LEVEL_SUCCESS_TIME_DETELE_BY_LEVELID;
+
+                IDbDataParameter param1 = command.CreateParameter();
+                param1.ParameterName = "@param1";
+                param1.Value = level;
+
+                command.Parameters.Add(param1);
+
+                return command.ExecuteNonQuery() > 0;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                _db.Close();
+                _db.Dispose();
+                return false;
+            }
+        }
+
         private bool UpdateOldestEntry(IDataModel data)
         {
             try

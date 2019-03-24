@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class Minijuego3 : MonoBehaviour
 {
-
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
     public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
@@ -73,6 +72,7 @@ public class Minijuego3 : MonoBehaviour
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
+                di.ResetLevelSuccessTimeByLevel(3);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
@@ -395,12 +395,14 @@ public class Minijuego3 : MonoBehaviour
         msj_fail.SetActive(true);
         btnReset.SetActive(true);
         isRoundDone = true;
+        di.ResetLevelSuccessTimeByLevel(3);
     }
     //Mensaje de finalizacion de minijuego
     public void complete()
     {
         di.UpdateLevelTimesPlayed(3);
-        di.SaveSuccesTime(new LevelSuccessTime() {
+        di.SaveSuccesTime(new LevelSuccessTime()
+        {
             LevelID = 3,
             SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 3)
         });
@@ -469,7 +471,7 @@ public class Minijuego3 : MonoBehaviour
         BtCirculo = btnCirculo.GetComponent<Button>();
         BtCuadrado = btnCuadrado.GetComponent<Button>();
         BtTriangulo = btnTriangulo.GetComponent<Button>();
-        
+
         texto = new GameObject();
         texto = GameObject.Find("Timing");
         timing = texto.GetComponent<Text>();
@@ -495,7 +497,7 @@ public class Minijuego3 : MonoBehaviour
         di = new DependencyInjector();
         dgb = new DynamicGameBalance();
         timeLeft = di.GetRoundTime(3);
-        
+
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);

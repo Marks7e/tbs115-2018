@@ -14,18 +14,41 @@ namespace Assets.Scripts.Utils
             int adjustSecond = 0;
             int successTimeAVG = 0;
             int adjustSense = 0;
+            float typDevForRound = 0;
+            float percentDeviation = 0;
 
-            adjustSense = GetSenseOfOperation(RoundTime,llst);
+            adjustSense = GetSenseOfOperation(RoundTime, llst);
             successTimeAVG = CalculateAverage(llst);
             adjustSecond = AdjustSecond(llst);
 
+            typDevForRound = CalculateTypicalDevForRound(RoundTime, llst);
+            percentDeviation = Math.Abs(CalculatePercentOfDevation(RoundTime, typDevForRound));
+
             if (adjustSense > 0)
-            { roundTimeDGB = RoundTime + adjustSecond; }
+            { roundTimeDGB = (int)Math.Round(RoundTime * (percentDeviation /100) + (RoundTime *0.1)); }
             else
-            { roundTimeDGB = RoundTime - adjustSecond; }
+            { roundTimeDGB = (int)Math.Round(RoundTime * (percentDeviation /100) - (RoundTime * 0.1)); }
 
             return roundTimeDGB;
         }
+
+        private float CalculatePercentOfDevation(int roundTime, float typicalDeviation)
+        {
+            return ((typicalDeviation * 100) / (roundTime / 2));
+        }
+
+        private float CalculateTypicalDevForRound(int roundTime, List<LevelSuccessTime> llst)
+        {
+            double roundAVG = roundTime / 2;
+            double successTime = 0f;
+
+            foreach (LevelSuccessTime lst in llst)
+            {
+                successTime += Math.Pow(Math.Abs(lst.SuccessTime), 2);
+            }
+            return (float)(Math.Sqrt((successTime / llst.Count)) - roundAVG);
+        }
+
         public int CalculateAverageRound(int value, int div)
         {
             return value / div;
@@ -33,8 +56,7 @@ namespace Assets.Scripts.Utils
 
         private int AdjustSecond(List<LevelSuccessTime> llst)
         {
-            ///return CalculateTypicalDesv(llst) >= 1 ? 1 : 0;
-            return (int) CalculateTypicalDesv(llst);
+            return (int)CalculateTypicalDesv(llst);
         }
         private double CalculateTypicalDesv(List<LevelSuccessTime> llst)
         {
@@ -64,13 +86,13 @@ namespace Assets.Scripts.Utils
 
             foreach (LevelSuccessTime lst in llst)
             {
-                if (lst.SuccessTime > (RoundTime/2))
+                if (lst.SuccessTime > (RoundTime / 2))
                 { AdjustSense += 1; }
                 else
                 { AdjustSense -= 1; }
             }
             return AdjustSense;
         }
-        
+
     }
 }
