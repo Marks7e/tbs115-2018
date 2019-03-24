@@ -16,7 +16,6 @@ namespace Assets.Scripts.Utils
             float percentDeviation = 0;
 
             adjustSense = GetSenseOfOperation(RoundTime, llst);
-
             typDevForRound = CalculateTypicalDevForRound(RoundTime, llst);
             percentDeviation = Math.Abs(CalculatePercentOfDevation(RoundTime, typDevForRound));
 
@@ -85,6 +84,5 @@ namespace Assets.Scripts.Utils
             }
             return AdjustSense;
         }
-
     }
 }

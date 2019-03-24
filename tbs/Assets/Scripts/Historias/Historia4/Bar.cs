@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
+using Assets.Scripts.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,15 +23,18 @@ public class Bar : MonoBehaviour {
     public int bestScore = 0;
     public int score = 0;
     public int count = 0;
-    public float timeLeft = 5.00f;
+    public float timeLeft = 0f;
     public int waitingTime = 3;
+    public int totalTimeByGame = 0;
+    public int dbRoundtime = 0;
     public bool isGameDone = false;
     public bool isRoundDone = false;
     public PlayerData pd;
     public LevelData ld;
 
 	public DependencyInjector di;
-	
+    public DynamicGameBalance dgb;
+
     //Ganar/Perder
     public GameStatus gs;
     public AudioSource audioSource;
@@ -61,6 +65,7 @@ public class Bar : MonoBehaviour {
             }
             if (timeLeft <= 0 && !isGameDone)
             {
+                di.UpdateLevelTimesPlayed(4);
                 audioSource.Stop();
                 isGameDone = true;
                 LoseGame();
@@ -84,7 +89,13 @@ public class Bar : MonoBehaviour {
 
 		if(index == 1)
 		{
-            di.UpdateLevelTimesPlayed(3);
+            di.SaveSuccesTime(new LevelSuccessTime()
+            {
+                LevelID = 4,
+                SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 3)
+            });
+
+            di.UpdateLevelTimesPlayed(4);
             audioSource.Stop();
         	gs = new GameStatus();
         	gs.PlayerWinGame(audioSource, waitingTime, 4);
@@ -94,18 +105,20 @@ public class Bar : MonoBehaviour {
 
 	private void SettingTimeOfGame()
     {
-        timeLeft = ld.RoundTime;
+        timeLeft = di.GetRoundTime(4);
     }
 
     private void InitializeRecordAndScore()
     {
         di = new DependencyInjector();
+        dgb = new DynamicGameBalance();
         pd = new PlayerData();
         ld = new LevelData();
 
         pd = di.GetAllPlayerData();
         ld = di.GetLevelData(4);
-
+        dbRoundtime = di.GetRoundTime(4);
+            
         score = 0;
         bestScore = ld.BestScore;
 
@@ -244,6 +257,7 @@ public class Bar : MonoBehaviour {
 
 	void LoseGame()
     {
+        di.ResetLevelSuccessTimeByLevel(4);
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 4);
@@ -254,5 +268,6 @@ public class Bar : MonoBehaviour {
         //Setando Texto
         var Nivel = GameObject.Find("Nivel").GetComponent<Text>();
         Nivel.text = count + "/5";
+
 	}
 }

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class IconGetter : MonoBehaviour, IDropHandler
 {
-
     public GameStatus gs;
     public AudioSource audioSource;
     public int waitingTime = 3;
@@ -60,7 +59,7 @@ public class IconGetter : MonoBehaviour, IDropHandler
 
     void LoseGame()
     {
-        di.UpdateLevelTimesPlayed(3);
+        di.UpdateLevelTimesPlayed(4);
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 4);
