@@ -11,15 +11,11 @@ namespace Assets.Scripts.Utils
         public int CalculateRoundTime(int RoundTime, List<LevelSuccessTime> llst)
         {
             int roundTimeDGB = 0;
-            int adjustSecond = 0;
-            int successTimeAVG = 0;
             int adjustSense = 0;
             float typDevForRound = 0;
             float percentDeviation = 0;
 
             adjustSense = GetSenseOfOperation(RoundTime, llst);
-            successTimeAVG = CalculateAverage(llst);
-            adjustSecond = AdjustSecond(llst);
 
             typDevForRound = CalculateTypicalDevForRound(RoundTime, llst);
             percentDeviation = Math.Abs(CalculatePercentOfDevation(RoundTime, typDevForRound));
@@ -54,10 +50,6 @@ namespace Assets.Scripts.Utils
             return value / div;
         }
 
-        private int AdjustSecond(List<LevelSuccessTime> llst)
-        {
-            return (int)CalculateTypicalDesv(llst);
-        }
         private double CalculateTypicalDesv(List<LevelSuccessTime> llst)
         {
             double successTimeTypDesv = 0;

@@ -183,7 +183,7 @@ public class ImageChanger : MonoBehaviour
     {
         //Contador
         count++;
-        //Setando Texto
+        //Setando Texto 
         var Nivel = GameObject.Find("Nivel").GetComponent<Text>();
         Nivel.text = count + "/5";
 
@@ -195,7 +195,7 @@ public class ImageChanger : MonoBehaviour
     }
     void ButtonInit()
     {
-        timeLeft = di.GetLevelData(1).RoundTime;
+        timeLeft = di.GetRoundTime(1);
         btnSend.enabled = false;
         btnSend.GetComponent<Image>().enabled = false;
         btn.GetComponent<Image>().enabled = false;
@@ -255,12 +255,11 @@ public class ImageChanger : MonoBehaviour
         Score = objScore.GetComponent<Text>();
         texto = GameObject.Find("Timing");
         timing = texto.GetComponent<Text>();
-        dgb = new DynamicGameBalance();
-        timeLeft = di.GetRoundTime(1);
+        dgb = new DynamicGameBalance();      
     }
     private void SettingTimeOfGame()
     {
-        timeLeft = ld.RoundTime;
+        timeLeft = di.GetRoundTime(1);
     }
     private void InitializeRecordAndScore()
     {
