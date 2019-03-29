@@ -32,6 +32,9 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        di = new DependencyInjector();
+        di.CreateDatabaseIfNotExist();
+
         PrincipalMenu = GameObject.Find("PrincipalMenu");
         OptionsMenu = GameObject.Find("OptionsMenu");
         ExtrasMenu = GameObject.Find("ExtrasMenu");
