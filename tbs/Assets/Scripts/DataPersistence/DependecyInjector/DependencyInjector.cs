@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.DataPersistence.DBGenerator;
 
 namespace Assets.Scripts.DataPersistence.DependecyInjector
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         private LevelDataService _lds = null;
         private QuestionDataService _qds = null;
         private LevelSuccessTimeService _lst = null;
+        private DBGenerator.DBGenerator _dbg = null;
 
         public DependencyInjector()
         {
@@ -24,7 +26,17 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             _lds = new LevelDataService(_dbc);
             _qds = new QuestionDataService(_dbc);
             _lst = new LevelSuccessTimeService(_dbc);
+            _dbg = new DBGenerator.DBGenerator(_dbc);
         }
+
+        #region DatabaseGenerator
+
+        public bool CreateDatabaseIfNotExist()
+        {
+            return _dbg.CreateDbIfNotExist();
+        }
+
+        #endregion
 
         #region PlayerData
         public PlayerData GetAllPlayerData()
