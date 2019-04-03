@@ -32,12 +32,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     // Start is called before the first frame update
     void Start()
     {
-        randomPetition();
-
-        audioAlegria = GetComponent<AudioSource>();
-        audioTristeza = GetComponent<AudioSource>();
-        audioEnojo = GetComponent<AudioSource>();
-        audioMiedo = GetComponent<AudioSource>();
+        GetAndInitializeAllGameObjects();
 
         HasChanged();
 
@@ -48,9 +43,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     // Update is called once per frame
     void Update()
     {
-
+        
         Debug.Log("UPDATE valor de elementText: ------------- " + elementText.text);
         Debug.Log("UPDATE valor de referenciaOPcion: ------------- "+referenciaOpcion);
+
         if (elementText.text.Length > 10)
         {
             panelSprites.gameObject.SetActive(false); //Desactivar panel de sprites
@@ -63,7 +59,18 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         {
             Debug.Log("Estan Seteados los 2 slots? :" + stateSlots);
         }
+        
   
+    }
+
+    public void GetAndInitializeAllGameObjects()
+    {
+        randomPetition();
+
+        audioAlegria = GetComponent<AudioSource>();
+        audioTristeza = GetComponent<AudioSource>();
+        audioEnojo = GetComponent<AudioSource>();
+        audioMiedo = GetComponent<AudioSource>();
     }
 
     public void Validate()
@@ -77,10 +84,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             Debug.Log("Son iguales, ACERTASTE");
             count++;
             elementText.text = " "; //Para que no siga entrando al if de update
-            //referenciaOpcion = " ";
+            referenciaOpcion = " ";
             btnCompare.gameObject.SetActive(false);  //Desactiva boton
             panelSprites.gameObject.SetActive(true); //Activa panel
-            //Debug.Log("count: "+count);
+            Debug.Log("count: "+count);
 
             //Borra los sprite cargado en rostro de emoji
             foreach (Transform slotTransform in slots)
@@ -107,9 +114,9 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             }
             i = 0; //reiniciar indice de arrayprefab
             
-            randomPetition(); //Randomizar nuevamente
-            HasChanged();
-            Update();
+           // randomPetition(); //Randomizar nuevamente
+           // HasChanged();
+           // Update();
             
             
         }
@@ -128,22 +135,22 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         {
             case 0:
                 Debug.Log("Reproducir mp3 Alegria");
-               // audioAlegria.Play();
+                audioAlegria.Play();
                 referenciaOpcion = "o_alegreb_alegre";
                 break;
             case 1:
                 Debug.Log("Reproducir mp3 Triste");
-               // audioTristeza.Play();
+                audioTristeza.Play();
                 referenciaOpcion = "o_tristezab_tristeza";
                 break;
             case 2:
                 Debug.Log("Reproducir mp3 Miedo");
-               // audioMiedo.Play();
+                audioMiedo.Play();
                 referenciaOpcion = "o_miedob_miedo";
                 break;
             case 3:
                 Debug.Log("Reproducir mp3 Enojo");
-               // audioEnojo.Play();
+                audioEnojo.Play();
                 referenciaOpcion = "o_enojob_enojo";
                 break;
         }
