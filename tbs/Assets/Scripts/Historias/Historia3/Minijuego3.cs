@@ -320,6 +320,7 @@ public class Minijuego3 : MonoBehaviour
             complete();
         }
     }
+
     public void esCirculo()
     {
         if (btnCirculo.name == sign)
@@ -333,6 +334,7 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
+
     public void esTriangulo()
     {
         if (btnTriangulo.name == sign)
@@ -346,6 +348,7 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
+
     public void esCuadrado()
     {
         if (btnCuadrado.name == sign)
@@ -359,6 +362,7 @@ public class Minijuego3 : MonoBehaviour
 
         disabledButton();
     }
+
     //Accion oculta mano y activa simbolos
     public void accionMano()
     {
@@ -371,6 +375,7 @@ public class Minijuego3 : MonoBehaviour
         btnMano.SetActive(false);
 
     }
+
     //Oculta simbolos de botones
     public void disabledButton()
     {
@@ -378,6 +383,7 @@ public class Minijuego3 : MonoBehaviour
         btnCuadrado.SetActive(false);
         btnTriangulo.SetActive(false);
     }
+
     //Mensaje de respuesta correcta
     public void Ok()
     {
@@ -388,6 +394,7 @@ public class Minijuego3 : MonoBehaviour
         btnContinue.SetActive(true);
         isRoundDone = true;
     }
+
     //Mensaje de Respuesta incorrecta
     public void fail()
     {
@@ -397,6 +404,7 @@ public class Minijuego3 : MonoBehaviour
         isRoundDone = true;
         di.ResetLevelSuccessTimeByLevel(3);
     }
+
     //Mensaje de finalizacion de minijuego
     public void complete()
     {
@@ -418,6 +426,7 @@ public class Minijuego3 : MonoBehaviour
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime, 3);
     }
+
     //Restaura el minijuego para la siguiente iteracion
     public void iteracion()
     {

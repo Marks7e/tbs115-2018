@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 64611462}
   - component: {fileID: 64611465}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_o_alegre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 157284736}
   - component: {fileID: 157284739}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_o_miedo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 306028997}
   - component: {fileID: 306029000}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_b_enojo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 504177279}
   - component: {fileID: 504177282}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_o_enojo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1008,7 +1008,7 @@ GameObject:
   - component: {fileID: 729202336}
   - component: {fileID: 729202339}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_b_miedo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 825715879}
   - component: {fileID: 825715882}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_o_tristeza
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1645,7 +1645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8962264, g: 0.81590426, b: 0.81590426, a: 1}
+  m_Color: {r: 0.4811321, g: 0.4516287, b: 0.4516287, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2019,7 +2019,7 @@ GameObject:
   - component: {fileID: 1231602714}
   - component: {fileID: 1231602717}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_b_tristeza
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2196,7 +2196,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1323524296}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1323524296
@@ -2474,8 +2485,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: {fileID: 59236258}
+  sprites: {fileID: 1651193819}
   elementText: {fileID: 894808714}
   panelSprites: {fileID: 1651193818}
+  arrayPrefab:
+  - {fileID: 3277555738606668506, guid: 07053eeace6e6f24ea905f93b700dd2e, type: 3}
+  - {fileID: 919124082033556331, guid: 2299036382e8fec41bb6f8cacbdb0ed1, type: 3}
+  - {fileID: 7908070010774060794, guid: 9bd83ac6c515e2040bc34d685e860183, type: 3}
+  - {fileID: 1242786867805406378, guid: 3ba0ccf1bd837e54fb29ebb25ac9e97c, type: 3}
+  - {fileID: 2387496933324332949, guid: a1b35d1e8dda4194b9a67a0f55d16244, type: 3}
+  - {fileID: 801774711121410018, guid: 14968e44381ea964fb3ab410da054e0c, type: 3}
+  - {fileID: 2988186819176569865, guid: fd4f30e8827e5e6499dc8fc9a0febfa1, type: 3}
+  - {fileID: 4078050494872329984, guid: 7989ca49798ed254499d2bac75fd32f9, type: 3}
   btnCompare: {fileID: 1323524295}
   audioAlegria: {fileID: 1699800477}
   audioTristeza: {fileID: 2129735468}
@@ -2620,7 +2641,7 @@ GameObject:
   - component: {fileID: 1466221544}
   - component: {fileID: 1466221547}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot_b_alegre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
