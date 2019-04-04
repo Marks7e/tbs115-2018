@@ -17,13 +17,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     public Button btnCompare;
 
-    /*
-    public AudioSource audioAlegria;
-    public AudioSource audioTristeza;
-    public AudioSource audioEnojo;
-    public AudioSource audioMiedo;
-    */
-
     public AudioSource audioPetition;
     public AudioClip[] audioClipArray; 
 
@@ -37,14 +30,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         audioPetition = GetComponent<AudioSource>();
 
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        audioPetition.clip = audioClipArray[Random.Range(0, audioClipArray.Length)];
-        audioPetition.PlayOneShot(audioPetition.clip);
-        */
-
+        
         GetAndInitializeAllGameObjects();
 
         HasChanged();
@@ -56,23 +46,13 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("UPDATE valor de elementText: ------------- " + elementText.text);
-        Debug.Log("UPDATE valor de referenciaOPcion: ------------- "+referenciaOpcion);
-        Debug.Log(" palabra tiene menos de 10 letras");
-        /*
-        if (count <= 3)
-        {*/
+       
             if (elementText.text.Length > 10)
             {
-                Debug.Log(" palabra tiene mas de 10 letras");
+                //Debug.Log(" palabra tiene mas de 10 letras");
                 DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
             }
-       /* }
-        else
-        {
-            Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
-        }*/
-        
+     
          
     }
 
@@ -120,7 +100,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         {
             GameObject objectHijo = Instantiate(arrayPrefab[i]) as GameObject;
             objectHijo.name = arrayPrefab[i].name;
-            objectHijo.transform.parent = spriteTransform.transform;
+            //objectHijo.transform.parent = spriteTransform.transform;
+            objectHijo.transform.SetParent(spriteTransform.transform);
             objectHijo.transform.position = spriteTransform.transform.position;
             i++;
         }
@@ -129,21 +110,18 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         
     }
 
+
+
     public void Validate()
     {
-        /*
-        Debug.Log("VALIDATE Valor de Referencia: " + referenciaOpcion);
-        Debug.Log("VALIDATE Valor de ElementText: " + elementText.text);
-      */
         Debug.Log("intento: " + count);
 
-        if (count <= 3)
+        if (count < 3)
         {
             if (elementText.text == referenciaOpcion)
             {
                 Debug.Log("Son iguales, ACERTASTE");
 
-               
                 count++;
 
                 resetStage();
@@ -157,43 +135,41 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         }
         else
         {
+            btnCompare.gameObject.SetActive(false);
+            GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
+            //Borra los sprite cargado en rostro de emoji
+            foreach (Transform slotTransform in slots)
+            {
+                GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
+                Destroy(itemSprite);
+            }
+
             Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
+
         }
 
     }
 
     public void RandomPetition()
     {
-        int op = UnityEngine.Random.Range(0, 5);
+        int op = UnityEngine.Random.Range(0, audioClipArray.Length);
 
         switch (op)
         {
             case 0:
-                Debug.Log("Reproducir mp3 Alegria");
-                //audioAlegria.Play();
                 audioPetition.clip = audioClipArray[0];
-                //audioPetition.PlayOneShot(audioPetition.clip);
                 referenciaOpcion = "o_alegreb_alegre";
                 break;
             case 1:
-                Debug.Log("Reproducir mp3 Triste");
-                //audioTristeza.Play();
-                audioPetition.clip = audioClipArray[1];
-                //audioPetition.PlayOneShot(audioPetition.clip);
+                 audioPetition.clip = audioClipArray[1];
                 referenciaOpcion = "o_tristezab_tristeza";
                 break;
             case 2:
-                Debug.Log("Reproducir mp3 Miedo");
-                //audioMiedo.Play();
                 audioPetition.clip = audioClipArray[2];
-                //audioPetition.PlayOneShot(audioPetition.clip);
                 referenciaOpcion = "o_miedob_miedo";
                 break;
             case 3:
-                Debug.Log("Reproducir mp3 Enojo");
-                //audioEnojo.Play();
-                audioPetition.clip = audioClipArray[3];
-                //audioPetition.PlayOneShot(audioPetition.clip);
+                 audioPetition.clip = audioClipArray[3];
                 referenciaOpcion = "o_enojob_enojo";
                 break;
         }
