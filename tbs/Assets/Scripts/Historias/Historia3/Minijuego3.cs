@@ -79,6 +79,7 @@ public class Minijuego3 : MonoBehaviour
 
         }
     }
+
     public void RandomSpeak()
     {
         if (count <= 3)

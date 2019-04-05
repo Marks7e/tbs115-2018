@@ -7,7 +7,7 @@ TagManager:
   - Smugie
   - Conejo
   - Arbol
-  - Sleep
+  - sleep
   layers:
   - Default
   - TransparentFX
