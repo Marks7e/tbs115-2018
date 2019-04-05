@@ -56,7 +56,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     private int nchar;
     private int option;
-    private int count = 0;
+    private int count = 1;
     private int i = 0;
 
     private void Awake()
@@ -131,7 +131,9 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         elementText.text = " ";
 
         referenciaOpcion = " ";
-        Nivel.text = count + "/3";
+
+        //Nivel.text = count + "/3";
+
         EnablePanelSprite();
         
         //Borra los sprite cargado en rostro de emoji
@@ -170,7 +172,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public void Validate()
     {
         Debug.Log("intento: " + count);
-        //Nivel.text = count + "/3";
+        Nivel.text = count + "/3";
         if (count < 3)
         {
             if (elementText.text == referenciaOpcion)
@@ -329,7 +331,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
         count++;                    //Aumenta el contador para etiqueta de ronda
-        Nivel.text = count + "/3";
+        //Nivel.text = count + "/3";
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
         ResetStage();               //Reinicia el escenario
         RandomPetition();           //Realiza peticion de nuevo rostro a formar
