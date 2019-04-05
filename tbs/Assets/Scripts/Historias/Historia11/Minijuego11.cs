@@ -107,6 +107,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         if (elementText.text.Length > 10)
             {
+                Nivel.text = count + "/3";
                 //Debug.Log(" palabra tiene mas de 10 letras");
                 DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
             }
@@ -172,16 +173,17 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public void Validate()
     {
         Debug.Log("intento: " + count);
-        Nivel.text = count + "/3";
+        //Nivel.text = count + "/3";
         if (count < 3)
         {
             if (elementText.text == referenciaOpcion)
             {
-                Debug.Log("Son iguales, ACERTASTE");
+                //Debug.Log("Son iguales, ACERTASTE");
                 isRoundDone = true;
                 panelSprites.SetActive(false);
                 panelWin.SetActive(true);
-                
+                count++;
+                //Nivel.text = count + "/3";
                 //Ok();
                 //count++;
 
@@ -190,12 +192,14 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             }
             else
             {
-                Debug.Log("Son diferentes, FALLASTE");
+                //Debug.Log("Son diferentes, FALLASTE");
                 isRoundDone = true;
                 panelSprites.SetActive(false);
                 panelLose.SetActive(true);
                 //fail();
                 //count = 0; //reinicia los intentos
+                count = 1;
+                //Nivel.text = count + "/3";
             }
         }
         else
@@ -330,7 +334,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         totalTimeByGame += dbRoundtime - (int)timeLeft;
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
-        count++;                    //Aumenta el contador para etiqueta de ronda
+        //count++;                    //Aumenta el contador para etiqueta de ronda
         //Nivel.text = count + "/3";
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
         ResetStage();               //Reinicia el escenario
@@ -344,14 +348,14 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         score -= 800;
         UpdateScore();
         SettingTimeOfGame();
-        count = 1;
-        Nivel.text = count + "/3";
+        //count = 1;
+        //Nivel.text = count + "/3";
         panelLose.SetActive(false);
         ResetStage();               //Reinicia el escenario
         RandomPetition();
         isRoundDone = false;
         
-        //di.ResetLevelSuccessTimeByLevel(3);
+       // di.ResetLevelSuccessTimeByLevel(3);
     }
 
     //Mensaje de finalizacion de minijuego
