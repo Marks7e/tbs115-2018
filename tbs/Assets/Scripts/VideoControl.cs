@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class VideoControl : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class VideoControl : MonoBehaviour
     public GameObject btnPlay, btnPause;
     public string sceneToChange;
     public float duration;
-    private bool videostate;
+    private bool _videoState;
 
     // Use this for initialization
     void Start()
@@ -28,18 +25,18 @@ public class VideoControl : MonoBehaviour
     {
         if (videoPlayer.isPlaying)
         {
-            videostate = true;
+            _videoState = true;
             btnPlay.SetActive(false);
             btnPause.SetActive(true);
-            enableSkip.EnableSkipButton(getLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
+            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
             //Debug.Log("Esta reproduciendo"+", "+"frame: "+videoPlayer.frame+", "+"tiempo: "+videoPlayer.time);
         }
         else
         {
-            videostate = false;
+            _videoState = false;
             btnPause.SetActive(false);
             btnPlay.SetActive(true);
-            enableSkip.EnableSkipButton(getLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
+            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
             //Debug.Log("Esta Pausado"+" "+"frame: "+videoPlayer.frame+", "+"tiempo: "+videoPlayer.time);
         }
 
@@ -51,19 +48,19 @@ public class VideoControl : MonoBehaviour
 
     }
 
-    public void actionPause()
+    public void ActionPause()
     {
         videoPlayer.Pause();
         audioSource.Pause();
     }
 
-    public void actionPlay()
+    public void ActionPlay()
     {
         videoPlayer.Play();
         audioSource.Play();
     }
 
-    private int getLevelNumberFromSceneToLoad(string sceneToChange)
+    private int GetLevelNumberFromSceneToLoad(string sceneToChange)
     {
         return int.Parse(sceneToChange.Split(' ')[1]);
     }

@@ -2,38 +2,35 @@
 using Assets.Scripts.DataPersistence.Interfaces;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Assets.Scripts.DataPersistence.DBGenerator;
 
 namespace Assets.Scripts.DataPersistence.DependecyInjector
 {
     public class DependencyInjector
     {
-        private DataBaseConnector _dbc = null;
-        private PlayerDataService _pds = null;
-        private LevelDataService _lds = null;
-        private QuestionDataService _qds = null;
-        private LevelSuccessTimeService _lst = null;
-        private DBGenerator.DBGenerator _dbg = null;
+        private DataBaseConnector _dataBaseConnector = null;
+        private PlayerDataService _playerDataService = null;
+        private LevelDataService _levelDataService = null;
+        private QuestionDataService _questionDataService = null;
+        private LevelSuccessTimeService _levelSuccessTimeService = null;
+        private DBGenerator.DBGenerator _databaseGeneratorService = null;
 
         public DependencyInjector()
         {
-            _dbc = new DataBaseConnector();
-            _pds = new PlayerDataService(_dbc);
-            _lds = new LevelDataService(_dbc);
-            _qds = new QuestionDataService(_dbc);
-            _lst = new LevelSuccessTimeService(_dbc);
-            _dbg = new DBGenerator.DBGenerator(_dbc);
+            _dataBaseConnector = new DataBaseConnector();
+            _playerDataService = new PlayerDataService(_dataBaseConnector);
+            _levelDataService = new LevelDataService(_dataBaseConnector);
+            _questionDataService = new QuestionDataService(_dataBaseConnector);
+            _levelSuccessTimeService = new LevelSuccessTimeService(_dataBaseConnector);
+            _databaseGeneratorService = new DBGenerator.DBGenerator(_dataBaseConnector);
         }
 
         #region DatabaseGenerator
 
         public bool CreateDatabaseIfNotExist()
         {
-            return _dbg.CreateDbIfNotExist();
+            return _databaseGeneratorService.CreateDbIfNotExist();
         }
 
         #endregion
@@ -41,48 +38,48 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         #region PlayerData
         public PlayerData GetAllPlayerData()
         {
-            return _pds.GetPlayerData();
+            return _playerDataService.GetPlayerData();
         }
-        public bool UpdateTotalizedScore(int Score)
+        public bool UpdateTotalizedScore(int score)
         {
-            PlayerData pd = new PlayerData();
-            pd.TotalScore = Score;
+            PlayerData playerDataModel = new PlayerData();
+            playerDataModel.TotalScore = score;
 
-            return _pds.SaveDataToDB(pd);
+            return _playerDataService.SaveDataToDb(playerDataModel);
         }
         #endregion
 
         #region LevelData
         public List<LevelData> GetAllLevelData()
         {
-            return _lds.GetAllLevelData();
+            return _levelDataService.GetAllLevelData();
         }
         public LevelData GetLevelData(int level)
         {
-            return _lds.GetLevelData(level);
+            return _levelDataService.GetLevelData(level);
         }
         public bool UpdateBestScoreForLevel(int level, int bestScore)
         {
-            LevelData ld = new LevelData();
-            ld.LevelID = level;
-            ld.BestScore = bestScore;
-            return _lds.SaveDataToDB(ld);
+            LevelData levelDataModel = new LevelData();
+            levelDataModel.LevelId = level;
+            levelDataModel.BestScore = bestScore;
+            return _levelDataService.SaveDataToDb(levelDataModel);
         }
         public bool UpdateLevelTimesPlayed(int level)
         {
-            return _lds.UpdateTimesPlayedForLevelID(level);
+            return _levelDataService.UpdateTimesPlayedForLevelId(level);
         }
         public int CalculateRoundTimeByDynamicGameBalancing(int level)
         {
-            LevelData lvl = GetLevelData(level);
-            List<LevelSuccessTime> lst = GetAllLevelSuccessTimeByLevel(level);
-            DynamicGameBalance dgb = new DynamicGameBalance();
-            return dgb.CalculateRoundTime(lvl.RoundTime, lst);
+            LevelData levelDataModel = GetLevelData(level);
+            List<LevelSuccessTime> levelSuccessTimeListModel = GetAllLevelSuccessTimeByLevel(level);
+            DynamicGameBalance dynamicGameBalance = new DynamicGameBalance();
+            return dynamicGameBalance.CalculateRoundTime(levelDataModel.RoundTime, levelSuccessTimeListModel);
         }
         public int GetRoundTime(int level)
         {
-            List<LevelSuccessTime> llst = GetAllLevelSuccessTimeByLevel(level);
-            if (llst.Count >= 5)
+            List<LevelSuccessTime> levelSuccessTimeListModel = GetAllLevelSuccessTimeByLevel(level);
+            if (levelSuccessTimeListModel.Count >= 5)
             { return CalculateRoundTimeByDynamicGameBalancing(level); }
             return GetLevelData(level).RoundTime;
         }
@@ -91,40 +88,40 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         #region PlayerDataAndLevelData
         public bool UnlockGame(int level)
         {
-            PlayerData pd = GetAllPlayerData();
-            LevelData ld = GetAllLevelData().FirstOrDefault(l => l.LevelID == level);
-            return ld.UnlockLevelAt <= pd.TotalScore;
+            PlayerData playerDataModel = GetAllPlayerData();
+            LevelData levelDataModel = GetAllLevelData().FirstOrDefault(l => l.LevelId == level);
+            return levelDataModel.UnlockLevelAt <= playerDataModel.TotalScore;
         }
         #endregion
 
         #region QuestionData
         public List<QuestionData> GetAllQuestionData()
         {
-            return _qds.GetAllQuestions();
+            return _questionDataService.GetAllQuestions();
 
         }
-        public bool SaveAnswerForQuestion(IDataModel QuestionData)
+        public bool SaveAnswerForQuestion(IDataModel dataModel)
         {
-            return _qds.SaveDataToDB(QuestionData);
+            return _questionDataService.SaveDataToDb(dataModel);
         }
         #endregion
 
         #region LevelSuccessTime
         public List<LevelSuccessTime> GetAllLevelSuccessTime()
         {
-            return _lst.GetAllSuccessTimeFromDB();
+            return _levelSuccessTimeService.GetAllSuccessTimeFromDb();
         }
         public List<LevelSuccessTime> GetAllLevelSuccessTimeByLevel(int level)
         {
-            return _lst.GetAllSuccessByLevel(level);
+            return _levelSuccessTimeService.GetAllSuccessByLevel(level);
         }
         public bool SaveSuccesTime(IDataModel LevelSuccessTime)
         {
-            return _lst.SavePerformanceForLevel(LevelSuccessTime);
+            return _levelSuccessTimeService.SavePerformanceForLevel(LevelSuccessTime);
         }
         public bool ResetLevelSuccessTimeByLevel(int level)
         {
-            return _lst.DeleteLevelSuccessTimeByLevel(level);
+            return _levelSuccessTimeService.DeleteLevelSuccessTimeByLevel(level);
         }
         #endregion
 

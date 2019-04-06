@@ -12,19 +12,18 @@ public class ModalPanel : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public GameObject modalPanelObject;
-    private SqliteConnection sql = null;
 
-    private static ModalPanel modalPanel;
+    private static ModalPanel _modalPanel;
 
     public static ModalPanel Instance()
     {
-        if (!modalPanel)
+        if (!_modalPanel)
         {
-            modalPanel = FindObjectOfType(typeof(ModalPanel)) as ModalPanel;
-            if (!modalPanel)
+            _modalPanel = FindObjectOfType(typeof(ModalPanel)) as ModalPanel;
+            if (!_modalPanel)
                 Debug.LogError("There needs to be one active ModalPanel script on a GameObject in your scene.");
         }
-        return modalPanel;
+        return _modalPanel;
     }
 
     public void Choice(string question)
@@ -54,6 +53,6 @@ public class ModalPanel : MonoBehaviour
         Debug.Log("Eliminando archivos .dat");
         //gdp.DeleteDatFiles();
         //SceneManager.LoadScene("MainMenu");
-        modalPanel.ClosePanel();
+        _modalPanel.ClosePanel();
     }
 }

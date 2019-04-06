@@ -8,7 +8,7 @@ namespace Assets.Scripts.DataPersistence.Models
 {
     public class LevelData : IDataModel
     {
-        public int LevelID { get; set; }
+        public int LevelId { get; set; }
         public int BestScore { get; set; }
         public int RoundTime { get; set; }
         public double PointMultiplier { get; set; }

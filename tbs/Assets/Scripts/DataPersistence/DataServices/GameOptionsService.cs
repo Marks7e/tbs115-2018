@@ -13,81 +13,78 @@ namespace Assets.Scripts.DataPersistence.DataServices
     public class GameOptionsService : IDataService
     {
 
-        private DataBaseConnector _dbc;
-        private GameOptions _GameOptionsModel;
-        private SqliteConnection _db;
+        private DataBaseConnector _dataBaseConnector;
+        private GameOptions _gameOptionModel;
+        private SqliteConnection _sqliteConnection;
 
 
         /*Queries a base de datos (LevelData)*/
-        private string GAME_OPTIONS_DATA = "SELECT * FROM GAMEOPTIONS;";
-        private string GAME_OPTIONS_RESET= "UPDATE GAMEOPTIONS SET PVALUE= 1 WHERE OPTIONID = 1 ;";
-        private string GAME_OPTIONS_SAVE_VOLUME = "UPDATE GAMEOPTIONS SET PVALUE= @volume WHERE OPTIONID = 1 ;";
+        private string Game_Options_Data = "SELECT * FROM GAMEOPTIONS;";
+        private string Game_Options_Save_Volume = "UPDATE GAMEOPTIONS SET PVALUE= @volume WHERE OPTIONID = 1 ;";
 
 
-        public GameOptionsService(DataBaseConnector dbc)
+        public GameOptionsService(DataBaseConnector dataBaseConnector)
         {
-            _dbc = dbc;
-            _db = _dbc.getDBInstance();
+            _dataBaseConnector = dataBaseConnector;
+            _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
 
-        public bool LoadAllDataFromDB()
+        public bool LoadAllDataFromDb()
         {
             try
             {
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = GAME_OPTIONS_DATA;
-                IDataReader reader = cmd.ExecuteReader();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Game_Options_Data;
+                IDataReader dataReader = dbCommand.ExecuteReader();
 
-                while (reader.Read())
+                while (dataReader.Read())
                 {
-                    _GameOptionsModel = new GameOptions()
+                    _gameOptionModel = new GameOptions()
                     {
-                        QuestionID = reader.GetInt32(0),
-                        Parameter = reader.GetString(1),
-                        PValue = reader.GetString(2)
+                        QuestionId = dataReader.GetInt32(0),
+                        Parameter = dataReader.GetString(1),
+                        PValue = dataReader.GetString(2)
                     };
                 }
-                reader.Close();
-                _db.Close();
-                _db.Dispose();
+                dataReader.Close();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
-                _db.Close();
-                _db.Dispose();
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return false;
             }
         }
 
-        public bool SaveDataToDB(IDataModel data)
+        public bool SaveDataToDb(IDataModel dataModel)
         {
             try
             {
-                GameOptions go = (GameOptions) data;
+                GameOptions gameOptionsModel = (GameOptions)dataModel;
 
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = GAME_OPTIONS_SAVE_VOLUME;
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Game_Options_Save_Volume;
 
                 /*Actualizando volumen registrado*/
-                IDbDataParameter volumenParam = cmd.CreateParameter();
-                volumenParam.ParameterName = "@volume";
-                volumenParam.Value = go.PValue;
-                cmd.Parameters.Add(volumenParam);
+                IDbDataParameter dbVolumeDataParameter = dbCommand.CreateParameter();
+                dbVolumeDataParameter.ParameterName = "@volume";
+                dbVolumeDataParameter.Value = gameOptionsModel.PValue;
+                dbCommand.Parameters.Add(dbVolumeDataParameter);
 
-                bool res = cmd.ExecuteNonQuery() > 0;
-                _db.Close();
-                _db.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
 
-                return res;
-                
+                return dbCommand.ExecuteNonQuery() > 0;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
+                Debug.LogError(exception.Message);
                 return false;
             }
         }

@@ -12,24 +12,23 @@ namespace Assets.Scripts.DataPersistence
             PC
         }
 
-        private SqliteConnection sqlite;
+        private SqliteConnection _sqliteConnection;
 
-        public SqliteConnection getDBInstance()
+        public SqliteConnection GetDbInstance()
         {
             SetConnection(PlatformDeploy.Android);
-            return sqlite;
+            return _sqliteConnection;
         }
 
-        private void SetConnection(PlatformDeploy deploy)
+        private void SetConnection(PlatformDeploy platformDeploy)
         {
-            switch (deploy)
+            switch (platformDeploy)
             {
                 case PlatformDeploy.Android:
-                    sqlite = new SqliteConnection("URI=file:" + Application.persistentDataPath + "/dbgame.db");
-                    //sqlite = new SqliteConnection("URI=file:" + Application.dataPath + "/Database/dbgame.db");
+                    _sqliteConnection = new SqliteConnection("URI=file:" + Application.persistentDataPath + "/dbgame.db");
                     break;
                 case PlatformDeploy.PC:
-                    sqlite = new SqliteConnection("Data Source=" + Application.dataPath + "/Database/dbgame.db");
+                    _sqliteConnection = new SqliteConnection("Data Source=" + Application.dataPath + "/Database/dbgame.db");
                     break;
             }
 

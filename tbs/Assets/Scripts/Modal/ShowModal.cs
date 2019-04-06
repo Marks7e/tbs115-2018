@@ -6,34 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class ShowModal : MonoBehaviour
 {
-    private ModalPanel modalPanel;
-    private NoPointsForLevelModal noPointsModal;
-    private DisplayManager displayManager;
+    private ModalPanel _modalPanel;
+    private NoPointsForLevelModal _noPointsModal;
+    private DisplayManager _displayManager;
 
-    private UnityAction yesAction;
-    private UnityAction noAction;
+    private UnityAction _yesAction;
+    private UnityAction _noAction;
 
     public void InstanceDeleteModal()
     {
-        modalPanel = ModalPanel.Instance();
+        _modalPanel = ModalPanel.Instance();
     }
     public void InstanceNoPointsModal()
     {
-        noPointsModal = NoPointsForLevelModal.Instance();
+        _noPointsModal = NoPointsForLevelModal.Instance();
     }
-
-
     public void SendDeleteModalToView()
     {
         InstanceDeleteModal();
-        modalPanel.Choice("Al eliminar los datos del juego, perderás el progreso obtenido. ¿Estás seguro de proceder?");
+        _modalPanel.Choice("Al eliminar los datos del juego, perderás el progreso obtenido. ¿Estás seguro de proceder?");
     }
     public void SendNoPointsForLevelModalToView()
     {
         InstanceNoPointsModal();
-        noPointsModal.Choice("Necesitas mayor puntaje para desbloquear este nivel.");
+        _noPointsModal.Choice("Necesitas mayor puntaje para desbloquear este nivel.");
     }
-
-
-
 }

@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnableSkip 
 {

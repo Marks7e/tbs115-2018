@@ -8,21 +8,21 @@ namespace Assets.Scripts.Utils
 {
     public class DynamicGameBalance
     {
-        public int CalculateRoundTime(int RoundTime, List<LevelSuccessTime> llst)
+        public int CalculateRoundTime(int roundTime, List<LevelSuccessTime> leveSuccessTimeListModel)
         {
             int roundTimeDGB = 0;
             int adjustSense = 0;
             float typDevForRound = 0;
             float percentDeviation = 0;
 
-            adjustSense = GetSenseOfOperation(RoundTime, llst);
-            typDevForRound = CalculateTypicalDevForRound(RoundTime, llst);
-            percentDeviation = Math.Abs(CalculatePercentOfDevation(RoundTime, typDevForRound));
+            adjustSense = GetSenseOfOperation(roundTime, leveSuccessTimeListModel);
+            typDevForRound = CalculateTypicalDevForRound(roundTime, leveSuccessTimeListModel);
+            percentDeviation = Math.Abs(CalculatePercentOfDevation(roundTime, typDevForRound));
 
             if (adjustSense > 0)
-            { roundTimeDGB = (int)Math.Round(RoundTime * (percentDeviation /100) + (RoundTime *0.1)); }
+            { roundTimeDGB = (int)Math.Round(roundTime * (percentDeviation /100) + (roundTime *0.1)); }
             else
-            { roundTimeDGB = (int)Math.Round(RoundTime * (percentDeviation /100) - (RoundTime * 0.1)); }
+            { roundTimeDGB = (int)Math.Round(roundTime * (percentDeviation /100) - (roundTime * 0.1)); }
 
             return roundTimeDGB;
         }
@@ -32,16 +32,16 @@ namespace Assets.Scripts.Utils
             return ((typicalDeviation * 100) / (roundTime / 2));
         }
 
-        private float CalculateTypicalDevForRound(int roundTime, List<LevelSuccessTime> llst)
+        private float CalculateTypicalDevForRound(int roundTime, List<LevelSuccessTime> levelSuccessTimeListModel)
         {
-            double roundAVG = roundTime / 2;
+            double roundAvg = roundTime / 2;
             double successTime = 0f;
 
-            foreach (LevelSuccessTime lst in llst)
+            foreach (LevelSuccessTime levelSuccessTimeModel in levelSuccessTimeListModel)
             {
-                successTime += Math.Pow(Math.Abs(lst.SuccessTime), 2);
+                successTime += Math.Pow(Math.Abs(levelSuccessTimeModel.SuccessTime), 2);
             }
-            return (float)(Math.Sqrt((successTime / llst.Count)) - roundAVG);
+            return (float)(Math.Sqrt((successTime / levelSuccessTimeListModel.Count)) - roundAvg);
         }
 
         public int CalculateAverageRound(int value, int div)
@@ -49,40 +49,40 @@ namespace Assets.Scripts.Utils
             return value / div;
         }
 
-        private double CalculateTypicalDesv(List<LevelSuccessTime> llst)
+        private double CalculateTypicalDesv(List<LevelSuccessTime> levelSuccessTimeListModel)
         {
             double successTimeTypDesv = 0;
-            int successTimeAVG = 0;
+            int successTimeAvg = 0;
 
-            successTimeAVG = CalculateAverage(llst);
+            successTimeAvg = CalculateAverage(levelSuccessTimeListModel);
 
-            foreach (LevelSuccessTime lst in llst)
+            foreach (LevelSuccessTime lst in levelSuccessTimeListModel)
             {
-                int indCalc = lst.SuccessTime - successTimeAVG;
+                int indCalc = lst.SuccessTime - successTimeAvg;
                 successTimeTypDesv += Math.Pow(Math.Abs(indCalc), 2);
             }
-            successTimeTypDesv /= llst.Count;
+            successTimeTypDesv /= levelSuccessTimeListModel.Count;
 
             return successTimeTypDesv;
         }
-        private int CalculateAverage(List<LevelSuccessTime> llst)
+        private int CalculateAverage(List<LevelSuccessTime> levelSuccessTimeListModel)
         {
-            int successTimeAVG = 0;
-            successTimeAVG = ((llst.Sum(t => t.SuccessTime)) / llst.Count);
-            return successTimeAVG;
+            int successTimeAvg = 0;
+            successTimeAvg = ((levelSuccessTimeListModel.Sum(t => t.SuccessTime)) / levelSuccessTimeListModel.Count);
+            return successTimeAvg;
         }
-        private int GetSenseOfOperation(int RoundTime, List<LevelSuccessTime> llst)
+        private int GetSenseOfOperation(int roundTime, List<LevelSuccessTime> levelSuccessTimeListModel)
         {
-            int AdjustSense = 0;
+            int adjustSense = 0;
 
-            foreach (LevelSuccessTime lst in llst)
+            foreach (LevelSuccessTime lst in levelSuccessTimeListModel)
             {
-                if (lst.SuccessTime > (RoundTime / 2))
-                { AdjustSense += 1; }
+                if (lst.SuccessTime > (roundTime / 2))
+                { adjustSense += 1; }
                 else
-                { AdjustSense -= 1; }
+                { adjustSense -= 1; }
             }
-            return AdjustSense;
+            return adjustSense;
         }
     }
 }

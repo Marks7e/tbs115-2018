@@ -11,17 +11,17 @@ public class NoPointsForLevelModal : MonoBehaviour {
     public Button okButton;
     public GameObject NoPointsForLevelModalObject;
 
-    private static NoPointsForLevelModal modalPanel;
+    private static NoPointsForLevelModal _modalPanel;
 
     public static NoPointsForLevelModal Instance()
     {
-        if (!modalPanel)
+        if (!_modalPanel)
         {
-            modalPanel = FindObjectOfType(typeof(NoPointsForLevelModal)) as NoPointsForLevelModal;
-            if (!modalPanel)
+            _modalPanel = FindObjectOfType(typeof(NoPointsForLevelModal)) as NoPointsForLevelModal;
+            if (!_modalPanel)
                 Debug.LogError("There needs to be one active NoPointsForLevelModal script on a GameObject in your scene.");
         }
-        return modalPanel;
+        return _modalPanel;
     }
 
     public void Choice(string question)

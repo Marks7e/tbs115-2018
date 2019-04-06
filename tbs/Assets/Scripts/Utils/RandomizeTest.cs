@@ -8,10 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-    private SqliteConnection sql = null;
-    private DependencyInjector di = null;
-
-    public void RandomizeForTest(int levelID)
+    public void RandomizeForTest(int levelId)
     {
         try
         {

@@ -4,100 +4,97 @@ using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.DataServices
 {
     public class QuestionDataService : IDataService
     {
-        private DataBaseConnector _dbc;
-        private List<QuestionData> listQuestionData;
-        private QuestionData QuestionModel;
-        private SqliteConnection _db;
+        private DataBaseConnector _dataBaseConnector;
+        private List<QuestionData> _questionDataListModel;
+        private QuestionData _questionDataModel;
+        private SqliteConnection _sqliteConnection;
 
         /*Queries a base de datos (LevelData)*/
-        private string QUESTION_ALL_DATA = "SELECT * FROM QUESTIONDATA ;";
-        private string QUESTION_UPDATE_ANSWER_DATA = "UPDATE QUESTIONDATA SET ANSWER = @answer WHERE QUESTIONID = @questionid ;";
+        private string Question_All_Data = "SELECT * FROM QUESTIONDATA ;";
+        private string Question_Update_Answer_Data = "UPDATE QUESTIONDATA SET ANSWER = @answer WHERE QUESTIONID = @questionid ;";
 
-        public QuestionDataService(DataBaseConnector dbc)
+        public QuestionDataService(DataBaseConnector dataBaseConnector)
         {
-            _dbc = dbc;
-            _db = _dbc.getDBInstance();
+            _dataBaseConnector = dataBaseConnector;
+            _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
 
-        public bool LoadAllDataFromDB()
+        public bool LoadAllDataFromDb()
         {
             try
             {
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = QUESTION_ALL_DATA;
-                IDataReader reader = cmd.ExecuteReader();
-                listQuestionData = new List<QuestionData>();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Question_All_Data;
+                IDataReader dataReader = dbCommand.ExecuteReader();
+                _questionDataListModel = new List<QuestionData>();
 
-                while (reader.Read())
+                while (dataReader.Read())
                 {
-                    QuestionModel = new QuestionData()
+                    _questionDataModel = new QuestionData()
                     {
-                        QuestionID = reader.GetInt32(0),
-                        RealmNumber = reader.GetInt32(1),
-                        Question = reader.GetString(2),
-                        Answer = reader.GetString(3)
+                        QuestionID = dataReader.GetInt32(0),
+                        RealmNumber = dataReader.GetInt32(1),
+                        Question = dataReader.GetString(2),
+                        Answer = dataReader.GetString(3)
                     };
-                    listQuestionData.Add(QuestionModel);
+                    _questionDataListModel.Add(_questionDataModel);
                 }
-                reader.Close();
-                _db.Close();
-                _db.Dispose();
+                dataReader.Close();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
+                Debug.LogError(exception.Message);
                 return false;
             }
         }
-        public bool SaveDataToDB(IDataModel data)
+        public bool SaveDataToDb(IDataModel dataModel)
         {
             try
             {
-                QuestionData qd = (QuestionData)data;
+                QuestionData questionDataModel = (QuestionData)dataModel;
 
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = QUESTION_UPDATE_ANSWER_DATA;
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Question_Update_Answer_Data;
 
                 /*Agregando Parametro para guardar respuesta de pregunta*/
-                IDbDataParameter bestScoreParam = cmd.CreateParameter();
-                bestScoreParam.ParameterName = "@answer";
-                bestScoreParam.Value = qd.Answer;
-                cmd.Parameters.Add(bestScoreParam);
+                IDbDataParameter dbDataParameterForBestScore = dbCommand.CreateParameter();
+                dbDataParameterForBestScore.ParameterName = "@answer";
+                dbDataParameterForBestScore.Value = questionDataModel.Answer;
+                dbCommand.Parameters.Add(dbDataParameterForBestScore);
 
                 /*Agregando Parametro para identificar la que pregunta para guardar la respuesta*/
-                IDbDataParameter levelParam = cmd.CreateParameter();
-                levelParam.ParameterName = "@questionid";
-                levelParam.Value = qd.QuestionID;
-                cmd.Parameters.Add(levelParam);
+                IDbDataParameter dbDataParameterForLevel = dbCommand.CreateParameter();
+                dbDataParameterForLevel.ParameterName = "@questionid";
+                dbDataParameterForLevel.Value = questionDataModel.QuestionID;
+                dbCommand.Parameters.Add(dbDataParameterForLevel);
 
-                bool res  = cmd.ExecuteNonQuery() > 0;
-                _db.Close();
-                _db.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
 
-                return res;                
+                return dbCommand.ExecuteNonQuery() > 0;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
+                Debug.LogError(exception.Message);
                 return false;
             }
         }
 
         public List<QuestionData> GetAllQuestions()
         {
-            LoadAllDataFromDB();
-            return listQuestionData;
+            LoadAllDataFromDb();
+            return _questionDataListModel;
         }
     }
 }

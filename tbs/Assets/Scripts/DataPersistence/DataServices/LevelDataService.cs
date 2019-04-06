@@ -4,136 +4,133 @@ using Mono.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence.DataServices
 {
     public class LevelDataService : IDataService
     {
-        private DataBaseConnector _dbc;
-        private List<LevelData> listLevelData;
-        private LevelData LevelModel;
-        private SqliteConnection _db;
+        private DataBaseConnector _dataBaseConnector;
+        private List<LevelData> _levelDataListModel;
+        private LevelData _levelDataModel;
+        private SqliteConnection _sqliteConnection;
 
 
         /*Queries a base de datos (LevelData)*/
-        private string LEVEL_ALL_DATA = "SELECT * FROM LEVELDATA ;";
-        private string LEVEL_UPDATE_BEST_SCORE_DATA = "UPDATE LEVELDATA SET BESTSCORE = @bestScore WHERE LEVELID = @level ;";
-        private string LEVEL_UPDATE_TIMES_PLAYED = "UPDATE LEVELDATA SET TIMESPLAYED = @param1 WHERE LEVELID = @param2 ;";
-        private string LEVEL_GET_ENTRY_BY_LEVELID = "SELECT * FROM LEVELDATA WHERE LEVELID = @param1 ;";
+        private string Level_All_Data = "SELECT * FROM LEVELDATA ;";
+        private string Level_Update_Best_Score = "UPDATE LEVELDATA SET BESTSCORE = @bestScore WHERE LEVELID = @level ;";
+        private string Level_Update_Times_Played = "UPDATE LEVELDATA SET TIMESPLAYED = @param1 WHERE LEVELID = @param2 ;";
+        private string Level_Get_Entry_By_Levelid = "SELECT * FROM LEVELDATA WHERE LEVELID = @param1 ;";
 
-        public LevelDataService(DataBaseConnector dbc)
+        public LevelDataService(DataBaseConnector dataBaseConnector)
         {
-            _dbc = dbc;
-            _db = _dbc.getDBInstance();
+            _dataBaseConnector = dataBaseConnector;
+            _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
 
 
-        public bool UpdateTimesPlayedForLevelID(int levelid)
+        public bool UpdateTimesPlayedForLevelId(int levelId)
         {
             try
             {
-                LevelData lastLD = new LevelData();
-                lastLD = GetLevelData(levelid);
+                LevelData levelDataModel = new LevelData();
+                levelDataModel = GetLevelData(levelId);
 
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = LEVEL_UPDATE_TIMES_PLAYED;
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_Update_Times_Played;
 
-                IDbDataParameter bestScoreParam = cmd.CreateParameter();
-                bestScoreParam.ParameterName = "@param1";
-                bestScoreParam.Value = lastLD.TimesPlayed + 1;
-                cmd.Parameters.Add(bestScoreParam);
+                IDbDataParameter dbDataParameterForBestScore = dbCommand.CreateParameter();
+                dbDataParameterForBestScore.ParameterName = "@param1";
+                dbDataParameterForBestScore.Value = levelDataModel.TimesPlayed + 1;
+                dbCommand.Parameters.Add(dbDataParameterForBestScore);
 
-                IDbDataParameter levelParam = cmd.CreateParameter();
-                levelParam.ParameterName = "@param2";
-                levelParam.Value = levelid;
-                cmd.Parameters.Add(levelParam);
+                IDbDataParameter dbDataParameterForLevel = dbCommand.CreateParameter();
+                dbDataParameterForLevel.ParameterName = "@param2";
+                dbDataParameterForLevel.Value = levelId;
+                dbCommand.Parameters.Add(dbDataParameterForLevel);
 
-                bool res = cmd.ExecuteNonQuery() > 0;
-                _db.Close();
-                _db.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
 
-                return res;
+                return dbCommand.ExecuteNonQuery() > 0;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
-                _db.Close();
-                _db.Dispose();
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return false;
             }
         }
 
-        public bool LoadAllDataFromDB()
+        public bool LoadAllDataFromDb()
         {
             try
             {
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = LEVEL_ALL_DATA;
-                IDataReader reader = cmd.ExecuteReader();
-                listLevelData = new List<LevelData>();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_All_Data;
+                IDataReader dataReader = dbCommand.ExecuteReader();
+                _levelDataListModel = new List<LevelData>();
 
-                while (reader.Read())
+                while (dataReader.Read())
                 {
-                    LevelModel = new LevelData()
+                    _levelDataModel = new LevelData()
                     {
-                        LevelID = reader.GetInt32(0),
-                        BestScore = reader.GetInt32(1),
-                        RoundTime = reader.GetInt32(2),
-                        PointMultiplier = reader.GetDouble(3),
-                        UnlockLevelAt = reader.GetInt32(4),
-                        TimesPlayed = reader.GetInt32(5)
+                        LevelId = dataReader.GetInt32(0),
+                        BestScore = dataReader.GetInt32(1),
+                        RoundTime = dataReader.GetInt32(2),
+                        PointMultiplier = dataReader.GetDouble(3),
+                        UnlockLevelAt = dataReader.GetInt32(4),
+                        TimesPlayed = dataReader.GetInt32(5)
                     };
-                    listLevelData.Add(LevelModel);
+                    _levelDataListModel.Add(_levelDataModel);
                 }
-                reader.Close();
-                _db.Close();
-                _db.Dispose();
+
+                dataReader.Close();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return true;
             }
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
-                _db.Close();
-                _db.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return false;
             }
         }
-        public bool SaveDataToDB(IDataModel data)
+        public bool SaveDataToDb(IDataModel dataModel)
         {
             try
             {
-                LevelData ld = (LevelData)data;
+                LevelData levelDataModel = (LevelData)dataModel;
 
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = LEVEL_UPDATE_BEST_SCORE_DATA;
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_Update_Best_Score;
 
                 /*Agregando Parametro para guardar Mejor Score del nivel*/
-                IDbDataParameter bestScoreParam = cmd.CreateParameter();
-                bestScoreParam.ParameterName = "@bestScore";
-                bestScoreParam.Value = ld.BestScore;
-                cmd.Parameters.Add(bestScoreParam);
+                IDbDataParameter dbDataParameterForBestScore = dbCommand.CreateParameter();
+                dbDataParameterForBestScore.ParameterName = "@bestScore";
+                dbDataParameterForBestScore.Value = levelDataModel.BestScore;
+                dbCommand.Parameters.Add(dbDataParameterForBestScore);
 
                 /*Agregando Parametro para identificar a que nivel guardar los cambios*/
-                IDbDataParameter levelParam = cmd.CreateParameter();
-                levelParam.ParameterName = "@level";
-                levelParam.Value = ld.LevelID;
-                cmd.Parameters.Add(levelParam);
+                IDbDataParameter dbDataParameterLevel = dbCommand.CreateParameter();
+                dbDataParameterLevel.ParameterName = "@level";
+                dbDataParameterLevel.Value = levelDataModel.LevelId;
+                dbCommand.Parameters.Add(dbDataParameterLevel);
 
-                bool res = cmd.ExecuteNonQuery() > 0;
-                _db.Close();
-                _db.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
 
-                return res;
+                return dbCommand.ExecuteNonQuery() > 0;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
+                Debug.LogError(exception.Message);
                 return false;
             }
         }
@@ -142,45 +139,46 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
-                LevelData res = new LevelData();
-                _db.Open();
-                IDbCommand cmd = _db.CreateCommand();
-                cmd.CommandText = LEVEL_GET_ENTRY_BY_LEVELID;
+                LevelData levelDataModel = new LevelData();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_Get_Entry_By_Levelid;
 
-                IDbDataParameter bestScoreParam = cmd.CreateParameter();
-                bestScoreParam.ParameterName = "@param1";
-                bestScoreParam.Value = level;
-                cmd.Parameters.Add(bestScoreParam);
+                IDbDataParameter dbDataParameterForBestScore = dbCommand.CreateParameter();
+                dbDataParameterForBestScore.ParameterName = "@param1";
+                dbDataParameterForBestScore.Value = level;
+                dbCommand.Parameters.Add(dbDataParameterForBestScore);
 
-                IDataReader reader = cmd.ExecuteReader();
+                IDataReader dataReader = dbCommand.ExecuteReader();
 
-                while (reader.Read())
+                while (dataReader.Read())
                 {
-                    res.LevelID = reader.GetInt32(0);
-                    res.BestScore = reader.GetInt32(1);
-                    res.RoundTime = reader.GetInt32(2);
-                    res.PointMultiplier = reader.GetDouble(3);
-                    res.UnlockLevelAt = reader.GetInt32(4);
-                    res.TimesPlayed = reader.GetInt32(5);
+                    levelDataModel.LevelId = dataReader.GetInt32(0);
+                    levelDataModel.BestScore = dataReader.GetInt32(1);
+                    levelDataModel.RoundTime = dataReader.GetInt32(2);
+                    levelDataModel.PointMultiplier = dataReader.GetDouble(3);
+                    levelDataModel.UnlockLevelAt = dataReader.GetInt32(4);
+                    levelDataModel.TimesPlayed = dataReader.GetInt32(5);
                 }
-                reader.Close();
-                _db.Close();
-                _db.Dispose();
-                return res;
+
+                dataReader.Close();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+
+                return levelDataModel;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                Debug.LogError(e.Message);
-                _db.Close();
-                _db.Dispose();
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return null;
             }
         }
         public List<LevelData> GetAllLevelData()
         {
-            LoadAllDataFromDB();
-            return listLevelData;
-
+            LoadAllDataFromDb();
+            return _levelDataListModel;
         }
     }
 }

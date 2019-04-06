@@ -1,42 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.DataPersistence.DependecyInjector;
 
 public class GameStatus : ScriptableObject
 {
-    
     public enum GameState
     {
-        Win = 1,
-        TryAgain = 2
+        Win,
+        TryAgain
     }
 
     public AudioClip win;
     public AudioClip repeat;
     public AudioSource source;
     public DependencyInjector di;
-    public int levelID { get; set; }
+    public int LevelId { get; set; }
 
     public void SettingSounds()
     {
         win = Resources.Load<AudioClip>("Sounds/Win");
         repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
     }
-    public void PlayerWinGame(AudioSource audioSource, int waitSeconds, int levelID)
+    public void PlayerWinGame(AudioSource audioSource, int waitSeconds, int levelId)
     {
-        this.levelID = levelID;
+        LevelId = levelId;
         source = new AudioSource();
         source = audioSource;
         SettingSounds();
         CreateMessageWindow(GameState.Win);
         source.PlayOneShot(win);
     }
-    public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds, int levelID)
+    public void PlayerNeedToRepeatGame(AudioSource audioSource, int waitSeconds, int levelId)
     {
         source = new AudioSource();
         source = audioSource;
@@ -46,9 +41,9 @@ public class GameStatus : ScriptableObject
         new WaitForSeconds(waitSeconds);
     }
 
-    private void CreateMessageWindow(GameState state)
+    private void CreateMessageWindow(GameState gameState)
     {
-        switch (state)
+        switch (gameState)
         {
             case GameState.Win:
                 {
@@ -67,9 +62,9 @@ public class GameStatus : ScriptableObject
                 throw new System.Exception("Error en tipo de mensaje a renderizar. Solamente existe GANAR o INTENTAR DE NUEVO!");
         }
     }
-    private void CreatingMessageWindowHierarchy(GameState state)
+    private void CreatingMessageWindowHierarchy(GameState gameState)
     {
-        switch (state)
+        switch (gameState)
         {
             case GameState.Win:
                 SettingSizePositionAndHierarchyWhenWinGame();
@@ -85,8 +80,8 @@ public class GameStatus : ScriptableObject
     }
     private void ContinueWithGame()
     {
-        RandomizeTest rt = new RandomizeTest();
-        rt.RandomizeForTest(levelID);
+        RandomizeTest randomizeTestModel = new RandomizeTest();
+        randomizeTestModel.RandomizeForTest(LevelId);
     }
     private void RepeatGame()
     {
@@ -94,82 +89,81 @@ public class GameStatus : ScriptableObject
     }
     private void SettingSizePositionAndHierarchyWhenWinGame()
     {
-        GameObject MainCanvas = new GameObject();
-        GameObject MsgPanel = new GameObject("MsgPanel");
+        GameObject mainCanvas = new GameObject();
+        GameObject msgPanel = new GameObject("MsgPanel");
         GameObject panel = new GameObject("panel");
 
-        MainCanvas = GameObject.Find("Canvas");
+        mainCanvas = GameObject.Find("Canvas");
 
-        Canvas canvas = MsgPanel.AddComponent<Canvas>();
+        Canvas canvas = msgPanel.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.pixelPerfect = true;
-        MsgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        msgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 
         panel.AddComponent<CanvasRenderer>();
         Image msg = panel.AddComponent<Image>();
 
-        Button BtnContinue = Instantiate(Resources.Load<Button>("Prefabs/BtnCountinue"));
-        Button BtnRepeatLevel = Instantiate(Resources.Load<Button>("Prefabs/BtnRepeat"));
-        Button BtnGoToMainMenu = Instantiate(Resources.Load<Button>("Prefabs/BtnGoToMainMenu"));
+        Button btnContinue = Instantiate(Resources.Load<Button>("Prefabs/BtnCountinue"));
+        Button btnRepeatLevel = Instantiate(Resources.Load<Button>("Prefabs/BtnRepeat"));
+        Button btnGoToMainMenu = Instantiate(Resources.Load<Button>("Prefabs/BtnGoToMainMenu"));
 
-        BtnContinue.onClick.AddListener(ContinueWithGame);
-        BtnRepeatLevel.onClick.AddListener(RepeatGame);
-        BtnGoToMainMenu.onClick.AddListener(ReturnToMainMenu);
+        btnContinue.onClick.AddListener(ContinueWithGame);
+        btnRepeatLevel.onClick.AddListener(RepeatGame);
+        btnGoToMainMenu.onClick.AddListener(ReturnToMainMenu);
 
         msg.sprite = Resources.Load<Sprite>("Images/Win");
-        MsgPanel.transform.localScale = new Vector3(3, 2, 1);
-        BtnContinue.transform.localScale = new Vector3(1, 1, 1);
-        BtnContinue.transform.localPosition = new Vector3(0, -80f, 5);
-        BtnRepeatLevel.transform.localScale = new Vector3(1, 1, 1);
-        BtnRepeatLevel.transform.localPosition = new Vector3(0, -110f, 5);
-        BtnGoToMainMenu.transform.localScale = new Vector3(1, 1, 1);
-        BtnGoToMainMenu.transform.localPosition = new Vector3(0, -140f, 5);
-        MsgPanel.transform.localScale = new Vector3(1, 1, 1);
+        msgPanel.transform.localScale = new Vector3(3, 2, 1);
+        btnContinue.transform.localScale = new Vector3(1, 1, 1);
+        btnContinue.transform.localPosition = new Vector3(0, -80f, 5);
+        btnRepeatLevel.transform.localScale = new Vector3(1, 1, 1);
+        btnRepeatLevel.transform.localPosition = new Vector3(0, -110f, 5);
+        btnGoToMainMenu.transform.localScale = new Vector3(1, 1, 1);
+        btnGoToMainMenu.transform.localPosition = new Vector3(0, -140f, 5);
+        msgPanel.transform.localScale = new Vector3(1, 1, 1);
         canvas.transform.localScale = new Vector3(3, 2, 1);
         panel.transform.localScale = new Vector3(3, 2, 1);
         panel.transform.SetParent(canvas.transform, false);
-        canvas.transform.SetParent(MsgPanel.transform, false);
-        BtnContinue.transform.SetParent(MainCanvas.transform, false);
-        BtnRepeatLevel.transform.SetParent(MainCanvas.transform, false);
-        BtnGoToMainMenu.transform.SetParent(MainCanvas.transform, false);
+        canvas.transform.SetParent(msgPanel.transform, false);
+        btnContinue.transform.SetParent(mainCanvas.transform, false);
+        btnRepeatLevel.transform.SetParent(mainCanvas.transform, false);
+        btnGoToMainMenu.transform.SetParent(mainCanvas.transform, false);
     }
     private void SettingSizePositionAndHierarchyWhenLoseGame()
     {
-        GameObject MainCanvas = new GameObject();
-        GameObject MsgPanel = new GameObject("MsgPanel");
+        GameObject mainCanvas = new GameObject();
+        GameObject msgPanel = new GameObject("MsgPanel");
         GameObject panel = new GameObject("panel");
 
-        MainCanvas = GameObject.Find("Canvas");
+        mainCanvas = GameObject.Find("Canvas");
 
-        Canvas canvas = MsgPanel.AddComponent<Canvas>();
+        Canvas canvas = msgPanel.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.pixelPerfect = true;
-        MsgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        msgPanel.AddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 
         panel.AddComponent<CanvasRenderer>();
         Image msg = panel.AddComponent<Image>();
 
-        Button BtnContinue = Instantiate(Resources.Load<Button>("Prefabs/BtnCountinue"));
-        Button BtnRepeatLevel = Instantiate(Resources.Load<Button>("Prefabs/BtnRepeat"));
-        Button BtnGoToMainMenu = Instantiate(Resources.Load<Button>("Prefabs/BtnGoToMainMenu"));
+        Button btnContinue = Instantiate(Resources.Load<Button>("Prefabs/BtnCountinue"));
+        Button btnRepeatLevel = Instantiate(Resources.Load<Button>("Prefabs/BtnRepeat"));
+        Button btnGoToMainMenu = Instantiate(Resources.Load<Button>("Prefabs/BtnGoToMainMenu"));
 
-        BtnContinue.onClick.AddListener(ContinueWithGame);
-        BtnRepeatLevel.onClick.AddListener(RepeatGame);
-        BtnGoToMainMenu.onClick.AddListener(ReturnToMainMenu);
+        btnContinue.onClick.AddListener(ContinueWithGame);
+        btnRepeatLevel.onClick.AddListener(RepeatGame);
+        btnGoToMainMenu.onClick.AddListener(ReturnToMainMenu);
 
         msg.sprite = Resources.Load<Sprite>("Images/TryAgain");
-        MsgPanel.transform.localScale = new Vector3(4, 2, 1);
-        BtnRepeatLevel.transform.localScale = new Vector3(1, 1, 1);
-        BtnRepeatLevel.transform.localPosition = new Vector3(0, -110f, 5);
-        BtnGoToMainMenu.transform.localScale = new Vector3(1, 1, 1);
-        BtnGoToMainMenu.transform.localPosition = new Vector3(0, -140f, 5);
-        MsgPanel.transform.localScale = new Vector3(1, 1, 1);
+        msgPanel.transform.localScale = new Vector3(4, 2, 1);
+        btnRepeatLevel.transform.localScale = new Vector3(1, 1, 1);
+        btnRepeatLevel.transform.localPosition = new Vector3(0, -110f, 5);
+        btnGoToMainMenu.transform.localScale = new Vector3(1, 1, 1);
+        btnGoToMainMenu.transform.localPosition = new Vector3(0, -140f, 5);
+        msgPanel.transform.localScale = new Vector3(1, 1, 1);
         canvas.transform.localScale = new Vector3(3, 2, 1);
         panel.transform.localScale = new Vector3(3, 2, 1);
         panel.transform.SetParent(canvas.transform, false);
-        canvas.transform.SetParent(MsgPanel.transform, false);
-        BtnRepeatLevel.transform.SetParent(MainCanvas.transform, false);
-        BtnGoToMainMenu.transform.SetParent(MainCanvas.transform, false);
+        canvas.transform.SetParent(msgPanel.transform, false);
+        btnRepeatLevel.transform.SetParent(mainCanvas.transform, false);
+        btnGoToMainMenu.transform.SetParent(mainCanvas.transform, false);
     }
-
 }

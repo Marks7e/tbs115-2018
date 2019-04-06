@@ -1,83 +1,80 @@
 ﻿using Assets.Scripts.DataPersistence;
 using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
 
-    public PlayerData pd;
-    public DependencyInjector di;
-    GameObject PrincipalMenu;
-    GameObject OptionsMenu;
-    GameObject ExtrasMenu;
-    GameObject RealmsMenu;
-    GameObject StoriesMenu;
-    GameObject FamiliaMenu;
-    GameObject EscuelaMenu;
-    GameObject AutoevaluacionMenu;
-    GameObject FerrejeMenu;
-    GameObject BanMenu;
-    GameObject KanslorMenu;
-    GameObject ModalPanel;
-    GameObject NoPointsModalPanel;
-    Slider VolumeSlider;
-    AudioSource MainAudio;
+    public PlayerData playerDataModel;
+    public DependencyInjector dependencyInjector;
+    GameObject principalMenu;
+    GameObject optionMenu;
+    GameObject extrasMenu;
+    GameObject realmsMenu;
+    GameObject storiesMenu;
+    GameObject familyMenu;
+    GameObject schoolMenu;
+    GameObject AutoevaluationMenu;
+    GameObject ferrejeMenu;
+    GameObject banMenu;
+    GameObject kanslorMenu;
+    GameObject modalPanel;
+    GameObject noPointsModalPanel;
+    Slider volumeSlider;
+    AudioSource mainAudio;
 
-    public DataBaseConnector dbc;
+    public DataBaseConnector dataBaseConnector;
 
     void Start()
     {
-        di = new DependencyInjector();
-        di.CreateDatabaseIfNotExist();
-        PrincipalMenu = GameObject.Find("PrincipalMenu");
-        OptionsMenu = GameObject.Find("OptionsMenu");
-        ExtrasMenu = GameObject.Find("ExtrasMenu");
-        RealmsMenu = GameObject.Find("RealmsMenu");
-        StoriesMenu = GameObject.Find("StoriesMenu");
-        FamiliaMenu = GameObject.Find("FamiliaMenu");
-        EscuelaMenu = GameObject.Find("EscuelaMenu");
-        AutoevaluacionMenu = GameObject.Find("AutoevaluacionMenu");
-        FerrejeMenu = GameObject.Find("FerrejeMenu");
-        BanMenu = GameObject.Find("BanMenu");
-        KanslorMenu = GameObject.Find("KanslorMenu");
-        ModalPanel = GameObject.Find("Modal Panel");
-        NoPointsModalPanel = GameObject.Find("NoPointsModalPanel");
-        VolumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
-        MainAudio = Camera.main.GetComponent<AudioSource>();
+        dependencyInjector = new DependencyInjector();
+        dependencyInjector.CreateDatabaseIfNotExist();
+        principalMenu = GameObject.Find("PrincipalMenu");
+        optionMenu = GameObject.Find("OptionsMenu");
+        extrasMenu = GameObject.Find("ExtrasMenu");
+        realmsMenu = GameObject.Find("RealmsMenu");
+        storiesMenu = GameObject.Find("StoriesMenu");
+        familyMenu = GameObject.Find("FamiliaMenu");
+        schoolMenu = GameObject.Find("EscuelaMenu");
+        AutoevaluationMenu = GameObject.Find("AutoevaluacionMenu");
+        ferrejeMenu = GameObject.Find("FerrejeMenu");
+        banMenu = GameObject.Find("BanMenu");
+        kanslorMenu = GameObject.Find("KanslorMenu");
+        modalPanel = GameObject.Find("Modal Panel");
+        noPointsModalPanel = GameObject.Find("NoPointsModalPanel");
+        volumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
+        mainAudio = Camera.main.GetComponent<AudioSource>();
 
-        VolumeSlider.value = 1.0f;
-        VolumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+        volumeSlider.value = 1.0f;
+        volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
-        PrincipalMenu.SetActive(true);
-        OptionsMenu.SetActive(false);
-        ExtrasMenu.SetActive(false);
-        RealmsMenu.SetActive(false);
-        StoriesMenu.SetActive(false);
-        FamiliaMenu.SetActive(false);
-        EscuelaMenu.SetActive(false);
-        AutoevaluacionMenu.SetActive(false);
-        FerrejeMenu.SetActive(false);
-        BanMenu.SetActive(false);
-        KanslorMenu.SetActive(false);
-        ModalPanel.SetActive(false);
-        NoPointsModalPanel.SetActive(false);
+        principalMenu.SetActive(true);
+        optionMenu.SetActive(false);
+        extrasMenu.SetActive(false);
+        realmsMenu.SetActive(false);
+        storiesMenu.SetActive(false);
+        familyMenu.SetActive(false);
+        schoolMenu.SetActive(false);
+        AutoevaluationMenu.SetActive(false);
+        ferrejeMenu.SetActive(false);
+        banMenu.SetActive(false);
+        kanslorMenu.SetActive(false);
+        modalPanel.SetActive(false);
+        noPointsModalPanel.SetActive(false);
 
     }
     public void ValueChangeCheck()
     {
-        MainAudio.volume = VolumeSlider.value;
-        Debug.Log(MainAudio.volume);
+        mainAudio.volume = volumeSlider.value;
+        Debug.Log(mainAudio.volume);
     }
     public void PlayGame()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-        PrincipalMenu.SetActive(false);
-        RealmsMenu.SetActive(true);
+        principalMenu.SetActive(false);
+        realmsMenu.SetActive(true);
     }
     public void ExitGame()
     {
@@ -86,14 +83,14 @@ public class MainMenu : MonoBehaviour
     }
     public void Options()
     {
-        PrincipalMenu.SetActive(false);
-        OptionsMenu.SetActive(true);
+        principalMenu.SetActive(false);
+        optionMenu.SetActive(true);
         Debug.Log("Option button Clicked!");
     }
     public void OptionsGoBack()
     {
-        PrincipalMenu.SetActive(true);
-        OptionsMenu.SetActive(false);
+        principalMenu.SetActive(true);
+        optionMenu.SetActive(false);
 
         Debug.Log("Backing to PrincipalMenu...");
     }
@@ -105,70 +102,70 @@ public class MainMenu : MonoBehaviour
     public void Extras()
     {
         //SceneManager.LoadScene ("ExtrasMenu");
-        PrincipalMenu.SetActive(false);
-        ExtrasMenu.SetActive(true);
+        principalMenu.SetActive(false);
+        extrasMenu.SetActive(true);
         Debug.Log("Extras Button Clicked!");
     }
     public void Stories()
     {
-        ExtrasMenu.SetActive(false);
-        StoriesMenu.SetActive(true);
+        extrasMenu.SetActive(false);
+        storiesMenu.SetActive(true);
     }
     public void Familia()
     {
-        StoriesMenu.SetActive(false);
-        FamiliaMenu.SetActive(true);
+        storiesMenu.SetActive(false);
+        familyMenu.SetActive(true);
     }
     public void Escuela()
     {
-        StoriesMenu.SetActive(false);
-        EscuelaMenu.SetActive(true);
+        storiesMenu.SetActive(false);
+        schoolMenu.SetActive(true);
     }
     public void AutoEva()
     {
-        StoriesMenu.SetActive(false);
-        AutoevaluacionMenu.SetActive(true);
+        storiesMenu.SetActive(false);
+        AutoevaluationMenu.SetActive(true);
     }
     public void Ferreje()
     {
-        RealmsMenu.SetActive(false);
-        FerrejeMenu.SetActive(true);
+        realmsMenu.SetActive(false);
+        ferrejeMenu.SetActive(true);
     }
     public void Ban()
     {
-        RealmsMenu.SetActive(false);
-        BanMenu.SetActive(true);
+        realmsMenu.SetActive(false);
+        banMenu.SetActive(true);
     }
     public void Kanslor()
     {
-        RealmsMenu.SetActive(false);
-        KanslorMenu.SetActive(true);
+        realmsMenu.SetActive(false);
+        kanslorMenu.SetActive(true);
     }
     public void MainGoBack(string option)
     {
-        PrincipalMenu.SetActive(true);
+        principalMenu.SetActive(true);
 
         switch (option)
         {
             case "Extras":
-                ExtrasMenu.SetActive(false);
+                extrasMenu.SetActive(false);
                 break;
             case "Options":
-                OptionsMenu.SetActive(false);
+                optionMenu.SetActive(false);
                 break;
             case "Realms":
-                RealmsMenu.SetActive(false);
+                realmsMenu.SetActive(false);
                 break;
         }
     }
     public void ExtrasGoBack(string option)
     {
-        ExtrasMenu.SetActive(true);
+        extrasMenu.SetActive(true);
 
         switch (option)
         {
             case "Stories":
-                StoriesMenu.SetActive(false);
+                storiesMenu.SetActive(false);
                 break;
             case "Test":
                 break;
@@ -176,42 +173,38 @@ public class MainMenu : MonoBehaviour
     }
     public void StoriesGoBack(string option)
     {
-        StoriesMenu.SetActive(true);
+        storiesMenu.SetActive(true);
 
         switch (option)
         {
             case "Familia":
-                FamiliaMenu.SetActive(false);
+                familyMenu.SetActive(false);
                 break;
             case "Escuela":
-                EscuelaMenu.SetActive(false);
+                schoolMenu.SetActive(false);
                 break;
             case "Autoevaluacion":
-                AutoevaluacionMenu.SetActive(false);
+                AutoevaluationMenu.SetActive(false);
                 break;
         }
     }
     public void RealmsGoBack(string option)
     {
-        RealmsMenu.SetActive(true);
+        realmsMenu.SetActive(true);
 
         switch (option)
         {
             case "Ferreje":
-                FerrejeMenu.SetActive(false);
+                ferrejeMenu.SetActive(false);
                 break;
             case "Ban":
-                BanMenu.SetActive(false);
+                banMenu.SetActive(false);
                 break;
             case "Kanslor":
-                KanslorMenu.SetActive(false);
+                kanslorMenu.SetActive(false);
                 break;
         }
     }
-
-
-
-
 }
 
 

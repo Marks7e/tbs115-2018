@@ -8,7 +8,7 @@ namespace Assets.Scripts.DataPersistence.Interfaces
 {
      public interface IDataService
     {
-        bool SaveDataToDB(IDataModel data);
-        bool LoadAllDataFromDB();
+        bool SaveDataToDb(IDataModel dataModel);
+        bool LoadAllDataFromDb();
     }
 }
