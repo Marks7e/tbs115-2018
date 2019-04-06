@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class Minijuego10Controller : MonoBehaviour
 	private int _indice = 0, _j = 0, _k = 0, _p = 0, _q = 0;
     public Sprite[] spriteList;
 	public Sprite defaultBoton;
+    public int dbRoundTime = 0;
+    public int totalTimeByGame = 0;
     private float _elapsedTime = 0;
 	private float _hideTime = 5;
 
@@ -35,6 +38,7 @@ public class Minijuego10Controller : MonoBehaviour
     public PlayerData playerDataModel;
     public LevelData levelDataModel;
     public DependencyInjector dependecyInjector;
+    public DynamicGameBalance dynamicGameBalance;
 	/************************************* */
 
     // Start is called before the first frame update
@@ -74,7 +78,9 @@ public class Minijuego10Controller : MonoBehaviour
 
 			if (timeLeft <= 0 && !isGameDone)
             {
-               	//UnableGameControls();
+                //UnableGameControls();
+                dependecyInjector.UpdateLevelTimesPlayed(10);
+                dependecyInjector.ResetLevelSuccessTimeByLevel(10);
                 audioSource.Stop();
 				isGameDone = true;
                 gameStatusModel = new GameStatus();
@@ -169,6 +175,7 @@ public class Minijuego10Controller : MonoBehaviour
 	/* OK: Mensaje de respuesta correcta */
     public void Ok()
     {
+        totalTimeByGame += dbRoundTime - (int)timeLeft;
         UpdateScore();
         SettingTimeOfGame();
         msj_ok.SetActive(true);
@@ -190,7 +197,12 @@ public class Minijuego10Controller : MonoBehaviour
     {
         audioSource.Stop();
         isGameDone = true;
-        
+
+        dependecyInjector.UpdateLevelTimesPlayed(10);
+        dependecyInjector.SaveSuccesTime(new LevelSuccessTime(){
+            LevelID = 10,
+            SuccessTime = dynamicGameBalance.CalculateAverageRound(totalTimeByGame,10)
+        });
 
         if (bestScore == score)
             dependecyInjector.UpdateBestScoreForLevel(10, score);
@@ -243,6 +255,8 @@ public class Minijuego10Controller : MonoBehaviour
 	
 	private void GetAndInitializeAllGameObjects()
     {
+        dependecyInjector = new DependencyInjector();
+        dynamicGameBalance = new DynamicGameBalance();
 		audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
         audioSource.PlayOneShot(bgMusic);
@@ -270,6 +284,8 @@ public class Minijuego10Controller : MonoBehaviour
         BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
 
+        timeLeft = dependecyInjector.GetRoundTime(10);
+
 		panelBotones.SetActive(false);
 
 	}
@@ -277,11 +293,13 @@ public class Minijuego10Controller : MonoBehaviour
 	private void InitializeRecordAndScore()
     {
         dependecyInjector = new DependencyInjector();
+        dynamicGameBalance = new DynamicGameBalance();
         playerDataModel = new PlayerData();
         levelDataModel = new LevelData();
 
         playerDataModel = dependecyInjector.GetAllPlayerData();
         levelDataModel = dependecyInjector.GetLevelData(10);
+        dbRoundTime = dependecyInjector.GetRoundTime(10);
 
         score = 0;
         bestScore = levelDataModel.BestScore;
@@ -294,7 +312,7 @@ public class Minijuego10Controller : MonoBehaviour
 	
 	private void SettingTimeOfGame()
     {
-        timeLeft = levelDataModel.RoundTime;
+        timeLeft = dependecyInjector.GetRoundTime(10);
     }
 	
 	private void UpdateScore()

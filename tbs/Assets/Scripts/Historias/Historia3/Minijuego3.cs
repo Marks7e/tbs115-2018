@@ -27,8 +27,8 @@ public class Minijuego3 : MonoBehaviour
     public bool isGameDone = false;
     public bool isRoundDone = false;
 
-    public DependencyInjector di;
-    public DynamicGameBalance dgb;
+    public DependencyInjector dependencyInjector;
+    public DynamicGameBalance dynamicGameBalance;
 
     //Texto a mostrar al usuario
     public Text Nivel;
@@ -65,11 +65,11 @@ public class Minijuego3 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                di.UpdateLevelTimesPlayed(3);
+                dependencyInjector.UpdateLevelTimesPlayed(3);
                 UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
-                di.ResetLevelSuccessTimeByLevel(3);
+                dependencyInjector.ResetLevelSuccessTimeByLevel(3);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
@@ -392,16 +392,16 @@ public class Minijuego3 : MonoBehaviour
         msj_fail.SetActive(true);
         btnReset.SetActive(true);
         isRoundDone = true;
-        di.ResetLevelSuccessTimeByLevel(3);
+        dependencyInjector.ResetLevelSuccessTimeByLevel(3);
     }
     //Mensaje de finalizacion de minijuego
     public void Complete()
     {
-        di.UpdateLevelTimesPlayed(3);
-        di.SaveSuccesTime(new LevelSuccessTime()
+        dependencyInjector.UpdateLevelTimesPlayed(3);
+        dependencyInjector.SaveSuccesTime(new LevelSuccessTime()
         {
             LevelID = 3,
-            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 3)
+            SuccessTime = dynamicGameBalance.CalculateAverageRound(totalTimeByGame, 3)
         });
 
         audioSource.Stop();
@@ -409,8 +409,8 @@ public class Minijuego3 : MonoBehaviour
         btnMano.SetActive(false);
 
         if (bestScore == score)
-            di.UpdateBestScoreForLevel(3, score);
-        di.UpdateTotalizedScore(score);
+            dependencyInjector.UpdateBestScoreForLevel(3, score);
+        dependencyInjector.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime, 3);
@@ -491,9 +491,9 @@ public class Minijuego3 : MonoBehaviour
         var objScore = GameObject.Find("Score");
         BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
-        di = new DependencyInjector();
-        dgb = new DynamicGameBalance();
-        timeLeft = di.GetRoundTime(3);
+        dependencyInjector = new DependencyInjector();
+        dynamicGameBalance = new DynamicGameBalance();
+        timeLeft = dependencyInjector.GetRoundTime(3);
 
         //Ocultar Botones con simbolos
         btnCirculo.SetActive(false);
@@ -502,17 +502,17 @@ public class Minijuego3 : MonoBehaviour
     }
     private void SettingTimeOfGame()
     {
-        timeLeft = di.GetRoundTime(3);
+        timeLeft = dependencyInjector.GetRoundTime(3);
     }
     private void InitializeRecordAndScore()
     {
-        di = new DependencyInjector();
+        dependencyInjector = new DependencyInjector();
         pd = new PlayerData();
         ld = new LevelData();
 
-        pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(3);
-        dbRoundtime = di.GetRoundTime(3);
+        pd = dependencyInjector.GetAllPlayerData();
+        ld = dependencyInjector.GetLevelData(3);
+        dbRoundtime = dependencyInjector.GetRoundTime(3);
         score = 0;
         bestScore = ld.BestScore;
 
