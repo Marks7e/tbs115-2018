@@ -56,7 +56,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     private int nchar;
     private int option;
-    private int count = 1;
+    private int count = 0;
     private int i = 0;
 
     private void Awake()
@@ -107,6 +107,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         if (elementText.text.Length > 10)
             {
+                
                 Nivel.text = count + "/3";
                 //Debug.Log(" palabra tiene mas de 10 letras");
                 DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
