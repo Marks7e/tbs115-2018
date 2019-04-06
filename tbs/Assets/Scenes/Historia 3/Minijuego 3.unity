@@ -889,7 +889,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011937}
-        m_MethodName: esTriangulo
+        m_MethodName: IsTriangle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1578,7 +1578,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011939}
-        m_MethodName: loadAnimation
+        m_MethodName: LoadAnimation
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1786,7 +1786,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011937}
-        m_MethodName: esCirculo
+        m_MethodName: IsCircle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2627,7 +2627,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011937}
-        m_MethodName: esCuadrado
+        m_MethodName: IsSquare
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2756,7 +2756,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011937}
-        m_MethodName: iteracion
+        m_MethodName: Iteration
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2885,7 +2885,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1572011937}
-        m_MethodName: accionMano
+        m_MethodName: HandAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3074,6 +3074,8 @@ MonoBehaviour:
   score: 0
   timeLeft: 10
   waitingTime: 3
+  totalTimeByGame: 0
+  dbRoundtime: 0
   isGameDone: 0
   isRoundDone: 0
   Nivel: {fileID: 1629103619}

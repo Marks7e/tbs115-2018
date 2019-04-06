@@ -1,10 +1,7 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Bar : MonoBehaviour {
@@ -12,7 +9,7 @@ public class Bar : MonoBehaviour {
 	public static int [] slots;
 	public float currentTime = 0;
 	float maxTime = 0.1f;
-	private int k=0, l=0, m=0, n=0, p=0, q=1; 
+	private int _k=0, _l=0, _m=0, _n=0, _p=0, _q=1; 
 
 	//Texto a mostrar al usuario
     public Text Nivel;
@@ -39,8 +36,8 @@ public class Bar : MonoBehaviour {
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    private string musicName = "Sounds/Minigame";
-	private int index = 0;
+    private string _musicName = "Sounds/Minigame";
+	private int _index = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -76,7 +73,7 @@ public class Bar : MonoBehaviour {
 	void GetInitializeMusic()
     {
         audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>(musicName);
+        bgMusic = Resources.Load<AudioClip>(_musicName);
         audioSource.clip = bgMusic;
         audioSource.Play(0);
     }
@@ -87,7 +84,7 @@ public class Bar : MonoBehaviour {
             di.UpdateBestScoreForLevel(4, score);
         di.UpdateTotalizedScore(score);
 
-		if(index == 1)
+		if(_index == 1)
 		{
             di.SaveSuccesTime(new LevelSuccessTime()
             {
@@ -99,7 +96,7 @@ public class Bar : MonoBehaviour {
             audioSource.Stop();
         	gs = new GameStatus();
         	gs.PlayerWinGame(audioSource, waitingTime, 4);
-			index++;
+			_index++;
 		}
 	}
 
@@ -136,20 +133,20 @@ public class Bar : MonoBehaviour {
 			currentTime = 0;
 			if(slots[0] == 1)
 			{
-				FullSlot(0, k++);
+				FullSlot(0, _k++);
 				if(slots[1] == 1)
 				{
-					FullSlot(1, l++);
+					FullSlot(1, _l++);
 					if(slots[2] == 1)
 					{
-						FullSlot(2, m++);
+						FullSlot(2, _m++);
 						if(slots[3] == 1)
 						{
-							FullSlot(3, n++);
+							FullSlot(3, _n++);
 							if(slots[4] == 1)
 							{
-								FullSlot(4, p++);
-								index++;
+								FullSlot(4, _p++);
+								_index++;
 								WinGame();
 							}
 							else
@@ -213,7 +210,7 @@ public class Bar : MonoBehaviour {
 		switch(i)
 		{
 			case 0:
-				if(q==j)
+				if(_q==j)
 				{
 					CompleteRound();
 					UpdateScore();
@@ -221,7 +218,7 @@ public class Bar : MonoBehaviour {
 				}
 			break;
 			case 1:
-				if(q==j)
+				if(_q==j)
 				{
 					CompleteRound();
 					UpdateScore();
@@ -229,7 +226,7 @@ public class Bar : MonoBehaviour {
 				}
 			break;
 			case 2:
-				if(q==j)
+				if(_q==j)
 				{
 					CompleteRound();
 					UpdateScore();
@@ -237,7 +234,7 @@ public class Bar : MonoBehaviour {
 				}
 			break;
 			case 3:
-				if(q==j)
+				if(_q==j)
 				{
 					CompleteRound();
 					UpdateScore();
@@ -245,7 +242,7 @@ public class Bar : MonoBehaviour {
 				}
 			break;
 			case 4:
-				if(q==j)
+				if(_q==j)
 				{
 					CompleteRound();
 					UpdateScore();

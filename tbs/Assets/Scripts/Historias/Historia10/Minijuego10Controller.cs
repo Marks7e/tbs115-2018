@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,31 +10,31 @@ public class Minijuego10Controller : MonoBehaviour
 	public GameObject panelBotones,panelSecuencia,btnReset, btnContinue;
 	public GameObject[] emoji; 
     public GameObject msj_ok, msj_fail;
-	private int indice = 0, j = 0, k = 0, p = 0, q = 0;
+	private int _indice = 0, _j = 0, _k = 0, _p = 0, _q = 0;
     public Sprite[] spriteList;
 	public Sprite defaultBoton;
-    private float elapsedTime = 0;
-	private float hideTime = 5;
+    private float _elapsedTime = 0;
+	private float _hideTime = 5;
 
 	/* ******************* agregados para persistencia */
-    private int count = 1; //numero de rondas
+    private int _count = 1; //numero de rondas
 	public int bestScore = 0;
     public int score = 0;
     public float timeLeft = 10.00f;
     public int waitingTime = 3;
     public bool isGameDone = false;
     public bool isRoundDone = false;
-	private bool isPanelHide = false;
+	private bool _isPanelHide = false;
 	public GameObject texto;
     public Text BestScore, Score;
 	public Text timing;
 	public Text Nivel;
-	public GameStatus gs;
+	public GameStatus gameStatusModel;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    public PlayerData pd;
-    public LevelData ld;
-    public DependencyInjector di;
+    public PlayerData playerDataModel;
+    public LevelData levelDataModel;
+    public DependencyInjector dependecyInjector;
 	/************************************* */
 
     // Start is called before the first frame update
@@ -45,7 +43,7 @@ public class Minijuego10Controller : MonoBehaviour
 		GetAndInitializeAllGameObjects();
 		InitializeRecordAndScore();
 		/* Funcion que crea secuencia de emojis de manera aleatoria */
-		randomSequence();
+		RandomSequence();
     }
 
     // Update is called once per frame
@@ -55,17 +53,17 @@ public class Minijuego10Controller : MonoBehaviour
 		if (!isGameDone)
 		{
 			//ocultar imagenes de referencia
-			if (!isPanelHide)
+			if (!_isPanelHide)
 			{
-				hideTime -= Time.deltaTime; // Tiempo transcurrido
-				if(hideTime <= 0){
+				_hideTime -= Time.deltaTime; // Tiempo transcurrido
+				if(_hideTime <= 0){
 					//Al alcanzar hideTime, oculta la secuencia de emojis
-					isPanelHide = true;
-					hideSequence();
+					_isPanelHide = true;
+					HideSequence();
 				}
 			} 
 		
-			if (!isRoundDone && isPanelHide)
+			if (!isRoundDone && _isPanelHide)
 			{			
 				if(!panelBotones.GetComponent<Animation>().IsPlaying("Panel2")){
 					//Debug.Log("------------------TERMINO LA ANIMACION -------------------");
@@ -79,8 +77,8 @@ public class Minijuego10Controller : MonoBehaviour
                	//UnableGameControls();
                 audioSource.Stop();
 				isGameDone = true;
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+                gameStatusModel = new GameStatus();
+                gameStatusModel.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
 			
 		}
@@ -89,47 +87,47 @@ public class Minijuego10Controller : MonoBehaviour
 
     }
 	
-	/* randomSequence: Crea la secuencia de emojis de forma random */
-    public void randomSequence()
+	/* RandomSequence: Crea la secuencia de emojis de forma random */
+    public void RandomSequence()
     {
         /* Llena el vector de emojis que se van a mostrar como secuencia de emojis */
         for (int i = 0; i < 4; i++)
         {
             /* Obtiene indice al azar para llamar a la imagen guardada en spriteList[] */
-            indice = Random.Range(0, 5);
-            emoji[i].GetComponent<Image>().sprite = spriteList[indice];
-			Debug.Log("posicion: "+i+" ,nombre: "+spriteList[indice].name);
+            _indice = Random.Range(0, 5);
+            emoji[i].GetComponent<Image>().sprite = spriteList[_indice];
+			Debug.Log("posicion: "+i+" ,nombre: "+spriteList[_indice].name);
         }
     }
     
 	/* actions: proporciona accion de botones que tienen imagenes de emojis */
-	public void actions(int btn)
+	public void Actions(int btn)
 	{
 		//Debug.Log("Nombre del Boton: "+btn);
 		switch (btn)
 		{
 			case 1:
-				setEmoji(imgEmo1,j);
-				if (j<4){ j++; }else{ j = 0; }
+				SetEmoji(imgEmo1,_j);
+				if (_j<4){ _j++; }else{ _j = 0; }
 				break;
 			case 2:
-				setEmoji(imgEmo2,k);
-				if (k<4){ k++; }else{ k = 0; }
+				SetEmoji(imgEmo2,_k);
+				if (_k<4){ _k++; }else{ _k = 0; }
 				break;
 			case 3:
-				setEmoji(imgEmo3,p);
-				if (p<4){ p++; }else{ p = 0; }
+				SetEmoji(imgEmo3,_p);
+				if (_p<4){ _p++; }else{ _p = 0; }
 				break;
 			case 4:
-				setEmoji(imgEmo4,q);
-				if (q<4){ q++; }else{ q = 0; } 
+				SetEmoji(imgEmo4,_q);
+				if (_q<4){ _q++; }else{ _q = 0; } 
 				break;
 		}
 
 	}
     
 	/* hideSequence: oculta la secuencia de imagenes y activa la animacion de botones para interactuar */
-	public void hideSequence()
+	public void HideSequence()
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -144,13 +142,13 @@ public class Minijuego10Controller : MonoBehaviour
 	}
     
 	/* setEmoji: cambia la imagen de emoji en los botones donde interactua el usuario */
-	public void setEmoji(Image imgEmo, int index)
+	public void SetEmoji(Image imgEmo, int index)
 	{
 		imgEmo.sprite = spriteList[index];
 	}
 	
 	/* compareEmojis: compara la secuencia inicial con los valores seteados por el usuario */
-	public void compareEmojis()
+	public void CompareEmojis()
 	{
 		/* Comprobacion de secuencia con imagen del panel */
 		if (imgEmo1.sprite.name == emoji[0].GetComponent<Image>().sprite.name && 
@@ -163,7 +161,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}else
 		{
 			Debug.Log("FALLO, Uno o mas no coinciden");
-			fail();
+			Fail();
 		}
 		
 	}
@@ -180,7 +178,7 @@ public class Minijuego10Controller : MonoBehaviour
     }
     
 	/* fail: Mensaje de Respuesta incorrecta */
-    public void fail()
+    public void Fail()
     {
         score -= 800;
         msj_fail.SetActive(true);
@@ -188,30 +186,30 @@ public class Minijuego10Controller : MonoBehaviour
         isRoundDone = true;
     }
 	
-	public void complete()
+	public void Complete()
     {
         audioSource.Stop();
         isGameDone = true;
         
 
         if (bestScore == score)
-            di.UpdateBestScoreForLevel(10, score);
-        di.UpdateTotalizedScore(score);
+            dependecyInjector.UpdateBestScoreForLevel(10, score);
+        dependecyInjector.UpdateTotalizedScore(score);
 
-        gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 10);
+        gameStatusModel = new GameStatus();
+        gameStatusModel.PlayerWinGame(audioSource, waitingTime, 10);
     }
 	
 	/* iteracion:  */
-	public void iteracion()
+	public void Iteration()
     {
         isRoundDone = false;
 
         //Setando Texto
-        Nivel.text = count + "/3";
+        Nivel.text = _count + "/3";
 
         //Contador
-        count++;
+        _count++;
 
         msj_ok.SetActive(false);
         btnContinue.SetActive(false);
@@ -226,11 +224,11 @@ public class Minijuego10Controller : MonoBehaviour
 		panelBotones.SetActive(false);
 		
         //Generar una nueva secuencia
-		if(count <= 3){
-			randomSequence();
+		if(_count <= 3){
+			RandomSequence();
 			isGameDone = false;
-			isPanelHide = false; //Haciendo visible panel de secuencia 
-			hideTime = 5; //reiniciando cuenta para ocultar secuencia
+			_isPanelHide = false; //Haciendo visible panel de secuencia 
+			_hideTime = 5; //reiniciando cuenta para ocultar secuencia
 			for (int i = 0; i < 4; i++)
 			{
 				//Visualizar cada elemento de imagen de la secuencia
@@ -239,7 +237,7 @@ public class Minijuego10Controller : MonoBehaviour
 		}else{
 			isGameDone = true;
 			Debug.Log("----**********--- JUEGO FINALIZADO ----**********---");
-			complete();
+			Complete();
 		}
     }
 	
@@ -249,11 +247,11 @@ public class Minijuego10Controller : MonoBehaviour
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
         audioSource.PlayOneShot(bgMusic);
 
-		btnEmoji1.onClick.AddListener(() => actions(1));
-		btnEmoji2.onClick.AddListener(() => actions(2));
-		btnEmoji3.onClick.AddListener(() => actions(3));
-		btnEmoji4.onClick.AddListener(() => actions(4));
-		btnCompare.onClick.AddListener(compareEmojis);
+		btnEmoji1.onClick.AddListener(() => Actions(1));
+		btnEmoji2.onClick.AddListener(() => Actions(2));
+		btnEmoji3.onClick.AddListener(() => Actions(3));
+		btnEmoji4.onClick.AddListener(() => Actions(4));
+		btnCompare.onClick.AddListener(CompareEmojis);
 
 		imgEmo1 = GameObject.Find("imgEmo1").GetComponent<Image>();
 		imgEmo2 = GameObject.Find("imgEmo2").GetComponent<Image>();
@@ -278,17 +276,17 @@ public class Minijuego10Controller : MonoBehaviour
 	
 	private void InitializeRecordAndScore()
     {
-        di = new DependencyInjector();
-        pd = new PlayerData();
-        ld = new LevelData();
+        dependecyInjector = new DependencyInjector();
+        playerDataModel = new PlayerData();
+        levelDataModel = new LevelData();
 
-        pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(10);
+        playerDataModel = dependecyInjector.GetAllPlayerData();
+        levelDataModel = dependecyInjector.GetLevelData(10);
 
         score = 0;
-        bestScore = ld.BestScore;
+        bestScore = levelDataModel.BestScore;
 
-        BestScore.text = "Record: " + ld.BestScore;
+        BestScore.text = "Record: " + levelDataModel.BestScore;
         Score.text = "Puntaje: " + score;
         SettingTimeOfGame();
 
@@ -296,13 +294,13 @@ public class Minijuego10Controller : MonoBehaviour
 	
 	private void SettingTimeOfGame()
     {
-        timeLeft = ld.RoundTime;
+        timeLeft = levelDataModel.RoundTime;
     }
 	
 	private void UpdateScore()
     {
 		Debug.Log("timeLeft: -----------------------  "+timeLeft+"  ----------------------------");
-        double res = 100 * (timeLeft * ld.PointMultiplier);
+        double res = 100 * (timeLeft * levelDataModel.PointMultiplier);
         score += (int)res;
         Score.text = "Puntaje: " + score;
 

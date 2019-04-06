@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,8 +40,8 @@ public class Minijuego3 : MonoBehaviour
 
     public Sprite Circulo, Triangulo, Cuadrado;
 
-    private int x, y, z, count = 1;
-    private string sign;
+    private int _x, _y, _z, count = 1;
+    private string _sign;
 
     // Use this for initialization
     void Start()
@@ -84,29 +81,29 @@ public class Minijuego3 : MonoBehaviour
         if (count <= 3)
         {
             //Random Animacion
-            x = UnityEngine.Random.Range(1, 4);
-            switch (x)
+            _x = UnityEngine.Random.Range(1, 4);
+            switch (_x)
             {
                 case 1:
                     //Habla personaje 1
                     animacionSpeak1.GetComponent<Animation>().Play("Speak01");
 
                     //Random de Simbolo para el personaje que habla 
-                    y = UnityEngine.Random.Range(1, 4);
+                    _y = UnityEngine.Random.Range(1, 4);
                     simbolo1.GetComponent<Image>().enabled = true;
-                    switch (y)
+                    switch (_y)
                     {
                         case 1:
                             simbolo1.GetComponent<Image>().sprite = Triangulo;
-                            sign = "triangulo"; //simbolo asignado al personaje que esta hablando
+                            _sign = "triangulo"; //simbolo asignado al personaje que esta hablando
                             break;
                         case 2:
                             simbolo1.GetComponent<Image>().sprite = Circulo;
-                            sign = "circulo";
+                            _sign = "circulo";
                             break;
                         case 3:
                             simbolo1.GetComponent<Image>().sprite = Cuadrado;
-                            sign = "cuadrado";
+                            _sign = "cuadrado";
                             break;
                     }
                     break;
@@ -116,21 +113,21 @@ public class Minijuego3 : MonoBehaviour
 
                     //Random de Simbolos 
                     //Random de Simbolos 
-                    y = UnityEngine.Random.Range(1, 4);
+                    _y = UnityEngine.Random.Range(1, 4);
                     simbolo2.GetComponent<Image>().enabled = true;
-                    switch (y)
+                    switch (_y)
                     {
                         case 1:
                             simbolo2.GetComponent<Image>().sprite = Triangulo;
-                            sign = "triangulo";
+                            _sign = "triangulo";
                             break;
                         case 2:
                             simbolo2.GetComponent<Image>().sprite = Circulo;
-                            sign = "circulo";
+                            _sign = "circulo";
                             break;
                         case 3:
                             simbolo2.GetComponent<Image>().sprite = Cuadrado;
-                            sign = "cuadrado";
+                            _sign = "cuadrado";
                             break;
                     }
                     break;
@@ -139,21 +136,21 @@ public class Minijuego3 : MonoBehaviour
                     animacionSpeak3.GetComponent<Animation>().Play("Speak03");
 
                     //Random de Simbolos 
-                    y = UnityEngine.Random.Range(1, 4);
+                    _y = UnityEngine.Random.Range(1, 4);
                     simbolo3.GetComponent<Image>().enabled = true;
-                    switch (y)
+                    switch (_y)
                     {
                         case 1:
                             simbolo3.GetComponent<Image>().sprite = Triangulo;
-                            sign = "triangulo";
+                            _sign = "triangulo";
                             break;
                         case 2:
                             simbolo3.GetComponent<Image>().sprite = Circulo;
-                            sign = "circulo";
+                            _sign = "circulo";
                             break;
                         case 3:
                             simbolo3.GetComponent<Image>().sprite = Cuadrado;
-                            sign = "cuadrado";
+                            _sign = "cuadrado";
                             break;
                     }
                     break;
@@ -163,11 +160,11 @@ public class Minijuego3 : MonoBehaviour
                 //Luego de verificar si simbolo1 esta activado, se activa el simbolo2 
                 simbolo2.GetComponent<Image>().enabled = true;
                 simbolo3.GetComponent<Image>().enabled = true;
-                switch (sign)
+                switch (_sign)
                 {
                     case "triangulo":
-                        z = UnityEngine.Random.Range(1, 3);
-                        switch (z)
+                        _z = UnityEngine.Random.Range(1, 3);
+                        switch (_z)
                         {
                             case 1:
                                 simbolo2.GetComponent<Image>().sprite = Circulo;
@@ -180,8 +177,8 @@ public class Minijuego3 : MonoBehaviour
                         }
                         break;
                     case "circulo":
-                        z = UnityEngine.Random.Range(1, 3);
-                        switch (z)
+                        _z = UnityEngine.Random.Range(1, 3);
+                        switch (_z)
                         {
                             case 1:
                                 simbolo2.GetComponent<Image>().sprite = Triangulo;
@@ -194,8 +191,8 @@ public class Minijuego3 : MonoBehaviour
                         }
                         break;
                     case "cuadrado":
-                        z = UnityEngine.Random.Range(1, 3);
-                        switch (z)
+                        _z = UnityEngine.Random.Range(1, 3);
+                        switch (_z)
                         {
                             case 1:
                                 simbolo2.GetComponent<Image>().sprite = Circulo;
@@ -215,11 +212,11 @@ public class Minijuego3 : MonoBehaviour
                 {
                     simbolo1.GetComponent<Image>().enabled = true;
                     simbolo3.GetComponent<Image>().enabled = true;
-                    switch (sign)
+                    switch (_sign)
                     {
                         case "triangulo":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Circulo;
@@ -232,8 +229,8 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "circulo":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Triangulo;
@@ -246,8 +243,8 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "cuadrado":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Circulo;
@@ -265,11 +262,11 @@ public class Minijuego3 : MonoBehaviour
                 {
                     simbolo1.GetComponent<Image>().enabled = true;
                     simbolo2.GetComponent<Image>().enabled = true;
-                    switch (sign)
+                    switch (_sign)
                     {
                         case "triangulo":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Circulo;
@@ -282,8 +279,8 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "circulo":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Triangulo;
@@ -296,8 +293,8 @@ public class Minijuego3 : MonoBehaviour
                             }
                             break;
                         case "cuadrado":
-                            z = UnityEngine.Random.Range(1, 3);
-                            switch (z)
+                            _z = UnityEngine.Random.Range(1, 3);
+                            switch (_z)
                             {
                                 case 1:
                                     simbolo1.GetComponent<Image>().sprite = Circulo;
@@ -317,50 +314,50 @@ public class Minijuego3 : MonoBehaviour
         }
         else
         {
-            complete();
+            Complete();
         }
     }
-    public void esCirculo()
+    public void IsCircle()
     {
-        if (btnCirculo.name == sign)
+        if (btnCirculo.name == _sign)
         {
             Ok();
         }
         else
         {
-            fail();
+            Fail();
         }
 
-        disabledButton();
+        DisableButton();
     }
-    public void esTriangulo()
+    public void IsTriangle()
     {
-        if (btnTriangulo.name == sign)
+        if (btnTriangulo.name == _sign)
         {
             Ok();
         }
         else
         {
-            fail();
+            Fail();
         }
 
-        disabledButton();
+        DisableButton();
     }
-    public void esCuadrado()
+    public void IsSquare()
     {
-        if (btnCuadrado.name == sign)
+        if (btnCuadrado.name == _sign)
         {
             Ok();
         }
         else
         {
-            fail();
+            Fail();
         }
 
-        disabledButton();
+        DisableButton();
     }
     //Accion oculta mano y activa simbolos
-    public void accionMano()
+    public void HandAction()
     {
 
         //Ocultar Botones con simbolos
@@ -372,7 +369,7 @@ public class Minijuego3 : MonoBehaviour
 
     }
     //Oculta simbolos de botones
-    public void disabledButton()
+    public void DisableButton()
     {
         btnCirculo.SetActive(false);
         btnCuadrado.SetActive(false);
@@ -389,7 +386,7 @@ public class Minijuego3 : MonoBehaviour
         isRoundDone = true;
     }
     //Mensaje de Respuesta incorrecta
-    public void fail()
+    public void Fail()
     {
         score -= 800;
         msj_fail.SetActive(true);
@@ -398,7 +395,7 @@ public class Minijuego3 : MonoBehaviour
         di.ResetLevelSuccessTimeByLevel(3);
     }
     //Mensaje de finalizacion de minijuego
-    public void complete()
+    public void Complete()
     {
         di.UpdateLevelTimesPlayed(3);
         di.SaveSuccesTime(new LevelSuccessTime()
@@ -419,7 +416,7 @@ public class Minijuego3 : MonoBehaviour
         gs.PlayerWinGame(audioSource, waitingTime, 3);
     }
     //Restaura el minijuego para la siguiente iteracion
-    public void iteracion()
+    public void Iteration()
     {
         isRoundDone = false;
         //Deshabilitar simbolos
@@ -428,7 +425,7 @@ public class Minijuego3 : MonoBehaviour
         simbolo3.GetComponent<Image>().enabled = false;
 
         //Deshabilitar botones con simbolo
-        disabledButton();
+        DisableButton();
 
         //Habilitar Mano
         btnMano.SetActive(true);
@@ -451,7 +448,7 @@ public class Minijuego3 : MonoBehaviour
     }
     private void UnableGameControls()
     {
-        disabledButton();
+        DisableButton();
         btnMano.SetActive(false);
         animacionSpeak1.GetComponent<Animation>().Stop("Speak01");
         animacionSpeak2.GetComponent<Animation>().Stop("Speak02");

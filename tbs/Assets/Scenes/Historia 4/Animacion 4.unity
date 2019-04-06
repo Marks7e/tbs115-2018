@@ -503,7 +503,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1264041242}
-        m_MethodName: loadAnimation
+        m_MethodName: LoadAnimation
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -798,7 +798,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1264041241}
-        m_MethodName: actionPlay
+        m_MethodName: ActionPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -907,7 +907,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1264041241}
-        m_MethodName: actionPause
+        m_MethodName: ActionPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1325,7 +1325,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1264041242}
-        m_MethodName: loadAnimation
+        m_MethodName: LoadAnimation
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

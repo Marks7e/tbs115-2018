@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
-using Assets.Scripts.DataPersistence.Interfaces;
 using Assets.Scripts.DataPersistence.Models;
-using Mono.Data.Sqlite;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,46 +9,46 @@ using Random = System.Random;
 public class PostGameTest : MonoBehaviour
 {
     /*Inyectando dependencias*/
-    private DependencyInjector di = null;
+    private DependencyInjector dependecyInjector = null;
 
     /*Declarando "contenedores" de UI*/
-    GameObject TxtQuestion;
-    GameObject BtnYes;
-    GameObject BtnNo;
+    GameObject txtQuestion;
+    GameObject btnYes;
+    GameObject btnNo;
 
     /*Declarando Variables de preguntas y respuestas*/
     public string question;
     public string level;
     public int counter;
-    List<QuestionData> listQuestionData = new List<QuestionData>();
-    List<QuestionData> listQuestionDataToSave = new List<QuestionData>();
-    QuestionData qd = null;
+    List<QuestionData> questionDataListModel = new List<QuestionData>();
+    List<QuestionData> questionDataListModelToSave = new List<QuestionData>();
+    QuestionData questionDataModel = null;
 
     /*Recuperando nombre de nivel*/
     void Start()
     {
         counter = 3;
-        qd = new QuestionData();
+        questionDataModel = new QuestionData();
         List<QuestionData> listQuestionDataToSave = new List<QuestionData>();
-        TxtQuestion = GameObject.Find("Question");
-        BtnYes = GameObject.Find("BtnYes");
-        BtnNo = GameObject.Find("BtnNo");
+        txtQuestion = GameObject.Find("Question");
+        btnYes = GameObject.Find("BtnYes");
+        btnNo = GameObject.Find("BtnNo");
 
-        TxtQuestion.SetActive(true);
-        BtnYes.SetActive(true);
-        BtnNo.SetActive(true);
+        txtQuestion.SetActive(true);
+        btnYes.SetActive(true);
+        btnNo.SetActive(true);
 
         LoadAllQuestionsToUse();
-        SendQuestionToPlayer(TxtQuestion);
+        SendQuestionToPlayer(txtQuestion);
     }
 
     private bool LoadAllQuestionsToUse()
     {
         try
         {
-            di = new DependencyInjector();
-            listQuestionData = di.GetAllQuestionData();
-            return listQuestionData.Count > 0;
+            dependecyInjector = new DependencyInjector();
+            questionDataListModel = dependecyInjector.GetAllQuestionData();
+            return questionDataListModel.Count > 0;
         }
         catch (Exception e)
         {
@@ -63,36 +60,36 @@ public class PostGameTest : MonoBehaviour
     public void PositiveAnswer()
     {
         Debug.Log("Contestó que Sí!");
-        qd.Answer = "S";
-        SaveAnswerForQuestion(qd);        
-        SendQuestionToPlayer(TxtQuestion);
+        questionDataModel.Answer = "S";
+        SaveAnswerForQuestion(questionDataModel);        
+        SendQuestionToPlayer(txtQuestion);
     }
     public void NegativeAnswer()
     {
         Debug.Log("Contestó que No!");
-        qd.Answer = "N";
-        SaveAnswerForQuestion(qd);
-        SendQuestionToPlayer(TxtQuestion);
+        questionDataModel.Answer = "N";
+        SaveAnswerForQuestion(questionDataModel);
+        SendQuestionToPlayer(txtQuestion);
     }
 
-    private void SaveAnswerForQuestion(QuestionData qd)
+    private void SaveAnswerForQuestion(QuestionData questionDataModel)
     {
-        listQuestionDataToSave.Add(qd);
+        questionDataListModelToSave.Add(questionDataModel);
     }
 
-    private void SendQuestionToPlayer(GameObject qText)
+    private void SendQuestionToPlayer(GameObject gameObject)
     {
         try
         {
             if (counter > 0)
             {
-                qd = GetRandomQuestion();
-                qText.GetComponent<UnityEngine.UI.Text>().text = qd.Question;
+                questionDataModel = GetRandomQuestion();
+                gameObject.GetComponent<UnityEngine.UI.Text>().text = questionDataModel.Question;
                 counter--;
             }
             else
             {
-                SaveToDatabase(listQuestionDataToSave);
+                SaveToDatabase(questionDataListModelToSave);
                 SceneManager.LoadScene("MainMenu");
             }
 
@@ -110,7 +107,7 @@ public class PostGameTest : MonoBehaviour
         {
             foreach (QuestionData qd in listQuestionDataToSave)
             {
-                di.SaveAnswerForQuestion(qd);
+                dependecyInjector.SaveAnswerForQuestion(qd);
             }
         }
         catch (Exception e)
@@ -122,9 +119,9 @@ public class PostGameTest : MonoBehaviour
     private QuestionData GetRandomQuestion()
     {
         Random r = new Random();
-        var value = r.Next(0, listQuestionData.Count - 1);
-        var question = listQuestionData[value];
-        listQuestionData.RemoveAt(value);
+        var value = r.Next(0, questionDataListModel.Count - 1);
+        var question = questionDataListModel[value];
+        questionDataListModel.RemoveAt(value);
         return question;
 
     }

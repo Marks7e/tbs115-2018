@@ -44,7 +44,7 @@ public class ImageChanger : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    private string musicName = "Sounds/Minigame";
+    private string _musicName = "Sounds/Minigame";
 
     // Start is called before the first frame update
     void Start()
@@ -211,7 +211,7 @@ public class ImageChanger : MonoBehaviour
     void GetInitializeMusic()
     {
         audioSource = GetComponent<AudioSource>();
-        bgMusic = Resources.Load<AudioClip>(musicName);
+        bgMusic = Resources.Load<AudioClip>(_musicName);
         audioSource.clip = bgMusic;
         audioSource.Play(0);
     }
