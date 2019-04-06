@@ -8,13 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class RandomizeTest : MonoBehaviour
 {
-    public void RandomizeForTest(int levelId)
+    private DependencyInjector _dependencyInjector;
+    public void RandomizeForTest()
     {
         try
         {
-            if (Random.Range(0, 100.00f) >= 75.00f)
-                SceneManager.LoadScene("PostGameTest");
-            SceneManager.LoadScene("MainMenu");
+            if (Random.Range(0, 100.00f) >= 0.0f)
+            { SceneManager.LoadScene("PostGameTest"); }
+            else
+            { SceneManager.LoadScene("MainMenu"); }
         }
         catch (System.Exception e)
         {

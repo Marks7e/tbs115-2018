@@ -15,6 +15,7 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         private QuestionDataService _questionDataService = null;
         private LevelSuccessTimeService _levelSuccessTimeService = null;
         private DBGenerator.DBGenerator _databaseGeneratorService = null;
+        private RandomizeTest randomizeTestModel = null;
 
         public DependencyInjector()
         {
@@ -24,17 +25,15 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             _questionDataService = new QuestionDataService(_dataBaseConnector);
             _levelSuccessTimeService = new LevelSuccessTimeService(_dataBaseConnector);
             _databaseGeneratorService = new DBGenerator.DBGenerator(_dataBaseConnector);
+            randomizeTestModel = new RandomizeTest();
         }
 
         #region DatabaseGenerator
-
         public bool CreateDatabaseIfNotExist()
         {
             return _databaseGeneratorService.CreateDbIfNotExist();
         }
-
         #endregion
-
         #region PlayerData
         public PlayerData GetAllPlayerData()
         {
@@ -48,7 +47,6 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             return _playerDataService.SaveDataToDb(playerDataModel);
         }
         #endregion
-
         #region LevelData
         public List<LevelData> GetAllLevelData()
         {
@@ -83,8 +81,11 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             { return CalculateRoundTimeByDynamicGameBalancing(level); }
             return GetLevelData(level).RoundTime;
         }
+        public int GetRealmNumberFromLevelId(int levelId)
+        {
+            return _levelDataService.GetRealmNumberFromLevelId(levelId);
+        }
         #endregion
-
         #region PlayerDataAndLevelData
         public bool UnlockGame(int level)
         {
@@ -93,23 +94,28 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
             return levelDataModel.UnlockLevelAt <= playerDataModel.TotalScore;
         }
         #endregion
-
         #region QuestionData
         public List<QuestionData> GetAllQuestionData()
         {
             return _questionDataService.GetAllQuestions();
-
         }
         public bool SaveAnswerForQuestion(IDataModel dataModel)
         {
             return _questionDataService.SaveDataToDb(dataModel);
         }
+        public List<QuestionData> GetAllRealmQuestionForRealm(int levelId)
+        {
+            return _questionDataService.GetAllRealmQuestionForRealm(levelId);
+        }
         #endregion
-
         #region LevelSuccessTime
         public List<LevelSuccessTime> GetAllLevelSuccessTime()
         {
             return _levelSuccessTimeService.GetAllSuccessTimeFromDb();
+        }
+        public LevelSuccessTime GetLastGamePlayed()
+        {
+            return _levelSuccessTimeService.GetLastLevelPlayed();
         }
         public List<LevelSuccessTime> GetAllLevelSuccessTimeByLevel(int level)
         {
@@ -126,6 +132,4 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         #endregion
 
     }
-
-
 }

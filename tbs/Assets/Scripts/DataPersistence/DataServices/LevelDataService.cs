@@ -21,18 +21,18 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private string Level_Update_Best_Score = "UPDATE LEVELDATA SET BESTSCORE = @bestScore WHERE LEVELID = @level ;";
         private string Level_Update_Times_Played = "UPDATE LEVELDATA SET TIMESPLAYED = @param1 WHERE LEVELID = @param2 ;";
         private string Level_Get_Entry_By_Levelid = "SELECT * FROM LEVELDATA WHERE LEVELID = @param1 ;";
+        private string Level_Get_Realm_Number_From_LevelID = "SELECT REALM FROM LEVELDATA WHERE LEVELID = @param1";
 
         public LevelDataService(DataBaseConnector dataBaseConnector)
         {
             _dataBaseConnector = dataBaseConnector;
             _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
-
-
         public bool UpdateTimesPlayedForLevelId(int levelId)
         {
             try
             {
+                bool databaseResponse = false;
                 LevelData levelDataModel = new LevelData();
                 levelDataModel = GetLevelData(levelId);
 
@@ -50,10 +50,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbDataParameterForLevel.Value = levelId;
                 dbCommand.Parameters.Add(dbDataParameterForLevel);
 
+
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {
@@ -63,7 +65,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         public bool LoadAllDataFromDb()
         {
             try
@@ -79,11 +80,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
                     _levelDataModel = new LevelData()
                     {
                         LevelId = dataReader.GetInt32(0),
-                        BestScore = dataReader.GetInt32(1),
-                        RoundTime = dataReader.GetInt32(2),
-                        PointMultiplier = dataReader.GetDouble(3),
-                        UnlockLevelAt = dataReader.GetInt32(4),
-                        TimesPlayed = dataReader.GetInt32(5)
+                        Realm = dataReader.GetInt32(1),
+                        BestScore = dataReader.GetInt32(2),
+                        RoundTime = dataReader.GetInt32(3),
+                        PointMultiplier = dataReader.GetDouble(4),
+                        UnlockLevelAt = dataReader.GetInt32(5),
+                        TimesPlayed = dataReader.GetInt32(6)
                     };
                     _levelDataListModel.Add(_levelDataModel);
                 }
@@ -101,10 +103,43 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
+        public int GetRealmNumberFromLevelId(int levelId)
+        {
+            try
+            {
+                int realmNumber = 0;
+                _sqliteConnection.Open();
+                IDbCommand dbCommandForRealmNumber = _sqliteConnection.CreateCommand();
+                dbCommandForRealmNumber.CommandText = Level_Get_Realm_Number_From_LevelID;
+
+                IDbDataParameter dbDataParameterForLevelId = dbCommandForRealmNumber.CreateParameter();
+                dbDataParameterForLevelId.ParameterName = "@param1";
+                dbDataParameterForLevelId.Value = levelId;
+                dbCommandForRealmNumber.Parameters.Add(dbDataParameterForLevelId);
+
+                IDataReader dataReaderForRealm = dbCommandForRealmNumber.ExecuteReader();
+
+                while (dataReaderForRealm.Read())
+                {
+                    realmNumber = dataReaderForRealm.GetInt32(0);
+                }
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return realmNumber;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return -1;
+            }
+        }
         public bool SaveDataToDb(IDataModel dataModel)
         {
             try
             {
+                bool databaseResponse = false;
                 LevelData levelDataModel = (LevelData)dataModel;
 
                 _sqliteConnection.Open();
@@ -123,10 +158,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbDataParameterLevel.Value = levelDataModel.LevelId;
                 dbCommand.Parameters.Add(dbDataParameterLevel);
 
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {
@@ -134,7 +170,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         public LevelData GetLevelData(int level)
         {
             try
@@ -154,11 +189,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 while (dataReader.Read())
                 {
                     levelDataModel.LevelId = dataReader.GetInt32(0);
-                    levelDataModel.BestScore = dataReader.GetInt32(1);
-                    levelDataModel.RoundTime = dataReader.GetInt32(2);
-                    levelDataModel.PointMultiplier = dataReader.GetDouble(3);
-                    levelDataModel.UnlockLevelAt = dataReader.GetInt32(4);
-                    levelDataModel.TimesPlayed = dataReader.GetInt32(5);
+                    levelDataModel.Realm = dataReader.GetInt32(1);
+                    levelDataModel.BestScore = dataReader.GetInt32(2);
+                    levelDataModel.RoundTime = dataReader.GetInt32(3);
+                    levelDataModel.PointMultiplier = dataReader.GetDouble(4);
+                    levelDataModel.UnlockLevelAt = dataReader.GetInt32(5);
+                    levelDataModel.TimesPlayed = dataReader.GetInt32(6);
                 }
 
                 dataReader.Close();

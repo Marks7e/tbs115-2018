@@ -9,7 +9,7 @@ using Random = System.Random;
 public class PostGameTest : MonoBehaviour
 {
     /*Inyectando dependencias*/
-    private DependencyInjector dependecyInjector = null;
+    private DependencyInjector _dependencyInjector = null;
 
     /*Declarando "contenedores" de UI*/
     GameObject txtQuestion;
@@ -42,12 +42,37 @@ public class PostGameTest : MonoBehaviour
         SendQuestionToPlayer(txtQuestion);
     }
 
+    //void Awake()
+    //{
+    //    counter = 3;
+    //    questionDataModel = new QuestionData();
+    //    List<QuestionData> listQuestionDataToSave = new List<QuestionData>();
+    //    txtQuestion = GameObject.Find("Question");
+    //    btnYes = GameObject.Find("BtnYes");
+    //    btnNo = GameObject.Find("BtnNo");
+
+    //    txtQuestion.SetActive(true);
+    //    btnYes.SetActive(true);
+    //    btnNo.SetActive(true);
+
+    //    LoadAllQuestionsToUse();
+    //    SendQuestionToPlayer(txtQuestion);
+    //}
+
     private bool LoadAllQuestionsToUse()
     {
         try
         {
-            dependecyInjector = new DependencyInjector();
-            questionDataListModel = dependecyInjector.GetAllQuestionData();
+            int lastLevelPlayed = 0;
+            int realmForLastLevelPlayed = 0;
+            _dependencyInjector = new DependencyInjector();
+
+            lastLevelPlayed = _dependencyInjector.GetLastGamePlayed().LevelID;
+            realmForLastLevelPlayed = _dependencyInjector.GetRealmNumberFromLevelId(lastLevelPlayed);
+
+            //questionDataListModel = _dependencyInjector.GetAllQuestionData();
+            questionDataListModel = _dependencyInjector.GetAllRealmQuestionForRealm(realmForLastLevelPlayed);
+
             return questionDataListModel.Count > 0;
         }
         catch (Exception e)
@@ -61,7 +86,7 @@ public class PostGameTest : MonoBehaviour
     {
         Debug.Log("Contestó que Sí!");
         questionDataModel.Answer = "S";
-        SaveAnswerForQuestion(questionDataModel);        
+        SaveAnswerForQuestion(questionDataModel);
         SendQuestionToPlayer(txtQuestion);
     }
     public void NegativeAnswer()
@@ -107,7 +132,7 @@ public class PostGameTest : MonoBehaviour
         {
             foreach (QuestionData qd in listQuestionDataToSave)
             {
-                dependecyInjector.SaveAnswerForQuestion(qd);
+                _dependencyInjector.SaveAnswerForQuestion(qd);
             }
         }
         catch (Exception e)

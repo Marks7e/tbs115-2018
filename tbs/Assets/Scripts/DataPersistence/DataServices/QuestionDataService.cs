@@ -18,6 +18,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         /*Queries a base de datos (LevelData)*/
         private string Question_All_Data = "SELECT * FROM QUESTIONDATA ;";
         private string Question_Update_Answer_Data = "UPDATE QUESTIONDATA SET ANSWER = @answer WHERE QUESTIONID = @questionid ;";
+        private string Question_Get_Data_From_Realm = "SELECT * FROM QUESTIONDATA WHERE REALMNUMBER = @param1";
 
         public QuestionDataService(DataBaseConnector dataBaseConnector)
         {
@@ -61,6 +62,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
+                bool databaseResponse = false;
                 QuestionData questionDataModel = (QuestionData)dataModel;
 
                 _sqliteConnection.Open();
@@ -79,10 +81,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbDataParameterForLevel.Value = questionDataModel.QuestionID;
                 dbCommand.Parameters.Add(dbDataParameterForLevel);
 
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {
@@ -95,6 +98,47 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             LoadAllDataFromDb();
             return _questionDataListModel;
+        }
+
+        public List<QuestionData> GetAllRealmQuestionForRealm(int realm)
+        {
+            try
+            {
+                _sqliteConnection.Open();
+                IDbCommand dbCommandForQuestionList = _sqliteConnection.CreateCommand();
+                dbCommandForQuestionList.CommandText = Question_Get_Data_From_Realm;
+
+                IDbDataParameter dbDataParameterForQuestionList = dbCommandForQuestionList.CreateParameter();
+                dbDataParameterForQuestionList.ParameterName = "@param1";
+                dbDataParameterForQuestionList.Value = realm;
+                dbCommandForQuestionList.Parameters.Add(dbDataParameterForQuestionList);
+
+                IDataReader dataReaderForQuestionList = dbCommandForQuestionList.ExecuteReader();
+                _questionDataListModel = new List<QuestionData>();
+
+                while (dataReaderForQuestionList.Read())
+                {
+                    _questionDataModel = new QuestionData()
+                    {
+                        QuestionID = dataReaderForQuestionList.GetInt32(0),
+                        RealmNumber = dataReaderForQuestionList.GetInt32(1),
+                        Question = dataReaderForQuestionList.GetString(2),
+                        Answer = dataReaderForQuestionList.GetString(3)
+                    };
+                    _questionDataListModel.Add(_questionDataModel);
+                }
+                dataReaderForQuestionList.Close();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return _questionDataListModel;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return null;
+            }
         }
     }
 }

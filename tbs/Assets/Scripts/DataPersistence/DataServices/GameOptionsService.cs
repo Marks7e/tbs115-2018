@@ -65,6 +65,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
+                bool databaseResponse = false;
                 GameOptions gameOptionsModel = (GameOptions)dataModel;
 
                 _sqliteConnection.Open();
@@ -77,10 +78,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbVolumeDataParameter.Value = gameOptionsModel.PValue;
                 dbCommand.Parameters.Add(dbVolumeDataParameter);
 
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {

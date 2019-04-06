@@ -11,7 +11,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
     {
         private DataBaseConnector _dataBaseConnector;
         private PlayerData playerDataModel;
-        private SqliteConnection _squliteConnection;
+        private SqliteConnection _sqliteConnection;
 
         /*Queries a base de datos (PlayerData)*/
         private string Player_All_Data = "SELECT * FROM PLAYERDATA WHERE PLAYERID = 1;";
@@ -20,15 +20,15 @@ namespace Assets.Scripts.DataPersistence.DataServices
         public PlayerDataService(DataBaseConnector dataBaseConnector)
         {
             _dataBaseConnector = dataBaseConnector;
-            _squliteConnection = _dataBaseConnector.GetDbInstance();
+            _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
 
         public bool LoadAllDataFromDb()
         {
             try
             {
-                _squliteConnection.Open();
-                IDbCommand dbCommand = _squliteConnection.CreateCommand();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
                 dbCommand.CommandText = Player_All_Data;
                 IDataReader dataReader = dbCommand.ExecuteReader();
 
@@ -41,8 +41,8 @@ namespace Assets.Scripts.DataPersistence.DataServices
                     };
                 }
                 dataReader.Close();
-                _squliteConnection.Close();
-                _squliteConnection.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return true;
             }
             catch (Exception exception)
@@ -56,11 +56,12 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
+                bool databaseResponse = false;
                 PlayerData playerDataModel = (PlayerData)dataModel;
                 LoadAllDataFromDb();
 
-                _squliteConnection.Open();
-                IDbCommand dbCommand = _squliteConnection.CreateCommand();
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
                 dbCommand.CommandText = Player_Update_Total_Score;
 
                 IDbDataParameter dbDataParameterForTotalScore = dbCommand.CreateParameter();
@@ -68,16 +69,17 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbDataParameterForTotalScore.Value = playerDataModel.TotalScore + this.playerDataModel.TotalScore;
                 dbCommand.Parameters.Add(dbDataParameterForTotalScore);
 
-                _squliteConnection.Close();
-                _squliteConnection.Dispose();
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {
                 Debug.LogError(exception.Message);
-                _squliteConnection.Close();
-                _squliteConnection.Dispose();
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
                 return false;
             }
         }

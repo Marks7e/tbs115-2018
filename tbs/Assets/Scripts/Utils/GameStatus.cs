@@ -5,17 +5,19 @@ using Assets.Scripts.DataPersistence.DependecyInjector;
 
 public class GameStatus : ScriptableObject
 {
+    public AudioClip win;
+    public AudioClip repeat;
+    public AudioSource source;
+    private RandomizeTest _randomizeTestModel;
+    private DependencyInjector _dependencyInjector;
+
+    public int LevelId { get; set; }
+
     public enum GameState
     {
         Win,
         TryAgain
     }
-
-    public AudioClip win;
-    public AudioClip repeat;
-    public AudioSource source;
-    public DependencyInjector di;
-    public int LevelId { get; set; }
 
     public void SettingSounds()
     {
@@ -80,8 +82,8 @@ public class GameStatus : ScriptableObject
     }
     private void ContinueWithGame()
     {
-        RandomizeTest randomizeTestModel = new RandomizeTest();
-        randomizeTestModel.RandomizeForTest(LevelId);
+        _randomizeTestModel = new RandomizeTest();
+        _randomizeTestModel.RandomizeForTest();
     }
     private void RepeatGame()
     {

@@ -22,6 +22,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private string Level_Success_Time_Delete_By_Sucessid = "DELETE FROM LevelSuccessTime WHERE SUCCESSID = @param1 ;";
         private string Level_Success_Time_Delete_By_Levelid = "DELETE FROM LevelSuccessTime WHERE LEVELID = @param1 ;";
         private string Level_Success_Insert_Time = "INSERT INTO LevelSuccessTime(levelId,SuccessTime) VALUES(@param1 , @param2);";
+        private string Level_Get_Last_Game_Played = "SELECT * FROM LevelSuccessTime ORDER BY SuccessID DESC LIMIT 1; ";
 
 
         public LevelSuccessTimeService(DataBaseConnector dataBaseConnector)
@@ -29,13 +30,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
             _dataBaseConnector = dataBaseConnector;
             _sqliteConnection = _dataBaseConnector.GetDbInstance();
         }
-
         public List<LevelSuccessTime> GetAllSuccessTimeFromDb()
         {
             LoadAllDataFromDb();
             return _levelSuccessTimeListModel;
         }
-
         public List<LevelSuccessTime> GetAllSuccessByLevel(int level)
         {
             try
@@ -80,7 +79,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return null;
             }
         }
-
         public bool SavePerformanceForLevel(IDataModel dataModel)
         {
             LevelSuccessTime levelSuccessTimeListModel = (LevelSuccessTime)dataModel;
@@ -88,7 +86,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
             { return SaveDataToDb(dataModel); }
             return UpdateOldestEntry(dataModel);
         }
-
         private bool SavePerformanceInNewEntry(int levelId, int entryCount)
         {
             try
@@ -124,11 +121,43 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
+        public LevelSuccessTime GetLastLevelPlayed()
+        {
+            try
+            {
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_Get_Last_Game_Played;
 
+                IDataReader dataReader = dbCommand.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    _levelSuccessTimeModel = new LevelSuccessTime()
+                    {
+                        SuccessID = dataReader.GetInt32(0),
+                        LevelID = dataReader.GetInt32(1),
+                        SuccessTime = dataReader.GetInt32(2)
+                    };
+                }
+
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return _levelSuccessTimeModel;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError(exception.Message);
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+                return null;
+            }
+        }
         public bool DeleteLevelSuccessTimeByLevel(int level)
         {
             try
             {
+                bool databaseResponse = false;
                 _sqliteConnection.Open();
                 IDbCommand dbCommand = _sqliteConnection.CreateCommand();
                 dbCommand.CommandText = Level_Success_Time_Delete_By_Levelid;
@@ -139,7 +168,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
 
                 dbCommand.Parameters.Add(dbDataParameterForLevelid);
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+
+                return databaseResponse;
             }
             catch (Exception exception)
             {
@@ -149,7 +182,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         private bool UpdateOldestEntry(IDataModel dataModel)
         {
             try
@@ -225,6 +257,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
+                bool databaseResponse = false;
                 _sqliteConnection.Open();
                 IDbCommand dbCommand = _sqliteConnection.CreateCommand();
                 dbCommand.CommandText = Level_Success_Time_Delete_By_Sucessid;
@@ -234,10 +267,11 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 dbDataParameterForLevelid.Value = SuccessId;
                 dbCommand.Parameters.Add(dbDataParameterForLevelid);
 
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
 
-                return dbCommand.ExecuteNonQuery() > 0;
+                return databaseResponse;
             }
             catch (Exception exception)
             {
@@ -247,7 +281,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         public bool LoadAllDataFromDb()
         {
             try
@@ -287,25 +320,28 @@ namespace Assets.Scripts.DataPersistence.DataServices
         {
             try
             {
+                bool databaseResponse = false;
                 LevelSuccessTime levelSuccessTimeModel = (LevelSuccessTime)dataModel;
 
                 _sqliteConnection.Open();
-                IDbCommand cmd = _sqliteConnection.CreateCommand();
-                cmd.CommandText = Level_Success_Insert_Time;
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Level_Success_Insert_Time;
 
-                IDbDataParameter dbDataParameterForLevelid = cmd.CreateParameter();
+                IDbDataParameter dbDataParameterForLevelid = dbCommand.CreateParameter();
                 dbDataParameterForLevelid.ParameterName = "@param1";
                 dbDataParameterForLevelid.Value = levelSuccessTimeModel.LevelID;
-                cmd.Parameters.Add(dbDataParameterForLevelid);
+                dbCommand.Parameters.Add(dbDataParameterForLevelid);
 
-                IDbDataParameter dbDataParamterForSuccessTime = cmd.CreateParameter();
+                IDbDataParameter dbDataParamterForSuccessTime = dbCommand.CreateParameter();
                 dbDataParamterForSuccessTime.ParameterName = "@param2";
                 dbDataParamterForSuccessTime.Value = levelSuccessTimeModel.SuccessTime;
-                cmd.Parameters.Add(dbDataParamterForSuccessTime);
+                dbCommand.Parameters.Add(dbDataParamterForSuccessTime);
 
+                databaseResponse = dbCommand.ExecuteNonQuery() > 0;
                 _sqliteConnection.Close();
                 _sqliteConnection.Dispose();
-                return cmd.ExecuteNonQuery() > 0;
+
+                return databaseResponse;
 
             }
             catch (Exception exception)
