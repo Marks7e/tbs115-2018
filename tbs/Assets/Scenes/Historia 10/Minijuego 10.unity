@@ -166,6 +166,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 408966e896a46fb4d8bd42364ee9d8b6, type: 3}
   - {fileID: 21300000, guid: 523511bf0775b624392eb8180f666e02, type: 3}
   defaultBoton: {fileID: 21300000, guid: 4126fbdfe2057dd4dbda97255a4efb7f, type: 3}
+  dbRoundTime: 0
+  totalTimeByGame: 0
   bestScore: 0
   score: 0
   timeLeft: 10
@@ -177,7 +179,7 @@ MonoBehaviour:
   Score: {fileID: 0}
   timing: {fileID: 0}
   Nivel: {fileID: 1520951369}
-  gs: {fileID: 0}
+  gameStatusModel: {fileID: 0}
   audioSource: {fileID: 0}
   bgMusic: {fileID: 0}
 --- !u!4 &15188110
@@ -218,7 +220,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -937,7 +939,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 15188109}
-        m_MethodName: iteracion
+        m_MethodName: Iteration
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3032,7 +3034,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 15188111}
-        m_MethodName: loadAnimation
+        m_MethodName: LoadAnimation
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
