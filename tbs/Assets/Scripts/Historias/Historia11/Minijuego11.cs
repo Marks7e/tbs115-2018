@@ -56,7 +56,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     private int nchar;
     private int option;
-    private int count = 0;
+    private int count = 1;
     private int i = 0;
 
     private void Awake()
@@ -76,7 +76,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         btnCompare.onClick.AddListener(() => Validate());
         btnContinue.GetComponent<Button>().onClick.AddListener(() => Ok());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => Fail());
+        btnReset.GetComponent<Button>().onClick.AddListener(() => Load());
 
     }
 
@@ -105,15 +105,16 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         }
 
+        Nivel.text = count + "/3";
+
         if (elementText.text.Length > 10)
-            {
-                
-                Nivel.text = count + "/3";
-                //Debug.Log(" palabra tiene mas de 10 letras");
-                DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
-            }
-     
-         
+        {
+            //Nivel.text = count + "/3";
+            //Debug.Log(" palabra tiene mas de 10 letras");
+            DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
+        }
+        
+
     }
 
     public void DisablePanelSprites()
@@ -174,22 +175,33 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public void Validate()
     {
         Debug.Log("intento: " + count);
-        //Nivel.text = count + "/3";
-        if (count < 3)
-        {
+        /*if (count < 3)
+        {*/
             if (elementText.text == referenciaOpcion)
             {
-                //Debug.Log("Son iguales, ACERTASTE");
-                isRoundDone = true;
-                panelSprites.SetActive(false);
-                panelWin.SetActive(true);
-                count++;
-                //Nivel.text = count + "/3";
-                //Ok();
-                //count++;
+                if (count < 3)
+                {
+                    //Debug.Log("Son iguales, ACERTASTE");
+                    isRoundDone = true;
+                    panelSprites.SetActive(false);
+                    panelWin.SetActive(true);
+                    count++;
+                }
+                else
+                {
+                    btnCompare.gameObject.SetActive(false);
+                    GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
+                                                                     //Borra los sprite cargado en rostro de emoji
+                    foreach (Transform slotTransform in slots)
+                    {
+                        GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
+                        Destroy(itemSprite);
+                    }
 
-                //ResetStage();
-                //RandomPetition();
+                    Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
+                    complete();
+                }
+              
             }
             else
             {
@@ -199,10 +211,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 panelLose.SetActive(true);
                 //fail();
                 //count = 0; //reinicia los intentos
-                count = 1;
+                //count = 1;
                 //Nivel.text = count + "/3";
             }
-        }
+        /*}
         else
         {
             btnCompare.gameObject.SetActive(false);
@@ -216,7 +228,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
             Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
             complete();
-        }
+        }*/
 
     }
 
@@ -282,7 +294,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         /*Para control de puntajes.*/
         var objBestScore = GameObject.Find("BestScore");
         var objScore = GameObject.Find("Score");
-        
         BestScore = objBestScore.GetComponent<Text>();
         Score = objScore.GetComponent<Text>();
         di = new DependencyInjector();
@@ -380,6 +391,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         gs.PlayerWinGame(audioSource, waitingTime, 3);
     }
 
+    public void Load()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 11");
+    }
 
 }
 
