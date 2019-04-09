@@ -16,11 +16,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public GameObject panelSprites;
     public GameObject panelWin;
     public GameObject panelLose;
-    public GameObject btnReset, btnContinue, btnTermina;
+    public GameObject btnReset, btnContinue;
 
     public GameObject[] arrayPrefab = new GameObject[8];
    
-    private string referenciaOpcion;
+    private string _referenciaOpcion;
 
     public Button btnCompare;
    
@@ -54,10 +54,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public Text Nivel;
     public Text timing;
 
-    private int nchar;
-    private int option;
-    private int count = 1;
-    private int i = 0;
+    private int _nchar;
+    private int _option;
+    private int _count = 1;
+    private int _i = 0;
 
     private void Awake()
     {
@@ -75,8 +75,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         HasChanged();
 
         btnCompare.onClick.AddListener(() => Validate());
-        btnContinue.GetComponent<Button>().onClick.AddListener(() => Ok());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => Load());
+        btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
+        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
 
     }
 
@@ -95,7 +95,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             if (timeLeft <= 0 && !isGameDone)
             {
                 di.UpdateLevelTimesPlayed(3);
-                //UnableGameControls();
                 audioSource.Stop();
                 isGameDone = true;
                 di.ResetLevelSuccessTimeByLevel(3);
@@ -105,37 +104,36 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         }
 
-        Nivel.text = count + "/3";
+        Nivel.text = _count + "/3";
 
         if (elementText.text.Length > 10)
         {
-            //Nivel.text = count + "/3";
-            //Debug.Log(" palabra tiene mas de 10 letras");
-            DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
+           DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
         }
         
 
     }
 
+    // Deshabilita panel con sprite con partes de emoji y habilita boton de comparacion
     public void DisablePanelSprites()
     {
         panelSprites.gameObject.SetActive(false);
         btnCompare.gameObject.SetActive(true);
     }
 
+    //Habilita panel con sprite con partes de emoji y deshabilita boton de comparacion
     public void EnablePanelSprite()
     {
         btnCompare.gameObject.SetActive(false);  //Desactiva boton
         panelSprites.gameObject.SetActive(true); //Activa panel
     }
 
+    //Restablece el Escenario luego de cada ronda
     public void ResetStage()
     {
         elementText.text = " ";
 
-        referenciaOpcion = " ";
-
-        //Nivel.text = count + "/3";
+        _referenciaOpcion = " ";
 
         EnablePanelSprite();
         
@@ -156,82 +154,64 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         RestockPanelSprite();
     }
 
+    //Rellena los stocks con partes de emoji
     public void RestockPanelSprite()
     {
         //Vuelve a llenar todo el panel de sprites arrastrables
         foreach (Transform spriteTransform in sprites)
         {
-            GameObject objectHijo = Instantiate(arrayPrefab[i]) as GameObject;
-            objectHijo.name = arrayPrefab[i].name;
-            //objectHijo.transform.parent = spriteTransform.transform;
+            GameObject objectHijo = Instantiate(arrayPrefab[_i]) as GameObject;
+            objectHijo.name = arrayPrefab[_i].name;
             objectHijo.transform.SetParent(spriteTransform.transform);
             objectHijo.transform.position = spriteTransform.transform.position;
-            i++;
+            _i++;
         }
 
-        i = 0;
+        _i = 0;
     }
 
+    //Valida los sprites arrastrados hacia el rostro base de emoji
     public void Validate()
     {
-        Debug.Log("intento: " + count);
-        /*if (count < 3)
-        {*/
-            if (elementText.text == referenciaOpcion)
+        Debug.Log("intento: " + _count);
+        if (elementText.text == _referenciaOpcion)
+        {
+            if (_count < 3)
             {
-                if (count < 3)
-                {
-                    //Debug.Log("Son iguales, ACERTASTE");
-                    isRoundDone = true;
-                    panelSprites.SetActive(false);
-                    panelWin.SetActive(true);
-                    count++;
-                }
-                else
-                {
-                    btnCompare.gameObject.SetActive(false);
-                    GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
-                                                                     //Borra los sprite cargado en rostro de emoji
-                    foreach (Transform slotTransform in slots)
-                    {
-                        GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
-                        Destroy(itemSprite);
-                    }
-
-                    Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
-                    complete();
-                }
-              
+                //Debug.Log("Son iguales, ACERTASTE");
+                isRoundDone = true;
+                panelSprites.SetActive(false);
+                panelWin.SetActive(true);
+                _count++;
             }
             else
             {
-                //Debug.Log("Son diferentes, FALLASTE");
-                isRoundDone = true;
-                panelSprites.SetActive(false);
-                panelLose.SetActive(true);
-                //fail();
-                //count = 0; //reinicia los intentos
-                //count = 1;
-                //Nivel.text = count + "/3";
+                btnCompare.gameObject.SetActive(false);
+                GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
+                                                                    //Borra los sprite cargado en rostro de emoji
+                foreach (Transform slotTransform in slots)
+                {
+                    GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
+                    Destroy(itemSprite);
+                }
+
+                Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
+                CompleteGame();
             }
-        /*}
+              
+        }
         else
         {
-            btnCompare.gameObject.SetActive(false);
-            GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
-            //Borra los sprite cargado en rostro de emoji
-            foreach (Transform slotTransform in slots)
-            {
-                GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
-                Destroy(itemSprite);
-            }
-
-            Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
-            complete();
-        }*/
-
+            //Debug.Log("Son diferentes, FALLASTE");
+            isRoundDone = true;
+            panelSprites.SetActive(false);
+            panelLose.SetActive(true);
+               
+        }
+       
     }
 
+    //Reproduce al azar audio con la orden del rostro a formar
     public void RandomPetition()
     {
         int op = UnityEngine.Random.Range(0, audioClipArray.Length);
@@ -240,19 +220,19 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         {
             case 0:
                 audioPetition.clip = audioClipArray[0];
-                referenciaOpcion = "o_alegreb_alegre";
+                _referenciaOpcion = "o_alegreb_alegre";
                 break;
             case 1:
                  audioPetition.clip = audioClipArray[1];
-                referenciaOpcion = "o_tristezab_tristeza";
+                _referenciaOpcion = "o_tristezab_tristeza";
                 break;
             case 2:
                 audioPetition.clip = audioClipArray[2];
-                referenciaOpcion = "o_miedob_miedo";
+                _referenciaOpcion = "o_miedob_miedo";
                 break;
             case 3:
                  audioPetition.clip = audioClipArray[3];
-                referenciaOpcion = "o_enojob_enojo";
+                _referenciaOpcion = "o_enojob_enojo";
                 break;
         }
 
@@ -261,17 +241,17 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     }
 
+    //Obtiene el valor del sprite posicionado en el rostro de emojis
     public void HasChanged()
     {
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
-        //builder.Append(" - ");
+   
         foreach (Transform slotTransform in slots)
         {
             GameObject item = slotTransform.GetComponent<SlotContent>().item;
             if (item)
             {
                 builder.Append(item.name);
-                //builder.Append(" - ");
             }
         }
         elementText.text = builder.ToString();
@@ -341,13 +321,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     }
 
     //Mensaje de respuesta correcta
-    public void Ok()
+    public void OkRound()
     {
         totalTimeByGame += dbRoundtime - (int)timeLeft;
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
-        //count++;                    //Aumenta el contador para etiqueta de ronda
-        //Nivel.text = count + "/3";
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
         ResetStage();               //Reinicia el escenario
         RandomPetition();           //Realiza peticion de nuevo rostro a formar
@@ -355,13 +333,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     }
 
     //Mensaje de Respuesta incorrecta
-    public void Fail()
+    public void FailRound()
     {
         score -= 800;
         UpdateScore();
         SettingTimeOfGame();
-        //count = 1;
-        //Nivel.text = count + "/3";
         panelLose.SetActive(false);
         ResetStage();               //Reinicia el escenario
         RandomPetition();
@@ -371,7 +347,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     }
 
     //Mensaje de finalizacion de minijuego
-    public void complete()
+    public void CompleteGame()
     {
         di.UpdateLevelTimesPlayed(3);
         di.SaveSuccesTime(new LevelSuccessTime()
@@ -390,8 +366,9 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime, 3);
     }
-
-    public void Load()
+    
+    //Reinicia toda la Escena 
+    public void ReloadGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 11");
     }
