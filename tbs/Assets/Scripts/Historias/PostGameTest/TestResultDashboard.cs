@@ -13,18 +13,14 @@ public class TestResultDashboard : MonoBehaviour
     {
         InitializeAllObjects();
     }
-
     void Update()
     {
         AnimateGraph();
     }
-
     private void InitializeAllObjects()
     {
         _charImage = GameObject.Find("chartObject").GetComponent<Image>();
     }
-
-
     private void AnimateGraph()
     {
         _charImage.fillAmount += 1.0f / _waitTime * Time.deltaTime;
