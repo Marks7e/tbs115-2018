@@ -8,12 +8,24 @@ using UnityEngine.UI;
 public class TestResultDashboard : MonoBehaviour
 {
     private GameObject _chartObject;
+    private Button _familyRealmButton;
+    private Button _schoolRealmButton;
+    private Button _autoevaluationRealmButton;
     private Image _charImage;
     private float _waitTime = 1.5f;
-    private List<QuestionData> _questionDataListModelForRealm1;
-    private List<QuestionData> _questionDataListModelForRealm2;
-    private List<QuestionData> _questionDataListModelForRealm3;
+    public float fillUntil = 0f;
+    private List<QuestionData> _questionDataListModelForRealm;
     private DependencyInjector _di;
+    private int _familyRealmAnimationFlag = 0;
+    private int _schoolRealmAnimationFlag = 0;
+    private int _autoevaluationRealmAnimationFlag = 0;
+
+    enum AnimationFlag
+    {
+        FamilyAnimation = 1,
+        SchoolAnimation = 2,
+        AutoEvalAnimation = 3
+    }
 
     void Start()
     {
@@ -21,31 +33,55 @@ public class TestResultDashboard : MonoBehaviour
     }
     void Update()
     {
-        AnimateGraph(_waitTime);
+        //_charImage.fillAmount += 1.0f / _waitTime * Time.deltaTime;
+        if (_familyRealmAnimationFlag == 1)
+        { AnimateGraph((int)AnimationFlag.FamilyAnimation); }
+        if (_schoolRealmAnimationFlag == 1)
+        { AnimateGraph((int)AnimationFlag.SchoolAnimation); }
+        if (_autoevaluationRealmAnimationFlag == 1)
+        { AnimateGraph((int)AnimationFlag.AutoEvalAnimation); }
     }
     private void InitializeAllObjects()
     {
         _di = new DependencyInjector();
-        _questionDataListModelForRealm1 = new List<QuestionData>();
-        _questionDataListModelForRealm2 = new List<QuestionData>();
-        _questionDataListModelForRealm3 = new List<QuestionData>();
-        _charImage = GameObject.Find("chartObject").GetComponent<Image>();
-    }
-    private void InitializeDataForGraph()
-    {
-        _questionDataListModelForRealm1 = _di.GetAllRealmQuestionForRealm(1);
-        _questionDataListModelForRealm2 = _di.GetAllRealmQuestionForRealm(2);
-        _questionDataListModelForRealm3 = _di.GetAllRealmQuestionForRealm(3);
-    }
-    private void AnimateGraph(int realm, float animationWaitTime)
-    {
+        _questionDataListModelForRealm = new List<QuestionData>();
 
-        _charImage.fillAmount += 1.0f / animationWaitTime * Time.deltaTime;
+        _charImage = GameObject.Find("chartObject").GetComponent<Image>();
+        _familyRealmButton = GameObject.Find("showRealm1").GetComponent<Button>();
+        _schoolRealmButton = GameObject.Find("showRealm2").GetComponent<Button>();
+        _autoevaluationRealmButton = GameObject.Find("showRealm3").GetComponent<Button>();
+
+        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.FamilyAnimation); });
+        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.SchoolAnimation); });
+        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.AutoEvalAnimation); });
+    }
+    private void InitializeDataForGraph(int realm)
+    {
+        _questionDataListModelForRealm = _di.GetAllRealmQuestionForRealm(realm);
+    }
+    private void AnimateGraph(int realm)
+    {
+        if (fillUntil == 0 || _charImage.fillAmount >= fillUntil)
+        {
+            _charImage.fillAmount = 0;
+            InitializeDataForGraph(realm);
+            fillUntil = GetFillForGraph(_questionDataListModelForRealm);
+        }
+        else
+        {
+            _charImage.fillAmount += 1.0f / _waitTime * Time.deltaTime;
+            if (_charImage.fillAmount >= fillUntil)
+            {
+                fillUntil = 0f;
+                DisableAllAnimationFlags();
+            }
+        }
+
     }
     private float GetFillForGraph(List<QuestionData> listQuestionData)
     {
         int yesCount = 0;
-        float fillAmount = 0f;
+        float fillAmount;
 
         foreach (QuestionData questionData in listQuestionData)
         {
@@ -53,7 +89,28 @@ public class TestResultDashboard : MonoBehaviour
                 yesCount += 1;
         }
 
-        fillAmount = ((360 / listQuestionData.Count) * yesCount);
+        fillAmount = (((360 / listQuestionData.Count) * yesCount) * 0.01f);
         return fillAmount;
+    }
+    private void EnableAnimationFlag(AnimationFlag animationFlag)
+    {
+        switch (animationFlag)
+        {
+            case AnimationFlag.FamilyAnimation:
+                _familyRealmAnimationFlag = 1;
+                break;
+            case AnimationFlag.SchoolAnimation:
+                _schoolRealmAnimationFlag = 1;
+                break;
+            case AnimationFlag.AutoEvalAnimation:
+                _autoevaluationRealmAnimationFlag = 1;
+                break;
+        }
+    }
+    private void DisableAllAnimationFlags()
+    {
+        _familyRealmAnimationFlag = 0;
+        _schoolRealmAnimationFlag = 0;
+        _autoevaluationRealmAnimationFlag = 0;
     }
 }
