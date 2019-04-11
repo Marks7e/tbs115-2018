@@ -94,12 +94,12 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                di.UpdateLevelTimesPlayed(3);
+                di.UpdateLevelTimesPlayed(11);
                 audioSource.Stop();
                 isGameDone = true;
-                di.ResetLevelSuccessTimeByLevel(3);
+                di.ResetLevelSuccessTimeByLevel(11);
                 gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 11);
             }
 
         }
@@ -278,14 +278,14 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         Score = objScore.GetComponent<Text>();
         di = new DependencyInjector();
         dgb = new DynamicGameBalance();
-        timeLeft = di.GetRoundTime(3);
+        timeLeft = di.GetRoundTime(11);
         
 
     }
 
     private void SettingTimeOfGame()
     {
-        timeLeft = di.GetRoundTime(3);
+        timeLeft = di.GetRoundTime(11);
     }
 
     private void InitializeRecordAndScore()
@@ -295,8 +295,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         ld = new LevelData();
 
         pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(3);
-        dbRoundtime = di.GetRoundTime(3);
+        ld = di.GetLevelData(11);
+        dbRoundtime = di.GetRoundTime(11);
         score = 0;
         bestScore = ld.BestScore;
 
@@ -349,10 +349,10 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     //Mensaje de finalizacion de minijuego
     public void CompleteGame()
     {
-        di.UpdateLevelTimesPlayed(3);
+        di.UpdateLevelTimesPlayed(11);
         di.SaveSuccesTime(new LevelSuccessTime()
         {
-            LevelID = 3,
+            LevelID = 11,
             SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 3)
         });
 
@@ -360,11 +360,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         isGameDone = true;
         
         if (bestScore == score)
-            di.UpdateBestScoreForLevel(3, score);
+            di.UpdateBestScoreForLevel(11, score);
         di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 3);
+        gs.PlayerWinGame(audioSource, waitingTime, 11);
     }
     
     //Reinicia toda la Escena 
