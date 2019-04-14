@@ -12,7 +12,10 @@ public class TestResultDashboard : MonoBehaviour
     private Button _schoolRealmButton;
     private Button _autoevaluationRealmButton;
     private Image _charImage;
-    private float _waitTime = 1.5f;
+    private Color _familyColorGraph;
+    private Color _shoolColorGraph;
+    private Color _autoEvaluationColorGraph;
+    private float _waitTime = 0.10f;
     public float fillUntil = 0f;
     private List<QuestionData> _questionDataListModelForRealm;
     private DependencyInjector _di;
@@ -35,11 +38,11 @@ public class TestResultDashboard : MonoBehaviour
     {
         //_charImage.fillAmount += 1.0f / _waitTime * Time.deltaTime;
         if (_familyRealmAnimationFlag == 1)
-        { AnimateGraph((int)AnimationFlag.FamilyAnimation); }
+        { AnimateGraph(AnimationFlag.FamilyAnimation); }
         if (_schoolRealmAnimationFlag == 1)
-        { AnimateGraph((int)AnimationFlag.SchoolAnimation); }
+        { AnimateGraph(AnimationFlag.SchoolAnimation); }
         if (_autoevaluationRealmAnimationFlag == 1)
-        { AnimateGraph((int)AnimationFlag.AutoEvalAnimation); }
+        { AnimateGraph(AnimationFlag.AutoEvalAnimation); }
     }
     private void InitializeAllObjects()
     {
@@ -47,31 +50,38 @@ public class TestResultDashboard : MonoBehaviour
         _questionDataListModelForRealm = new List<QuestionData>();
 
         _charImage = GameObject.Find("chartObject").GetComponent<Image>();
+
         _familyRealmButton = GameObject.Find("showRealm1").GetComponent<Button>();
         _schoolRealmButton = GameObject.Find("showRealm2").GetComponent<Button>();
         _autoevaluationRealmButton = GameObject.Find("showRealm3").GetComponent<Button>();
 
+        _familyColorGraph = new Color(0.7686275f, 0.1176471f, 0.2392157f, 1f);
+        _shoolColorGraph = new Color(0.2431373f, 0.572549f, 0.8f, 1f);
+        _autoEvaluationColorGraph = new Color(0.6941177f, 0.454902f, 0.05882353f, 1f);
+
         _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.FamilyAnimation); });
-        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.SchoolAnimation); });
-        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.AutoEvalAnimation); });
+        _schoolRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.SchoolAnimation); });
+        _autoevaluationRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.AutoEvalAnimation); });
+
     }
-    private void InitializeDataForGraph(int realm)
+    private void InitializeDataForGraph(AnimationFlag animationFlag)
     {
-        _questionDataListModelForRealm = _di.GetAllRealmQuestionForRealm(realm);
+        _questionDataListModelForRealm = _di.GetAllRealmQuestionForRealm((int)animationFlag);
     }
-    private void AnimateGraph(int realm)
+    private void AnimateGraph(AnimationFlag animationFlag)
     {
         if (fillUntil == 0 || _charImage.fillAmount >= fillUntil)
         {
             _charImage.fillAmount = 0;
-            InitializeDataForGraph(realm);
+            InitializeDataForGraph(animationFlag);
             fillUntil = GetFillForGraph(_questionDataListModelForRealm);
         }
         else
         {
-            _charImage.fillAmount += 1.0f / _waitTime * Time.deltaTime;
+            _charImage.fillAmount += 0.1f / _waitTime * Time.deltaTime;
             if (_charImage.fillAmount >= fillUntil)
             {
+                _charImage.fillAmount = fillUntil;
                 fillUntil = 0f;
                 DisableAllAnimationFlags();
             }
@@ -89,11 +99,13 @@ public class TestResultDashboard : MonoBehaviour
                 yesCount += 1;
         }
 
-        fillAmount = (((360 / listQuestionData.Count) * yesCount) * 0.01f);
+        fillAmount = (((360f / listQuestionData.Count) * yesCount) / 360f);
         return fillAmount;
     }
     private void EnableAnimationFlag(AnimationFlag animationFlag)
     {
+        SetGraphColor(animationFlag);
+
         switch (animationFlag)
         {
             case AnimationFlag.FamilyAnimation:
@@ -112,5 +124,21 @@ public class TestResultDashboard : MonoBehaviour
         _familyRealmAnimationFlag = 0;
         _schoolRealmAnimationFlag = 0;
         _autoevaluationRealmAnimationFlag = 0;
+    }
+    private void SetGraphColor(AnimationFlag animationFlag)
+    {
+
+        switch (animationFlag)
+        {
+            case AnimationFlag.FamilyAnimation:
+                _charImage.color = _familyColorGraph;
+                break;
+            case AnimationFlag.SchoolAnimation:
+                _charImage.color = _shoolColorGraph;
+                break;
+            case AnimationFlag.AutoEvalAnimation:
+                _charImage.color = _autoEvaluationColorGraph;
+                break;
+        }
     }
 }

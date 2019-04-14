@@ -41,7 +41,6 @@ namespace Assets.Scripts.DataPersistence.DBGenerator
             _cretaDatabaseListModel.Add("INSERT INTO 'LevelData' ('levelId','Realm','BestScore','RoundTime','PointMultiplier','UnlockLevelAt','TimesPlayed') VALUES (3,1,0,10,2,0,0)");
             _cretaDatabaseListModel.Add("INSERT INTO 'LevelData' ('levelId','Realm','BestScore','RoundTime','PointMultiplier','UnlockLevelAt','TimesPlayed') VALUES (4,1,0,10,2,0,0)");
             _cretaDatabaseListModel.Add("INSERT INTO 'LevelData' ('levelId','Realm','BestScore','RoundTime','PointMultiplier','UnlockLevelAt','TimesPlayed') VALUES (10,3,0,10,2,0,0)");
-            _cretaDatabaseListModel.Add("COMMIT;");
         }
         public bool CreateDbIfNotExist()
         {
