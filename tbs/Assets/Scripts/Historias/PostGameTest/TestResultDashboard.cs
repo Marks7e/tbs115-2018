@@ -13,6 +13,7 @@ public class TestResultDashboard : MonoBehaviour
     private Button _autoevaluationRealmButton;
     private Image _charImage;
     private GameObject _noDataMessage;
+    private GameObject _percentProgressMessage;
     private Color _familyColorGraph;
     private Color _shoolColorGraph;
     private Color _autoEvaluationColorGraph;
@@ -52,6 +53,7 @@ public class TestResultDashboard : MonoBehaviour
 
         _charImage = GameObject.Find("chartObject").GetComponent<Image>();
         _noDataMessage = GameObject.Find("noDataMessage");
+        _percentProgressMessage = GameObject.Find("percentProgressMessage");
 
         _familyRealmButton = GameObject.Find("showRealm1").GetComponent<Button>();
         _schoolRealmButton = GameObject.Find("showRealm2").GetComponent<Button>();
@@ -66,6 +68,7 @@ public class TestResultDashboard : MonoBehaviour
         _autoevaluationRealmButton.onClick.AddListener(delegate { StartAnimation(AnimationFlag.AutoEvalAnimation); });
 
         _noDataMessage.SetActive(false);
+        _percentProgressMessage.SetActive(false);
     }
     private void InitializeDataForGraph(AnimationFlag animationFlag)
     {
@@ -89,6 +92,7 @@ public class TestResultDashboard : MonoBehaviour
     {
         _charImage.fillAmount = 0;
         _noDataMessage.SetActive(false);
+        _percentProgressMessage.SetActive(false);
         InitializeDataForGraph(animationFlag);
         fillUntil = GetFillForGraph(_questionDataListModelForRealm);
         if (fillUntil <= 0)
@@ -103,6 +107,8 @@ public class TestResultDashboard : MonoBehaviour
     private void StopAndClearAnimation()
     {
         _charImage.fillAmount = fillUntil;
+        _percentProgressMessage.SetActive(true);
+        _percentProgressMessage.GetComponent<Text>().text = (fillUntil * 100f) + "%";
         fillUntil = 0f;
         DisableAllAnimationFlags();
     }
