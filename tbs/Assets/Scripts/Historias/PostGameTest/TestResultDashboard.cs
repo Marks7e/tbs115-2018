@@ -12,6 +12,7 @@ public class TestResultDashboard : MonoBehaviour
     private Button _schoolRealmButton;
     private Button _autoevaluationRealmButton;
     private Image _charImage;
+    private GameObject _noDataMessage;
     private Color _familyColorGraph;
     private Color _shoolColorGraph;
     private Color _autoEvaluationColorGraph;
@@ -50,6 +51,7 @@ public class TestResultDashboard : MonoBehaviour
         _questionDataListModelForRealm = new List<QuestionData>();
 
         _charImage = GameObject.Find("chartObject").GetComponent<Image>();
+        _noDataMessage = GameObject.Find("noDataMessage");
 
         _familyRealmButton = GameObject.Find("showRealm1").GetComponent<Button>();
         _schoolRealmButton = GameObject.Find("showRealm2").GetComponent<Button>();
@@ -59,10 +61,11 @@ public class TestResultDashboard : MonoBehaviour
         _shoolColorGraph = new Color(0.2431373f, 0.572549f, 0.8f, 1f);
         _autoEvaluationColorGraph = new Color(0.6941177f, 0.454902f, 0.05882353f, 1f);
 
-        _familyRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.FamilyAnimation); });
-        _schoolRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.SchoolAnimation); });
-        _autoevaluationRealmButton.onClick.AddListener(delegate { EnableAnimationFlag(AnimationFlag.AutoEvalAnimation); });
+        _familyRealmButton.onClick.AddListener(delegate { StartAnimation(AnimationFlag.FamilyAnimation); });
+        _schoolRealmButton.onClick.AddListener(delegate { StartAnimation(AnimationFlag.SchoolAnimation); });
+        _autoevaluationRealmButton.onClick.AddListener(delegate { StartAnimation(AnimationFlag.AutoEvalAnimation); });
 
+        _noDataMessage.SetActive(false);
     }
     private void InitializeDataForGraph(AnimationFlag animationFlag)
     {
@@ -70,23 +73,46 @@ public class TestResultDashboard : MonoBehaviour
     }
     private void AnimateGraph(AnimationFlag animationFlag)
     {
-        if (fillUntil == 0 || _charImage.fillAmount >= fillUntil)
+        if (IsGraphAnimationReadyToStart())
         {
-            _charImage.fillAmount = 0;
-            InitializeDataForGraph(animationFlag);
-            fillUntil = GetFillForGraph(_questionDataListModelForRealm);
+            InitializeAnimationAndDataGraph(animationFlag);
         }
         else
         {
-            _charImage.fillAmount += 0.1f / _waitTime * Time.deltaTime;
-            if (_charImage.fillAmount >= fillUntil)
-            {
-                _charImage.fillAmount = fillUntil;
-                fillUntil = 0f;
-                DisableAllAnimationFlags();
-            }
+            RunAnimation();
         }
 
+    }
+    private bool IsGraphAnimationReadyToStart()
+    { return fillUntil == 0 || _charImage.fillAmount >= fillUntil; }
+    private void InitializeAnimationAndDataGraph(AnimationFlag animationFlag)
+    {
+        _charImage.fillAmount = 0;
+        _noDataMessage.SetActive(false);
+        InitializeDataForGraph(animationFlag);
+        fillUntil = GetFillForGraph(_questionDataListModelForRealm);
+        if (fillUntil <= 0)
+        {
+            _noDataMessage.SetActive(true);
+        }
+    }
+    private void DeltaAnimationForGraph()
+    { _charImage.fillAmount += 0.1f / _waitTime * Time.deltaTime; }
+    private bool IsGraphAnimationFinish()
+    { return _charImage.fillAmount >= fillUntil; }
+    private void StopAndClearAnimation()
+    {
+        _charImage.fillAmount = fillUntil;
+        fillUntil = 0f;
+        DisableAllAnimationFlags();
+    }
+    private void RunAnimation()
+    {
+        DeltaAnimationForGraph();
+        if (IsGraphAnimationFinish())
+        {
+            StopAndClearAnimation();
+        }
     }
     private float GetFillForGraph(List<QuestionData> listQuestionData)
     {
@@ -102,7 +128,7 @@ public class TestResultDashboard : MonoBehaviour
         fillAmount = (((360f / listQuestionData.Count) * yesCount) / 360f);
         return fillAmount;
     }
-    private void EnableAnimationFlag(AnimationFlag animationFlag)
+    private void StartAnimation(AnimationFlag animationFlag)
     {
         SetGraphColor(animationFlag);
 
@@ -141,4 +167,5 @@ public class TestResultDashboard : MonoBehaviour
                 break;
         }
     }
+    
 }
