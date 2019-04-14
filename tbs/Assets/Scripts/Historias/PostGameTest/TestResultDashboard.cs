@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -108,7 +109,7 @@ public class TestResultDashboard : MonoBehaviour
     {
         _charImage.fillAmount = fillUntil;
         _percentProgressMessage.SetActive(true);
-        _percentProgressMessage.GetComponent<Text>().text = (fillUntil * 100f) + "%";
+        _percentProgressMessage.GetComponent<Text>().text = (Math.Round(fillUntil * 100f,2)) + "%";
         fillUntil = 0f;
         DisableAllAnimationFlags();
     }
