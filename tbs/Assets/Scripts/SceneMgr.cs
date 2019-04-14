@@ -15,6 +15,11 @@ public class SceneMgr : MonoBehaviour
         { ValidatingEnoughtPointsForLevel(); }
     }
 
+    public void LoadGameDirectly(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
     private void ValidatingEnoughtPointsForLevel()
     {
         ShowModal showModal = new ShowModal();
