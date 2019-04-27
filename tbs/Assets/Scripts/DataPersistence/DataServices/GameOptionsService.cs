@@ -17,11 +17,17 @@ namespace Assets.Scripts.DataPersistence.DataServices
         private GameOptions _gameOptionModel;
         private SqliteConnection _sqliteConnection;
 
+        public enum GameSettings
+        {
+            Volume = 1,
+            GameBalanceEngine = 2
+        }
 
         /*Queries a base de datos (LevelData)*/
         private string Game_Options_Data = "SELECT * FROM GAMEOPTIONS;";
         private string Game_Options_Save_Volume = "UPDATE GAMEOPTIONS SET PVALUE= @volume WHERE OPTIONID = 1 ;";
-
+        private string Game_Options_Load_Setting_By_Id = "SELECT * FROM GAMEOPTIONS WHERE OPTIONID = @param1 ;";
+        private string Game_Options_Save_Settings_By_Id = "UPDATE GAMEOPTIONS SET PVALUE = @param1 WHERE OPTIONID = @param2 ;";
 
         public GameOptionsService(DataBaseConnector dataBaseConnector)
         {
@@ -42,7 +48,7 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 {
                     _gameOptionModel = new GameOptions()
                     {
-                        QuestionId = dataReader.GetInt32(0),
+                        OptionID = dataReader.GetInt32(0),
                         Parameter = dataReader.GetString(1),
                         PValue = dataReader.GetString(2)
                     };
@@ -60,7 +66,6 @@ namespace Assets.Scripts.DataPersistence.DataServices
                 return false;
             }
         }
-
         public bool SaveDataToDb(IDataModel dataModel)
         {
             try
@@ -87,6 +92,72 @@ namespace Assets.Scripts.DataPersistence.DataServices
             catch (Exception exception)
             {
                 Debug.LogError(exception.Message);
+                return false;
+            }
+        }
+        public GameOptions LoadGameOptionByOptionID(GameSettings gameSettings)
+        {
+            try
+            {
+                int setting = (int)gameSettings;
+                GameOptions gameOption = new GameOptions();
+
+                _sqliteConnection.Open();
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Game_Options_Load_Setting_By_Id;
+
+                IDbDataParameter dataParameterValue = dbCommand.CreateParameter();
+                dataParameterValue.ParameterName = "@param1";
+                dataParameterValue.Value = setting;
+
+                dbCommand.Parameters.Add(dataParameterValue);
+
+                IDataReader dataReader = dbCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    gameOption.OptionID = dataReader.GetInt32(0);
+                    gameOption.Parameter = dataReader.GetString(1);
+                    gameOption.PValue = dataReader.GetString(2);
+                }
+                return gameOption;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+                return null;
+            }
+        }
+        public bool SaveGameOptionByOptionID(IDataModel dataModel)
+        {
+            try
+            {
+                _sqliteConnection.Open();
+                GameOptions gameOption = new GameOptions();
+                gameOption = (GameOptions)dataModel;
+                bool dataBaseResponse = false;
+
+                IDbCommand dbCommand = _sqliteConnection.CreateCommand();
+                dbCommand.CommandText = Game_Options_Save_Settings_By_Id;
+                IDataParameter dataParameterValue = dbCommand.CreateParameter();
+                dataParameterValue.ParameterName = "@param1";
+                dataParameterValue.Value = gameOption.PValue;
+
+                IDataParameter dataParameterOptionId = dbCommand.CreateParameter();
+                dataParameterOptionId.ParameterName = "@param2";
+                dataParameterOptionId.Value = gameOption.OptionID;
+
+                dbCommand.Parameters.Add(dataParameterValue);
+                dbCommand.Parameters.Add(dataParameterOptionId);
+
+                dataBaseResponse = dbCommand.ExecuteNonQuery() > 0;
+                _sqliteConnection.Close();
+                _sqliteConnection.Dispose();
+
+                return dataBaseResponse;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
                 return false;
             }
         }

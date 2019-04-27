@@ -9,23 +9,25 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
 {
     public class DependencyInjector
     {
+        private RandomizeTest _randomizeTestModel = null;
         private DataBaseConnector _dataBaseConnector = null;
         private PlayerDataService _playerDataService = null;
         private LevelDataService _levelDataService = null;
         private QuestionDataService _questionDataService = null;
         private LevelSuccessTimeService _levelSuccessTimeService = null;
+        private GameOptionsService _gameOptionsService = null;
         private DBGenerator.DBGenerator _databaseGeneratorService = null;
-        private RandomizeTest randomizeTestModel = null;
 
         public DependencyInjector()
         {
+            _randomizeTestModel = new RandomizeTest();
             _dataBaseConnector = new DataBaseConnector();
             _playerDataService = new PlayerDataService(_dataBaseConnector);
             _levelDataService = new LevelDataService(_dataBaseConnector);
             _questionDataService = new QuestionDataService(_dataBaseConnector);
             _levelSuccessTimeService = new LevelSuccessTimeService(_dataBaseConnector);
+            _gameOptionsService = new GameOptionsService(_dataBaseConnector);
             _databaseGeneratorService = new DBGenerator.DBGenerator(_dataBaseConnector);
-            randomizeTestModel = new RandomizeTest();
         }
 
         #region DatabaseGenerator
@@ -128,6 +130,17 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         public bool ResetLevelSuccessTimeByLevel(int level)
         {
             return _levelSuccessTimeService.DeleteLevelSuccessTimeByLevel(level);
+        }
+        #endregion
+        #region GameOptionsService
+        public GameOptions LoadGameOptionById(GameOptionsService.GameSettings gameSetting)
+        {
+            return _gameOptionsService.LoadGameOptionByOptionID(gameSetting);
+        }
+
+        public void SaveGameOption(IDataModel gameSetting)
+        {
+            _gameOptionsService.SaveGameOptionByOptionID(gameSetting);
         }
         #endregion
 

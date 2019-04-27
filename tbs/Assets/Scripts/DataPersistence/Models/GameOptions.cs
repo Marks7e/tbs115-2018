@@ -8,7 +8,7 @@ namespace Assets.Scripts.DataPersistence.Models
 {
     public class GameOptions : IDataModel
     {
-        public int QuestionId { get; set; }
+        public int OptionID { get; set; }
         public string Parameter { get; set; }
         public string PValue { get; set; }
 

@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public PlayerData playerDataModel;
-    public DependencyInjector dependencyInjector;
+    private DependencyInjector _dependencyInjector;
     GameObject principalMenu;
     GameObject optionMenu;
     GameObject extrasMenu;
@@ -25,12 +25,10 @@ public class MainMenu : MonoBehaviour
     Slider volumeSlider;
     AudioSource mainAudio;
 
-    public DataBaseConnector dataBaseConnector;
-
     void Start()
     {
-        dependencyInjector = new DependencyInjector();
-        dependencyInjector.CreateDatabaseIfNotExist();
+        _dependencyInjector = new DependencyInjector();
+        _dependencyInjector.CreateDatabaseIfNotExist();
         principalMenu = GameObject.Find("PrincipalMenu");
         optionMenu = GameObject.Find("OptionsMenu");
         extrasMenu = GameObject.Find("ExtrasMenu");
@@ -47,7 +45,11 @@ public class MainMenu : MonoBehaviour
         volumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
         mainAudio = Camera.main.GetComponent<AudioSource>();
 
-        volumeSlider.value = 1.0f;
+        GameOptions gameOptions = new GameOptions();
+        gameOptions = _dependencyInjector.LoadGameOptionById(Assets.Scripts.DataPersistence.DataServices.GameOptionsService.GameSettings.Volume);
+
+        mainAudio.volume = float.Parse(gameOptions.PValue);
+        volumeSlider.value = float.Parse(gameOptions.PValue);
         volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
         principalMenu.SetActive(true);
@@ -151,6 +153,7 @@ public class MainMenu : MonoBehaviour
                 extrasMenu.SetActive(false);
                 break;
             case "Options":
+                SaveOptionsBeforeExit();
                 optionMenu.SetActive(false);
                 break;
             case "Realms":
@@ -204,6 +207,11 @@ public class MainMenu : MonoBehaviour
                 kanslorMenu.SetActive(false);
                 break;
         }
+    }
+
+    private void SaveOptionsBeforeExit()
+    {
+
     }
 }
 
