@@ -49,6 +49,7 @@ public class MainMenu : MonoBehaviour
         gameOptions = _dependencyInjector.LoadGameOptionById(Assets.Scripts.DataPersistence.DataServices.GameOptionsService.GameSettings.Volume);
 
         mainAudio.volume = float.Parse(gameOptions.PValue);
+        mainAudio.PlayScheduled(0);
         volumeSlider.value = float.Parse(gameOptions.PValue);
         volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
