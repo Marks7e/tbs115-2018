@@ -84,24 +84,7 @@ public class minijuego6 : MonoBehaviour
 
         btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
         btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
-        /*
-        btnEmoji1.onClick.AddListener(() => Actions(1));
-        btnEmoji2.onClick.AddListener(() => Actions(2));
-        btnEmoji3.onClick.AddListener(() => Actions(3));
-       
-        _imgEmo1 = GameObject.Find("imgEmo1").GetComponent<Image>();
-        _imgEmo2 = GameObject.Find("imgEmo2").GetComponent<Image>();
-        _imgEmo3 = GameObject.Find("imgEmo3").GetComponent<Image>();
         
-
-        RandomAudio();
-        
-        btnAudio1.onClick.AddListener(() => Play(1));
-        btnAudio2.onClick.AddListener(() => Play(2));
-        btnAudio3.onClick.AddListener(() => Play(3));
-        btnCompare.onClick.AddListener(Compare);
-        */
-
     }
 
     // Update is called once per frame
@@ -117,11 +100,11 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                Debug.Log("Dentro de funcion cuando acaba tiempo");
+                //Debug.Log("Dentro de funcion cuando acaba tiempo");
                 isGameDone = true;               
-                di.UpdateLevelTimesPlayed(3);
+                di.UpdateLevelTimesPlayed(6);
                 audioSource.Stop();
-                di.ResetLevelSuccessTimeByLevel(3);
+                di.ResetLevelSuccessTimeByLevel(6);
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
@@ -260,9 +243,6 @@ public class minijuego6 : MonoBehaviour
         //incremento contador 
         _count++;
 
-        //msj_ok.SetActive(false);
-        //btnContinue.SetActive(false);
-
         //Setando Texto
         Nivel.text = _count + "/2";
 
@@ -291,18 +271,15 @@ public class minijuego6 : MonoBehaviour
         btnCompare.enabled = false;
 
         isGameDone = true;
-        //isRoundDone = false;
-
+       
         audioSource.Stop();
-        //isGameDone = true;
-        //btnMano.SetActive(false);
-
+       
         if (bestScore == score)
-            di.UpdateBestScoreForLevel(3, score);
+            di.UpdateBestScoreForLevel(6, score);
         di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 3);
+        gs.PlayerWinGame(audioSource, waitingTime, 6);
 
     }
 
@@ -343,10 +320,12 @@ public class minijuego6 : MonoBehaviour
         Score = objScore.GetComponent<Text>();
 
     }
+
     private void SettingTimeOfGame()
     {
         timeLeft = ld.RoundTime;
     }
+
     private void InitializeRecordAndScore()
     {
         di = new DependencyInjector();
@@ -354,7 +333,7 @@ public class minijuego6 : MonoBehaviour
         ld = new LevelData();
 
         pd = di.GetAllPlayerData();
-        ld = di.GetLevelData(3);
+        ld = di.GetLevelData(6);
 
         score = 0;
         bestScore = ld.BestScore;
@@ -364,6 +343,7 @@ public class minijuego6 : MonoBehaviour
         SettingTimeOfGame();
 
     }
+
     private void UpdateScore()
     {
         double res = 100 * (timeLeft * ld.PointMultiplier);
