@@ -117,8 +117,10 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                
+                di.UpdateLevelTimesPlayed(3);
                 audioSource.Stop();
+                //isGameDone = true;
+                di.ResetLevelSuccessTimeByLevel(3);
                 //isGameDone = true;
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
