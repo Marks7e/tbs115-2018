@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,6 +19,12 @@ public class SceneMgr : MonoBehaviour
     public void LoadGameDirectly(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadTutorialFirst(string sceneName)
+    {
+        GlobalVariables.LoadTutorial = sceneName;
+        SceneManager.LoadScene("Tutorial");
     }
 
     private void ValidatingEnoughtPointsForLevel()

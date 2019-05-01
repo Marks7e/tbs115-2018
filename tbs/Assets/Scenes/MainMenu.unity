@@ -1230,7 +1230,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2980,7 +2980,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5250,6 +5250,62 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &674877233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674877235}
+  - component: {fileID: 674877234}
+  m_Layer: 0
+  m_Name: tutorialObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674877234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674877233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d002b63dfefaa284fb77564ce6d6b323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minigame1: {fileID: 0}
+  _minigame3: {fileID: 0}
+  _minigame4: {fileID: 0}
+  _m1_1: {fileID: 0}
+  _m1_2: {fileID: 0}
+  _m1_3: {fileID: 0}
+  _m3_1: {fileID: 0}
+  _m3_2: {fileID: 0}
+  _m4_1: {fileID: 0}
+  _m4_2: {fileID: 0}
+  _m4_3: {fileID: 0}
+  _tutorialList: []
+  _minigameImages: []
+--- !u!4 &674877235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674877233}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7618301, y: -1.3462514, z: 60.470703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695379629
 GameObject:
   m_ObjectHideFlags: 0
@@ -10200,7 +10256,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
