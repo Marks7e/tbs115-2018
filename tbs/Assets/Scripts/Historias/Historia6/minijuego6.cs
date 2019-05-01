@@ -117,20 +117,17 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
+                Debug.Log("Dentro de funcion cuando acaba tiempo");
+                isGameDone = true;               
                 di.UpdateLevelTimesPlayed(3);
                 audioSource.Stop();
-                //isGameDone = true;
                 di.ResetLevelSuccessTimeByLevel(3);
-                //isGameDone = true;
                 gs = new GameStatus();
                 gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
             }
         }
-        else {
-            Debug.Log("/********** ---- HAS GANADO !!!!! ---- **********/");
-            Complete();
-            //isGameDone = false;
-        }
+        
+    
     }
 
     /* RandomAudio: cambia el audio de cada boton, representado por sprite de smugie */
@@ -236,6 +233,7 @@ public class minijuego6 : MonoBehaviour
         {
             Debug.Log("/********** HAS ACERTADO *********/");
             //Ok();
+            isRoundDone = true;
             panelWin.SetActive(true);
         }
         else
@@ -247,34 +245,6 @@ public class minijuego6 : MonoBehaviour
         }
         
 
-    }
-
-    public void Ok()
-    {
-        UpdateScore();
-        SettingTimeOfGame();
-        //msj_ok.SetActive(true);
-        
-        //panelWin.SetActive(true);
-        //btnContinue.SetActive(true);
-
-        //isRoundDone = true;
-        
-        //cambio de bandera _firstRound a false por segunda ronda
-        //Iteration();
-        
-        
-    }
-
-    public void Fail()
-    {
-        _count = 0;
-        score -= 800;
-        //panelLose.SetActive(true);
-        //btnReset.SetActive(true);
-        //msj_fail.SetActive(true);
-        //btnReset.SetActive(true);
-        //isRoundDone = true;
     }
 
     /* Reestablece escenario para proxima iteracion */
@@ -298,7 +268,8 @@ public class minijuego6 : MonoBehaviour
 
         if (_count >= 2)
         {
-            isGameDone = true;
+            //isGameDone = true;
+            Complete();
         }
         else
         {
@@ -420,10 +391,11 @@ public class minijuego6 : MonoBehaviour
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
+        isRoundDone = false;
         Iteration();
         //ResetStage();               //Reinicia el escenario
         //RandomPetition();           //Realiza peticion de nuevo rostro a formar
-        isRoundDone = false;
+        
     }
 
 
