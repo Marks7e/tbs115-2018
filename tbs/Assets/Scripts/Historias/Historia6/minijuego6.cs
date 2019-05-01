@@ -27,6 +27,9 @@ public class minijuego6 : MonoBehaviour
     public GameObject btnReset, btnContinue, btnTermina;
     public GameObject msj_ok, msj_fail, msj_complete;
 
+    public GameObject panelWin;
+    public GameObject panelLose;
+
 
     public Image icon1;
     public Image icon2;
@@ -37,6 +40,8 @@ public class minijuego6 : MonoBehaviour
 
     public int bestScore = 0;
     public int score = 0;
+    public int totalTimeByGame = 0;
+    public int dbRoundtime = 0;
     public Text BestScore, Score;
     public float timeLeft = 5.00f;
     public int waitingTime = 3;
@@ -77,6 +82,8 @@ public class minijuego6 : MonoBehaviour
         GetAndInitializeAllGameObjects();
         InitializeRecordAndScore();
 
+        btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
+        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
         /*
         btnEmoji1.onClick.AddListener(() => Actions(1));
         btnEmoji2.onClick.AddListener(() => Actions(2));
@@ -110,7 +117,7 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                //UnableGameControls();
+                
                 audioSource.Stop();
                 //isGameDone = true;
                 gs = new GameStatus();
@@ -226,12 +233,15 @@ public class minijuego6 : MonoBehaviour
             btnAudio3.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo3.sprite.name)
         {
             Debug.Log("/********** HAS ACERTADO *********/");
-            Ok();
+            //Ok();
+            panelWin.SetActive(true);
         }
         else
         {
             Debug.Log("/********** FALLO, Uno o MAS NO SON CORRECTOS **************/");
-            Fail();
+            //Fail();
+            isRoundDone = true;
+            panelLose.SetActive(true);
         }
         
 
@@ -239,15 +249,17 @@ public class minijuego6 : MonoBehaviour
 
     public void Ok()
     {
-        
-        
         UpdateScore();
         SettingTimeOfGame();
-        msj_ok.SetActive(true);
+        //msj_ok.SetActive(true);
+        
+        //panelWin.SetActive(true);
         //btnContinue.SetActive(true);
-        isRoundDone = true;
+
+        //isRoundDone = true;
+        
         //cambio de bandera _firstRound a false por segunda ronda
-        Iteration();
+        //Iteration();
         
         
     }
@@ -256,15 +268,17 @@ public class minijuego6 : MonoBehaviour
     {
         _count = 0;
         score -= 800;
-        msj_fail.SetActive(true);
-        btnReset.SetActive(true);
-        isRoundDone = true;
+        //panelLose.SetActive(true);
+        //btnReset.SetActive(true);
+        //msj_fail.SetActive(true);
+        //btnReset.SetActive(true);
+        //isRoundDone = true;
     }
 
     /* Reestablece escenario para proxima iteracion */
     public void Iteration()
     {
-        isRoundDone = false;
+        //isRoundDone = false;
 
         //Coloca imagen base en boton
         _imgEmo1.sprite = defaultBoton;
@@ -274,8 +288,8 @@ public class minijuego6 : MonoBehaviour
         //incremento contador 
         _count++;
 
-        msj_ok.SetActive(false);
-        btnContinue.SetActive(false);
+        //msj_ok.SetActive(false);
+        //btnContinue.SetActive(false);
 
         //Setando Texto
         Nivel.text = _count + "/2";
@@ -389,6 +403,25 @@ public class minijuego6 : MonoBehaviour
             BestScore.text = "Record: " + score;
         }
 
+    }
+
+    //Reinicia toda el Minijuego 
+    public void ReloadGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 6");
+    }
+
+    //Mensaje de respuesta correcta
+    public void OkRound()
+    {
+        totalTimeByGame += dbRoundtime - (int)timeLeft;
+        UpdateScore();
+        SettingTimeOfGame();        //Reinicia el tiempo
+        panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
+        Iteration();
+        //ResetStage();               //Reinicia el escenario
+        //RandomPetition();           //Realiza peticion de nuevo rostro a formar
+        isRoundDone = false;
     }
 
 
