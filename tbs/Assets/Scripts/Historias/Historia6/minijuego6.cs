@@ -100,7 +100,6 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                //Debug.Log("Dentro de funcion cuando acaba tiempo");
                 isGameDone = true;               
                 di.UpdateLevelTimesPlayed(6);
                 audioSource.Stop();
@@ -215,14 +214,12 @@ public class minijuego6 : MonoBehaviour
             btnAudio3.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo3.sprite.name)
         {
             Debug.Log("/********** HAS ACERTADO *********/");
-            //Ok();
             isRoundDone = true;
             panelWin.SetActive(true);
         }
         else
         {
             Debug.Log("/********** FALLO, Uno o MAS NO SON CORRECTOS **************/");
-            //Fail();
             isRoundDone = true;
             panelLose.SetActive(true);
         }
@@ -233,8 +230,7 @@ public class minijuego6 : MonoBehaviour
     /* Reestablece escenario para proxima iteracion */
     public void Iteration()
     {
-        //isRoundDone = false;
-
+     
         //Coloca imagen base en boton
         _imgEmo1.sprite = defaultBoton;
         _imgEmo2.sprite = defaultBoton;
@@ -248,7 +244,6 @@ public class minijuego6 : MonoBehaviour
 
         if (_count >= 2)
         {
-            //isGameDone = true;
             Complete();
         }
         else
@@ -372,10 +367,8 @@ public class minijuego6 : MonoBehaviour
         SettingTimeOfGame();        //Reinicia el tiempo
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
         isRoundDone = false;
-        Iteration();
-        //ResetStage();               //Reinicia el escenario
-        //RandomPetition();           //Realiza peticion de nuevo rostro a formar
-        
+        Iteration();                //Reinicia el escenario
+                                    
     }
 
 
