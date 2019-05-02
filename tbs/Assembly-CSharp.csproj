@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Historias\Historia4\IconGetter.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia4\Slot.cs" />
     <Compile Include="Assets\Scripts\Historias\Historia6\minijuego6.cs" />
+    <Compile Include="Assets\Scripts\Historias\Historia9\Minijuego9.cs" />
     <Compile Include="Assets\Scripts\Historias\PostGameTest\PostGameTest.cs" />
     <Compile Include="Assets\Scripts\Historias\PostGameTest\TestResultDashboard.cs" />
     <Compile Include="Assets\Scripts\Menus\MainMenu.cs" />
