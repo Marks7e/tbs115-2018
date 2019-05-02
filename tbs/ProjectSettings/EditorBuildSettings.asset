@@ -86,4 +86,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PostGameTest/TestResultDashboard.unity
     guid: ed528a90946da9148be85d6b9e5e5c25
+  - enabled: 1
+    path: Assets/Scenes/Historia 9/Minijuego 9.unity
+    guid: 9a983f87251b8a64794c69d50672eab5
+  - enabled: 1
+    path: Assets/Scenes/Historia 9/Animacion 9.unity
+    guid: 5446add18a33c6d48b3017d6d6f0c0e9
   m_configObjects: {}
