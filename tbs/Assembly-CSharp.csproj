@@ -83,6 +83,10 @@
      <Compile Include="Assets\Scripts\Historias\Historia4\IconDragger.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\IconGetter.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\Slot.cs" />
+     <Compile Include="Assets\Scripts\Historias\Historia5\Ball.cs" />
+     <Compile Include="Assets\Scripts\Historias\Historia5\IconDraggerGame5.cs" />
+     <Compile Include="Assets\Scripts\Historias\Historia5\IconGetterGame5.cs" />
+     <Compile Include="Assets\Scripts\Historias\Historia5\Minijuego5.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia9\Minijuego9.cs" />
      <Compile Include="Assets\Scripts\Historias\PostGameTest\PostGameTest.cs" />
      <Compile Include="Assets\Scripts\Historias\PostGameTest\TestResultDashboard.cs" />
