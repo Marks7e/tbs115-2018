@@ -373,6 +373,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 11");
     }
 
+    
 }
 
 namespace UnityEngine.EventSystems

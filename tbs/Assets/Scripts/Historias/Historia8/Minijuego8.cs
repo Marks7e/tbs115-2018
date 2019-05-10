@@ -15,11 +15,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     //[SerializeField] Transform slots;
     [SerializeField] Transform personajes;
     [SerializeField] Transform slot2;
-    [SerializeField] Text elementText2;
+    [SerializeField] Transform slot3;
+    //[SerializeField] Text elementText2;
 
     public GameObject[] arrayPrefab = new GameObject[4];
 
-    
+    public GameObject btnValidar;
+
     /* variables generales del minijuego */
     public GameObject canvas1; //primera parte 
     public GameObject canvas2; //segunda parte
@@ -30,7 +32,12 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public GameObject panelLose;
     public GameObject btnReset, btnContinue;
 
+    
+
+    public bool isGameDone = false;
     private bool hideCanvas1 = false;
+    private bool hideCanvas2 = false;
+
     private int opcion = 0;
     private int sillaVacia;
     private int _i = 0;
@@ -43,12 +50,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         
         btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
         btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
+        btnValidar.GetComponent<Button>().onClick.AddListener(() => Validate());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
         if (elementText.text == "Gift" && hideCanvas1 == false)
         {
             //Debug.Log("Parte 1(ronda 1) Completada, ocultar canvas, llamar siguiente fase"); //Funcion que desactiva panel de sprites y activa boton
@@ -56,6 +64,10 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             panelWin.SetActive(true);
             hideCanvas1 = true;
         }
+
+        
+
+
     }
 
     // Accion del boton 'continue' del panel emergente
@@ -66,8 +78,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             case 0:
 
                 // activar animacion sonriendo
-
-               
 
                 // desactivar canvas 1
                 canvas1.SetActive(false);
@@ -122,6 +132,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
         Debug.Log("DENTRO DE FUNCION MINIJUEGOPARTTWO, silla vacia: "+sillaVacia);
 
+        //Debug.Log("Valor de slot2: "+slot2.childCount);
+
         //Llenando las sillas a excepcion de una
         //Llenar todo el panel de sprites arrastrables
         foreach (Transform spriteTransform in personajes)
@@ -133,6 +145,23 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 objectHijo.transform.position = spriteTransform.transform.position;
             }
             _i++;
+        }
+
+        
+
+    }
+
+    public void Validate()
+    {
+        
+        if (slot3.childCount == 0)
+        {
+            Debug.Log(" GANASTES!!, Pasa a tercera parte");
+            panelWin.SetActive(true);
+        }
+        else
+        {
+            Debug.Log(" Perdiste Reiniciar el juego");
         }
 
 
@@ -154,7 +183,5 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         elementText.text = builder.ToString();
         
     }
-
-    
 }
 
