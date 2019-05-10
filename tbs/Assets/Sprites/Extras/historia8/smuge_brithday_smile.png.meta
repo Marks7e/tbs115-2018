@@ -1,0 +1,877 @@
+fileFormatVersion: 2
+guid: b7faaf3cde0bfb241a5409a1d97dc66c
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: smuge_brithday_smile_0
+    21300002: smuge_brithday_smile_1
+    21300004: smuge_brithday_smile_2
+    21300006: smuge_brithday_smile_3
+    21300008: smuge_brithday_smile_4
+    21300010: smuge_brithday_smile_5
+    21300012: smuge_brithday_smile_6
+    21300014: smuge_brithday_smile_7
+    21300016: smuge_brithday_smile_8
+    21300018: smuge_brithday_smile_9
+    21300020: smuge_brithday_smile_10
+    21300022: smuge_brithday_smile_11
+    21300024: smuge_brithday_smile_12
+    21300026: smuge_brithday_smile_13
+    21300028: smuge_brithday_smile_14
+    21300030: smuge_brithday_smile_15
+    21300032: smuge_brithday_smile_16
+    21300034: smuge_brithday_smile_17
+    21300036: smuge_brithday_smile_18
+    21300038: smuge_brithday_smile_19
+    21300040: smuge_brithday_smile_20
+    21300042: smuge_brithday_smile_21
+    21300044: smuge_brithday_smile_22
+    21300046: smuge_brithday_smile_23
+    21300048: smuge_brithday_smile_24
+    21300050: smuge_brithday_smile_25
+    21300052: smuge_brithday_smile_26
+    21300054: smuge_brithday_smile_27
+    21300056: smuge_brithday_smile_28
+    21300058: smuge_brithday_smile_29
+    21300060: smuge_brithday_smile_30
+    21300062: smuge_brithday_smile_31
+    21300064: smuge_brithday_smile_32
+    21300066: smuge_brithday_smile_33
+    21300068: smuge_brithday_smile_34
+    21300070: smuge_brithday_smile_35
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: smuge_brithday_smile_0
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 2525
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5fbeab2cd75105469e6315d87edb0e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_1
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 2525
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83fd71becf753fa4c9657d695c4e048a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_2
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 2525
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a383a081ad549f242864bb8e71152e6e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_3
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 2525
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1e62fd039fbf641bb9c5299cdb54b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_4
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 2525
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79ff90958e812424d8d4e522dfb5ec63
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 2165
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23a248f98809a5845a5de9f5652e35b8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_6
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 2165
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed0df04e9d548049a80369d855130b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_7
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 2165
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2b4f3ae309ff44488eda5808b9f545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_8
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 2165
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88217c4efc0adc8459b21c7bbc7fa847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_9
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 2165
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b19741ef56ee4a45b10fe0f473662f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_10
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 1805
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b049259d763026478fb92d1924bb644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_11
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 1805
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14aa932eff26a974d8a3a84bf168a88d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_12
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 1805
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee611d614be7a80419774c37575cbe03
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_13
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 1805
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5138ad4fcd8564641be08e28dede90b8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_14
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 1805
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e01f237af5aea249b28d889ae6b2e3d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_15
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 1445
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7b92f5b3762d7c42b17deefc88ee527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_16
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 1445
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60e0930488516794f99f7a2b8876a3d2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_17
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 1445
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0b7c33aba0da02419f07df6b22dce31
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_18
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 1445
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da107a7d16761b4faeb2b4aad6f3220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_19
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 1445
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32caec01819ff4f4e89cb5dd64c3f4e1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_20
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 1085
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2465b53b21fefb0498531e3647191e27
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_21
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 1085
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4053858a78aecbf46bab66198964a83f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_22
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 1085
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89ad43fd5bcfb6f46a27218486b6f852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_23
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 1085
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13d0f94062c67a48af17a2124c3ccbf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_24
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 1085
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 393fb8a11af2c7a4986deaaa61a58de6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_25
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 725
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3089d5aa4ee523a4cb79714ad81471d3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_26
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 725
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec70aceb551a206458cb9ad6bbf76ef3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_27
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 725
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84a9d3089689b604faceae519731a85c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_28
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 725
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 289dd6f936d39eb4eb17784ccf65b831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_29
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 725
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3abd9d86cd08284418ccec514757da28
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_30
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 365
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9adee2d038831354284addccbad8796c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_31
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 365
+        width: 195
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a96b55015fa124796d217249f577aa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_32
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 365
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7252009a4fe0d584aa8365868a573641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_33
+      rect:
+        serializedVersion: 2
+        x: 1608
+        y: 365
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c52ee1a55ecdb448bcdf1282be8df7d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_34
+      rect:
+        serializedVersion: 2
+        x: 2089
+        y: 365
+        width: 196
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 952854add4e4eb343b286df7f3203bb9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: smuge_brithday_smile_35
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 5
+        width: 197
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0a87fd7fb01d8b40bba2b887a5339f5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 410ad979f042cb144a82a4eb2642456d
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
