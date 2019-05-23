@@ -2254,6 +2254,7 @@ MonoBehaviour:
   - {fileID: 401065903}
   - {fileID: 189821761}
   - {fileID: 1832112056}
+  timeLeft: 5
   Nivel: {fileID: 0}
   timing: {fileID: 0}
   BestScore: {fileID: 0}
@@ -2262,8 +2263,9 @@ MonoBehaviour:
   bestScore: 0
   score: 0
   count: 0
-  timeLeft: 5
   waitingTime: 3
+  dbRoundtime: 0
+  totalTimeByGame: 0
   isGameDone: 0
   isRoundDone: 0
   gs: {fileID: 0}
@@ -2295,7 +2297,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.14
   m_Pitch: 1
   Loop: 1
   Mute: 0

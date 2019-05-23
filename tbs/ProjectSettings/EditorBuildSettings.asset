@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1626ee28983a6384dba00eec76ebb47e
   - enabled: 1
-    path: Assets/Scenes/Historia 1/Animacion 1.unity
+    path: Assets/Scenes/Historia 1/Animacion 1.2.unity
     guid: 44c0e3ae120ff9b4a9080681f78ee294
   - enabled: 1
     path: Assets/Scenes/Historia 1/Minijuego 1.unity
@@ -21,31 +21,40 @@ EditorBuildSettings:
     path: Assets/Scenes/Historia 2/Minijuego 2.unity
     guid: 2e4ec947499752d4ea47025665dad653
   - enabled: 1
-    path: Assets/Scenes/Historia 3/Animacion 3.unity
+    path: Assets/Scenes/Historia 3/Animacion 3.2.unity
     guid: 74d08390fabaced46b56136d9421de49
   - enabled: 1
     path: Assets/Scenes/Historia 3/Minijuego 3.unity
     guid: 9580f4a3aa7315449828e87c4b3e02d1
   - enabled: 1
-    path: Assets/Scenes/Historia 4/Animacion 4.unity
+    path: Assets/Scenes/Historia 4/Animacion 4.2.unity
     guid: 51f8c0d67cc7032478805f265b20f4b5
   - enabled: 1
     path: Assets/Scenes/Historia 4/Minijuego 4.unity
     guid: bad22b67664f41c41bd39f45050f951d
   - enabled: 1
-    path: Assets/Scenes/Historia 6/Animacion 6.unity
+    path: Assets/Scenes/Historia 5/Animacion 5.unity
+    guid: abe3b4104635f544889e34951c8cffe6
+  - enabled: 1
+    path: Assets/Scenes/Historia 5/Minijuego 5.unity
+    guid: 51eb4fb351d618a47a2a5578cfb4f9cb
+  - enabled: 1
+    path: Assets/Scenes/Historia 6/Animacion 6.2.unity
     guid: 1aff0dcedef4d4840aed8449d38de552
   - enabled: 1
     path: Assets/Scenes/Historia 6/Minijuego 6.unity
     guid: 48bb1a70f97b61e458190e52cb75855d
   - enabled: 1
-    path: Assets/Scenes/Historia 10/Animacion 10.unity
+    path: Assets/Scenes/Historia 9/Minijuego 9.unity
+    guid: 9a983f87251b8a64794c69d50672eab5
+  - enabled: 1
+    path: Assets/Scenes/Historia 10/Animacion 10.2.unity
     guid: 856ea5f407e6fed4a99926b4933d1f81
   - enabled: 1
     path: Assets/Scenes/Historia 10/Minijuego 10.unity
     guid: 777ba765db8b50849b4bbb4f752256c8
   - enabled: 1
-    path: Assets/Scenes/Historia 11/Animacion 11.unity
+    path: Assets/Scenes/Historia 11/Animacion 11.2.unity
     guid: a0b3f8aab7aa904428d0709a769ec3ab
   - enabled: 1
     path: Assets/Scenes/Historia 11/Minijuego 11.unity
@@ -95,7 +104,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorials/Tutorial.unity
     guid: a7f3727477246584aa5c93ff95851c30
-  - enabled: 1
-    path: Assets/Scenes/Historia 9/Minijuego 9.unity
-    guid: 9a983f87251b8a64794c69d50672eab5
   m_configObjects: {}
