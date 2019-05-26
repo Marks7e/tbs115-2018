@@ -1943,7 +1943,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2072,7 +2072,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5222,16 +5222,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minigame1: {fileID: 0}
+  _minigame2: {fileID: 0}
   _minigame3: {fileID: 0}
   _minigame4: {fileID: 0}
+  _minigame5: {fileID: 0}
+  _minigame6: {fileID: 0}
+  _minigame7: {fileID: 0}
+  _minigame8: {fileID: 0}
+  _minigame9: {fileID: 0}
+  _minigame10: {fileID: 0}
+  _minigame11: {fileID: 0}
+  _minigame12: {fileID: 0}
   _m1_1: {fileID: 0}
   _m1_2: {fileID: 0}
   _m1_3: {fileID: 0}
+  _m2_1: {fileID: 0}
+  _m2_2: {fileID: 0}
+  _m2_3: {fileID: 0}
   _m3_1: {fileID: 0}
   _m3_2: {fileID: 0}
   _m4_1: {fileID: 0}
   _m4_2: {fileID: 0}
   _m4_3: {fileID: 0}
+  _m5_1: {fileID: 0}
+  _m5_2: {fileID: 0}
+  _m5_3: {fileID: 0}
+  _m6_1: {fileID: 0}
+  _m6_2: {fileID: 0}
+  _m6_3: {fileID: 0}
+  _m7_1: {fileID: 0}
+  _m7_2: {fileID: 0}
+  _m7_3: {fileID: 0}
+  _m8_1: {fileID: 0}
+  _m8_2: {fileID: 0}
+  _m8_3: {fileID: 0}
+  _m9_1: {fileID: 0}
+  _m9_2: {fileID: 0}
+  _m9_3: {fileID: 0}
+  _m10_1: {fileID: 0}
+  _m10_2: {fileID: 0}
+  _m10_3: {fileID: 0}
+  _m11_1: {fileID: 0}
+  _m11_2: {fileID: 0}
+  _m11_3: {fileID: 0}
+  _m12_1: {fileID: 0}
+  _m12_2: {fileID: 0}
+  _m12_3: {fileID: 0}
   _tutorialList: []
   _minigameImages: []
 --- !u!4 &674877235
@@ -7380,7 +7416,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
