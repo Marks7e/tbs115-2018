@@ -184,7 +184,8 @@ public class TutorialManager : MonoBehaviour
     }
     private void EnableFirstTutorialImagen(string tutorialName)
     {
-        string prefix = (tutorialName.Substring(0, 1)).ToLower() + tutorialName.Substring(tutorialName.Length - 1, 1);
+        //string prefix = (tutorialName.Substring(0, 1)).ToLower() + tutorialName.Substring(tutorialName.Length - 1, 1);
+        string prefix = GetTutorialPrefixByRegExp(tutorialName);
 
         foreach (GameObject image in _minigameImages)
         {
@@ -211,5 +212,10 @@ public class TutorialManager : MonoBehaviour
                 image.SetActive(false);
             }
         }
+    }
+
+    private string GetTutorialPrefixByRegExp(string tutorialName)
+    {
+        return "m" + tutorialName.Split(' ')[1];
     }
 }

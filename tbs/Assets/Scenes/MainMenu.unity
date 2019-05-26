@@ -3942,7 +3942,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1281812450}
-        m_MethodName: LoadGameDirectly
+        m_MethodName: LoadTutorialFirst
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
