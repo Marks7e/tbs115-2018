@@ -47,7 +47,6 @@ public class TutorialManager : MonoBehaviour
     public GameObject _m10_3;
     public GameObject _m11_1;
     public GameObject _m11_2;
-    public GameObject _m11_3;
     public GameObject _m12_1;
     public GameObject _m12_2;
     public GameObject _m12_3;
@@ -121,12 +120,9 @@ public class TutorialManager : MonoBehaviour
         _m10_3 = GameObject.Find("m10_3");
         _m11_1 = GameObject.Find("m11_1");
         _m11_2 = GameObject.Find("m11_2");
-        _m11_3 = GameObject.Find("m11_3");
         _m12_1 = GameObject.Find("m12_1");
         _m12_2 = GameObject.Find("m12_2");
         _m12_3 = GameObject.Find("m12_3");
-
-
 
         _minigameImages = new List<GameObject>
         {
@@ -161,7 +157,6 @@ public class TutorialManager : MonoBehaviour
             _m10_3,
             _m11_1,
             _m11_2,
-            _m11_3,
             _m12_1,
             _m12_2,
             _m12_3
