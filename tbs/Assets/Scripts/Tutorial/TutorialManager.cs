@@ -182,23 +182,6 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
-    private void EnableFirstTutorialImagen(string tutorialName)
-    {
-        //string prefix = (tutorialName.Substring(0, 1)).ToLower() + tutorialName.Substring(tutorialName.Length - 1, 1);
-        string prefix = GetTutorialPrefixByRegExp(tutorialName);
-
-        foreach (GameObject image in _minigameImages)
-        {
-            if (image.gameObject.name == prefix + "_1")
-            {
-                image.SetActive(true);
-            }
-            else
-            {
-                image.SetActive(false);
-            }
-        }
-    }
     public void EnableTutorialImage(string imageName)
     {
         foreach (GameObject image in _minigameImages)
@@ -213,9 +196,24 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+    private void EnableFirstTutorialImagen(string tutorialName)
+    {
+        string prefix = GetTutorialPrefixByRegExp(tutorialName);
 
+        foreach (GameObject image in _minigameImages)
+        {
+            if (image.gameObject.name == prefix)
+            {
+                image.SetActive(true);
+            }
+            else
+            {
+                image.SetActive(false);
+            }
+        }
+    }
     private string GetTutorialPrefixByRegExp(string tutorialName)
     {
-        return "m" + tutorialName.Split(' ')[1];
+        return "m" + tutorialName.Split(' ')[1] + "_1";
     }
 }
