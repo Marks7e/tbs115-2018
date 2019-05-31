@@ -2269,11 +2269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 6530f7d701b96a943b5a3985b208aae1, type: 3}
-  - {fileID: 8300000, guid: 28a24c133aa5f2c4b8de73684f67d858, type: 3}
-  - {fileID: 8300000, guid: 0c663c2f524b50b43a8718811360c887, type: 3}
-  - {fileID: 8300000, guid: e2ce3a2f86aaf3a459bc32e975c0487b, type: 3}
-  - {fileID: 8300000, guid: 620367c950384a44486db36be5705333, type: 3}
+  - {fileID: 8300000, guid: 1f891dbd9db3e0144aab0222ab3cdfbf, type: 3}
+  - {fileID: 8300000, guid: 27c7f9ed8b5cd584eadccc175bb09588, type: 3}
+  - {fileID: 8300000, guid: 1a9b04f919811aa4c9aeeedf5b190b5d, type: 3}
+  - {fileID: 8300000, guid: e63116fc9f5dd214785a1870ea63bbec, type: 3}
+  - {fileID: 8300000, guid: 1c6d858519983b440b843da2133e6d3b, type: 3}
+  - {fileID: 8300000, guid: 3ef91e0ae2121dc4eb910642aefee4e0, type: 3}
   bgMusic: {fileID: 0}
   sourceBtn1: {fileID: 478491992}
   sourceBtn2: {fileID: 602606361}
