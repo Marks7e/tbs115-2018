@@ -73,8 +73,6 @@
      <Compile Include="Assets\Scripts\DataPersistence\Models\QuestionData.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia1\ButtonController.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia1\ImageChanger.cs" />
-     <Compile Include="Assets\Scripts\Historias\Historia1\Player.cs" />
-     <Compile Include="Assets\Scripts\Historias\Historia1\SheCollider.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia10\Minijuego10Controller.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia11\DragHandeler.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia11\Minijuego11.cs" />
