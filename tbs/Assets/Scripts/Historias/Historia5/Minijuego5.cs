@@ -11,7 +11,7 @@ public class Minijuego5 : MonoBehaviour, IHasChanged
 
     public Button[] emojiArrow;
     public Sprite arrow, uIMask;
-    public int _iArrow = 4, _iSlot = 4, _iTurn = 0, _iMov = 1, _iArrowPrev = 0;
+    public int _iArrow = 4, _iSlot = 4, _iTurn = 0, _iMov = 1, _iArrowPrev = 0, _iSlotPrev = 4;
     public float currentTime = 0;
 	float maxTime = 0.1f;
 
@@ -96,31 +96,37 @@ public class Minijuego5 : MonoBehaviour, IHasChanged
 			if(_iArrow == _iSlot && _iTurn != 0)
 			{
                 if(_iTurn == 1){
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
                 }else if(_iTurn == 2)
                 {
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
                 }else if(_iTurn == 3)
                 {
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
                 }else if(_iTurn == 4)
                 {
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
                 }else if(_iTurn == 5)
                 {
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
                 }else if(_iTurn == 6)
                 {
+                    _iSlotPrev = _iSlot;
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                     RandomPositionArrow();
                     _iTurn += 1;
@@ -128,6 +134,9 @@ public class Minijuego5 : MonoBehaviour, IHasChanged
                 {
                     Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn);
                 }
+            }else if(_iSlot != _iSlotPrev)
+            {
+                Debug.Log("1. slot: "+ _iSlot + " posicion: "+ _iArrow + " turno " + _iTurn + " slot prev " + _iSlotPrev);
             }
 	    }
     }
