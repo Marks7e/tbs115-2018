@@ -98,4 +98,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Historia 9/Minijuego 9.unity
     guid: 9a983f87251b8a64794c69d50672eab5
+  - enabled: 1
+    path: Assets/Scenes/Historia 5/Minijuego 5.unity
+    guid: 51eb4fb351d618a47a2a5578cfb4f9cb
   m_configObjects: {}

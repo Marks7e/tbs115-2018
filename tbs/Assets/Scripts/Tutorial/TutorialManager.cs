@@ -29,7 +29,6 @@ public class TutorialManager : MonoBehaviour
     public GameObject _m4_3;
     public GameObject _m5_1;
     public GameObject _m5_2;
-    public GameObject _m5_3;
     public GameObject _m6_1;
     public GameObject _m6_2;
     public GameObject _m6_3;
@@ -102,7 +101,6 @@ public class TutorialManager : MonoBehaviour
         _m4_3 = GameObject.Find("m4_3");
         _m5_1 = GameObject.Find("m5_1");
         _m5_2 = GameObject.Find("m5_2");
-        _m5_3 = GameObject.Find("m5_3");
         _m6_1 = GameObject.Find("m6_1");
         _m6_2 = GameObject.Find("m6_2");
         _m6_3 = GameObject.Find("m6_3");
@@ -139,7 +137,6 @@ public class TutorialManager : MonoBehaviour
             _m4_3,
             _m5_1,
             _m5_2,
-            _m5_3,
             _m6_1,
             _m6_2,
             _m6_3,
