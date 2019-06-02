@@ -1295,6 +1295,7 @@ GameObject:
   - component: {fileID: 1177881371}
   - component: {fileID: 1177881370}
   - component: {fileID: 1177881369}
+  - component: {fileID: 1177881373}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1462,6 +1463,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1177881373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177881368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3480cec6fbaee64b87169325bda2444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1179580709
 GameObject:
   m_ObjectHideFlags: 0
@@ -2254,6 +2267,7 @@ MonoBehaviour:
   - {fileID: 401065903}
   - {fileID: 189821761}
   - {fileID: 1832112056}
+  timeLeft: 5
   Nivel: {fileID: 0}
   timing: {fileID: 0}
   BestScore: {fileID: 0}
@@ -2262,8 +2276,9 @@ MonoBehaviour:
   bestScore: 0
   score: 0
   count: 0
-  timeLeft: 5
   waitingTime: 3
+  dbRoundtime: 0
+  totalTimeByGame: 0
   isGameDone: 0
   isRoundDone: 0
   gs: {fileID: 0}

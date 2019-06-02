@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Modal\ShowModal.cs" />
     <Compile Include="Assets\Scripts\SceneMgr.cs" />
     <Compile Include="Assets\Scripts\Tutorial\TutorialManager.cs" />
+    <Compile Include="Assets\Scripts\Utils\CameraResolution.cs" />
     <Compile Include="Assets\Scripts\Utils\DynamicGameBalance.cs" />
     <Compile Include="Assets\Scripts\Utils\EnableSkip.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
