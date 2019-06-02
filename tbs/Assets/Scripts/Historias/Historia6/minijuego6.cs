@@ -117,7 +117,7 @@ public class minijuego6 : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
             {
-                _iClip = Random.Range(0, 5);
+                _iClip = Random.Range(0, 6);
 
                 //Set audio en boton 1,2,3
                 SetAudioButton(i, _iClip);
