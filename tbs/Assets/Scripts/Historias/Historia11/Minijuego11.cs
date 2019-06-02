@@ -61,7 +61,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     private void Awake()
     {
-        audioPetition = GetComponent<AudioSource>();
+        //audioPetition = GetComponent<>();
+        audioPetition.volume = 0.5f;
 
     }
 

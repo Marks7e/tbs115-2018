@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Utils\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Utils\RandomizeTest.cs" />
     <Compile Include="Assets\Scripts\VideoControl.cs" />
+    <Compile Include="Assets\Scripts\VideoController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/vsprojects/tbs115-2018/tbs/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
