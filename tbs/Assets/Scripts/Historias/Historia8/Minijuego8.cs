@@ -24,6 +24,16 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
     public GameObject btnValidar;
 
+    /* tercera parte */
+    public GameObject[] gitfContainer;
+    public Sprite giftFound;
+    public Button[] btnDoor;
+    int _iPart = 0, _iGift = 5, _iDoor = 5;
+    public int _roundCount = 3, _countDoor0 = 0, _countDoor1 = 0,
+                _countDoor2 = 0, _countDoor3 = 0, _countDoor4 = 0,
+                _iFound = 0, _iWin = 0;
+    public Text roundText;
+
     /* variables generales del minijuego */
     public GameObject panel1; //primera parte 
     public GameObject panel2; //segunda parte
@@ -33,7 +43,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public GameObject panelWin;
     public GameObject panelLose;
     public GameObject btnReset, btnContinue;
-
 
     /* variables de persistenca y audio minijuego */
     public AudioSource audioSource;
@@ -77,9 +86,22 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     void Start()
     {
         
-        GetAndInitializeAllGameObjects();
 
-        InitializeRecordAndScore();
+
+        //Parte 3
+        RandomPositionGift();
+
+
+
+
+
+        //GetAndInitializeAllGameObjects();
+
+        //InitializeRecordAndScore();
+
+
+
+
 
         /*
         MinigamePartOne();
@@ -98,6 +120,16 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         {
             isWalk = false;
         }
+
+
+
+        //Parte 3
+        OpenDoor();
+        VerifiedRoundCount();
+
+
+
+
         
         if (!isGameDone) //Si isGameDone es falso, entra
         {
@@ -154,6 +186,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 // activar canvas 3
                 panel3.SetActive(true);
 
+                _iPart = 3;
+
                 MinigamePartThree();
 
                 break;
@@ -164,6 +198,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
                 // activar canvas 4
                 panel4.SetActive(true);
+
+                _iPart = 4;
 
                 break;
         }
@@ -223,16 +259,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
     }
 
-    /* funcion lleva logica de parte 3 de minijuego */
-    public void MinigamePartThree()
-    {
-        Debug.Log("******************* Dentro de MinigamePartThree ************************");
-        //desactivar ventana emergente
-        panelWin.SetActive(false);
-        GameComplete();
-        
-    }
-
     /* Funcion para boton "VALIDAR" que permite verificar luego de posicionar smugie en sillas */
     public void ValidatePartTwo()
     {
@@ -248,6 +274,117 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             
         }
         
+    }
+
+     /* funcion lleva logica de parte 3 de minijuego */
+    public void MinigamePartThree()
+    {
+        Debug.Log("******************* Dentro de MinigamePartThree ************************");
+        //desactivar ventana emergente
+        //panelWin.SetActive(false);
+        //GameComplete();
+        
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void RandomPositionGift()
+    {
+        _iGift = Random.Range(0, 5);
+        gitfContainer[_iGift].GetComponent<Image>().sprite = giftFound;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoor()
+    {
+        btnDoor[0].onClick.AddListener(OpenDoorZero);
+        btnDoor[1].onClick.AddListener(OpenDoorOne);
+        btnDoor[2].onClick.AddListener(OpenDoorTwo);
+        btnDoor[3].onClick.AddListener(OpenDoorThree);
+        btnDoor[4].onClick.AddListener(OpenDoorFour);
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorZero()
+    {
+        _iDoor = 0;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[0].enabled = false;
+        btnDoor[0].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorOne()
+    {
+        _iDoor = 1;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[1].enabled = false;
+        btnDoor[1].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorTwo()
+    {
+        _iDoor = 2;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[2].enabled = false;
+        btnDoor[2].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorThree()
+    {
+        _iDoor = 3;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[3].enabled = false;
+        btnDoor[3].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorFour()
+    {
+        _iDoor = 4;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[4].enabled = false;
+        btnDoor[4].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void VerifiedRoundCount(){
+        if(_roundCount == 0 && _iFound == 0){
+            //PERDISTE
+        }
+        else if(_iFound == 10 && _roundCount >= 0 && _iWin == 0){
+            if(_roundCount > 0)
+                _roundCount -= 1; 
+            _iWin += 1; 
+            //GANASTE
+        }
+        else if(!btnDoor[0].enabled && _countDoor0 == 0 && _iWin == 0){
+            _roundCount -= 1;
+            _countDoor0 += 1;
+        }
+        else if(!btnDoor[1].enabled && _countDoor1 == 0 && _iWin == 0){
+            _roundCount -= 1;
+            _countDoor1 += 1;
+        }
+        else if(!btnDoor[2].enabled && _countDoor2 == 0 && _iWin == 0){
+            _roundCount -= 1;
+            _countDoor2 += 1;
+        }
+        else if(!btnDoor[3].enabled  && _countDoor3 == 0 && _iWin == 0){
+            _roundCount -= 1;
+            _countDoor3 += 1;
+        }
+        else if(!btnDoor[4].enabled  && _countDoor4 == 0 && _iWin == 0){
+            _roundCount -= 1;
+            _countDoor4 += 1;
+        }
+        roundText.text = "Oportunidades: " + _roundCount.ToString("0") + "/3";
+    }
+    /* funcion para identificar que metodos se ejecutaran en Update */
+    private void OptionUpdate(){
+        if(_iPart == 3){
+
+        }else if(_iPart == 4){
+
+        }
     }
 
     public void GameComplete()
