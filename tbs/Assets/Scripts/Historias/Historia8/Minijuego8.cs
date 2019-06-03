@@ -85,16 +85,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     // Start is called before the first frame update
     void Start()
     {
-        
-
-
-        //Parte 3
-        RandomPositionGift();
-
-
-
-
-
         //GetAndInitializeAllGameObjects();
 
         //InitializeRecordAndScore();
@@ -121,16 +111,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             isWalk = false;
         }
 
+        //OptionUpdate();
 
-
-        //Parte 3
-        OpenDoor();
-        VerifiedRoundCount();
-
-
-
-
-        
         if (!isGameDone) //Si isGameDone es falso, entra
         {
             //Debug.Log("Juego no ha terminado");
@@ -280,6 +262,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public void MinigamePartThree()
     {
         Debug.Log("******************* Dentro de MinigamePartThree ************************");
+        RandomPositionGift();
         //desactivar ventana emergente
         //panelWin.SetActive(false);
         //GameComplete();
@@ -382,6 +365,10 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private void OptionUpdate(){
         if(_iPart == 3){
 
+            Debug.Log("Parte 3");
+
+            OpenDoor();
+            VerifiedRoundCount();
         }else if(_iPart == 4){
 
         }
