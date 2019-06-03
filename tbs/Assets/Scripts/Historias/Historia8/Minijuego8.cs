@@ -91,23 +91,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     // Start is called before the first frame update
     void Start()
     {
-        //GetAndInitializeAllGameObjects();
-
-        //InitializeRecordAndScore();
-
-
-        //Parte 4
-        LookForAnimator();
-
-
-
-        /*
-        MinigamePartOne();
-
-        btnContinue.GetComponent<Button>().onClick.AddListener(() => NextPart());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
-        btnValidar.GetComponent<Button>().onClick.AddListener(() => ValidatePartTwo());
-        */
+        GetAndInitializeAllGameObjects();
+        InitializeRecordAndScore();
     }
 
     // Update is called once per frame
@@ -119,13 +104,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             isWalk = false;
         }
 
-        //OptionUpdate();
-
-
-        //Parte 4
-
-
-
+        OptionUpdate();
 
         if (!isGameDone) //Si isGameDone es falso, entra
         {
@@ -196,6 +175,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 panel4.SetActive(true);
 
                 _iPart = 4;
+
+                MinigamePartFour();
 
                 break;
         }
@@ -286,6 +267,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private void RandomPositionGift()
     {
         _iGift = Random.Range(0, 5);
+        Debug.Log("Posicion" + _iGift);
         gitfContainer[_iGift].GetComponent<Image>().sprite = giftFound;
     }
     /* funcion lleva logica de parte 3 de minijuego */
@@ -351,6 +333,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             if(_roundCount > 0)
                 _roundCount -= 1; 
             _iWin += 1; 
+            panelWin.SetActive(true);
             //GANASTE
         }
         else if(!btnDoor[0].enabled && _countDoor0 == 0 && _iWin == 0){
@@ -379,7 +362,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public void MinigamePartFour()
     {
         Debug.Log("******************* Dentro de MinigamePartFour ************************");
-        
+        LookForAnimator();
         //desactivar ventana emergente
         //panelWin.SetActive(false);
         //GameComplete();
@@ -426,12 +409,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private void OptionUpdate(){
         if(_iPart == 3){
 
+
             Debug.Log("Parte 3");
+
+
 
             OpenDoor();
             VerifiedRoundCount();
-        }else if(_iPart == 4){
-
         }
     }
     public void GameComplete()
