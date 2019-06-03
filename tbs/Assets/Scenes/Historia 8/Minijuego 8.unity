@@ -647,6 +647,11 @@ MonoBehaviour:
   _iFound: 0
   _iWin: 0
   roundText: {fileID: 1743414998}
+  "pi\xF1ata": {fileID: 1046865265}
+  orderPanel: {fileID: 1659704246}
+  candys: {fileID: 1484790009}
+  stick: {fileID: 1397454330}
+  _iKnock: 1
   panel1: {fileID: 1154733821}
   panel2: {fileID: 1227131422}
   panel3: {fileID: 1175443446}
@@ -2153,7 +2158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -227, y: -44.999985}
+  m_AnchoredPosition: {x: -227.00002, y: -44.999985}
   m_SizeDelta: {x: -782.5, y: -228.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557695302
@@ -2822,7 +2827,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 167.99997, y: 0}
+  m_AnchoredPosition: {x: 167.99995, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &845797508
@@ -3091,7 +3096,7 @@ Transform:
   m_GameObject: {fileID: 1046865265}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.9599365, y: -12.237439, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 60, y: 60, z: 0}
   m_Children: []
   m_Father: {fileID: 139950946}
   m_RootOrder: 0

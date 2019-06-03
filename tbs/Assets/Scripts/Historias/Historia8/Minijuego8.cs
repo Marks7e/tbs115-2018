@@ -34,6 +34,12 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 _iFound = 0, _iWin = 0;
     public Text roundText;
 
+    /* cuarta parte */
+    private Animator animator;
+    public GameObject piñata, orderPanel, candys;
+    public Button stick;
+    public int _iKnock = 1;
+
     /* variables generales del minijuego */
     public GameObject panel1; //primera parte 
     public GameObject panel2; //segunda parte
@@ -90,6 +96,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         //InitializeRecordAndScore();
 
 
+        //Parte 4
+        LookForAnimator();
 
 
 
@@ -112,6 +120,12 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
 
         //OptionUpdate();
+
+
+        //Parte 4
+
+
+
 
         if (!isGameDone) //Si isGameDone es falso, entra
         {
@@ -361,6 +375,53 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
         roundText.text = "Oportunidades: " + _roundCount.ToString("0") + "/3";
     }
+    /* funcion lleva logica de parte 4 de minijuego */
+    public void MinigamePartFour()
+    {
+        Debug.Log("******************* Dentro de MinigamePartFour ************************");
+        
+        //desactivar ventana emergente
+        //panelWin.SetActive(false);
+        //GameComplete();
+        
+    }
+    /* funcion lleva logica de parte 4 de minijuego */
+    private void LookForAnimator(){
+        animator = piñata.GetComponent<Animator>();
+        stick.onClick.AddListener(GetSmaller);
+    }
+    /* funcion lleva logica de parte 4 de minijuego */
+    private void GetSmaller(){
+        if(_iKnock == 1){
+            animator.SetTrigger("knock1");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 2){
+            animator.SetTrigger("knock2");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 3){
+            animator.SetTrigger("knock3");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 4){
+            animator.SetTrigger("knock4");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 5){
+            animator.SetTrigger("knock5");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 6){
+            animator.SetTrigger("knock6");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 7){
+            orderPanel.SetActive(false);
+            candys.SetActive(true);
+        }
+    }
+        
     /* funcion para identificar que metodos se ejecutaran en Update */
     private void OptionUpdate(){
         if(_iPart == 3){
@@ -373,7 +434,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
         }
     }
-
     public void GameComplete()
     {
         Debug.Log("********************** JUEGO TERMINADO **************************************");
