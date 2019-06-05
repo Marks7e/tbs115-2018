@@ -44,7 +44,7 @@ public class ImageChanger : MonoBehaviour
     public GameStatus gs;
     public AudioSource audioSource;
     public AudioClip bgMusic;
-    private string _musicName = "Sounds/Minigame";
+    private string _musicName = "Sounds/Lullaby";
 
     // Start is called before the first frame update
     void Start()
