@@ -458,7 +458,8 @@ public class Minijuego3 : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
         btnMano = GameObject.Find("btnMano");
         btnCirculo = GameObject.Find("circulo");
         btnCuadrado = GameObject.Find("cuadrado");

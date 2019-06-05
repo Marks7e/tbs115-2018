@@ -47,8 +47,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public GameObject panel4; //cuarta parte
 
     public GameObject panelWin;
-    public GameObject panelLose;
-    public GameObject btnReset, btnContinue;
+    public GameObject btnContinue;
 
     /* variables de persistenca y audio minijuego */
     public AudioSource audioSource;
@@ -379,7 +378,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         
         audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
 
         texto = new GameObject();
         texto = GameObject.Find("Timing");
@@ -399,7 +399,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         MinigamePartOne();
 
         btnContinue.GetComponent<Button>().onClick.AddListener(() => NextPart());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
         btnValidar.GetComponent<Button>().onClick.AddListener(() => ValidatePartTwo());
 
     }
@@ -445,12 +444,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         SettingTimeOfGame();        //Reinicia el tiempo
         isRoundDone = false;     
 
-    }
-    // Accion del Reinicia el juego al fallar
-    public void ReloadGame()
-    {
-        Debug.Log("Reiniciar Juego"); //Funcion que desactiva panel de sprites y activa boton
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 8");
     }
     void LoseGame()
     {

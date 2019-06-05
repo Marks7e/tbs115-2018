@@ -15,8 +15,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     public GameObject panelSprites;
     public GameObject panelWin;
-    public GameObject panelLose;
-    public GameObject btnReset, btnContinue;
+    public GameObject btnContinue;
 
     public GameObject[] arrayPrefab = new GameObject[8];
    
@@ -76,8 +75,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         btnCompare.onClick.AddListener(() => Validate());
         btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
-
     }
 
     // Update is called once per frame
@@ -94,12 +91,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                di.UpdateLevelTimesPlayed(11);
-                audioSource.Stop();
-                isGameDone = true;
-                di.ResetLevelSuccessTimeByLevel(11);
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 11);
+                LoseGame();
             }
 
         }
@@ -110,10 +102,16 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         {
            DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
         }
-        
-
     }
 
+    private void LoseGame(){
+        di.UpdateLevelTimesPlayed(11);
+        audioSource.Stop();
+        isGameDone = true;
+        di.ResetLevelSuccessTimeByLevel(11);
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 11);
+    }
     // Deshabilita panel con sprite con partes de emoji y habilita boton de comparacion
     public void DisablePanelSprites()
     {
@@ -205,8 +203,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             //Debug.Log("Son diferentes, FALLASTE");
             isRoundDone = true;
             panelSprites.SetActive(false);
-            panelLose.SetActive(true);
-               
+            LoseGame();  
         }
        
     }
@@ -263,7 +260,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
 
         texto = new GameObject();
         texto = GameObject.Find("Timing");
@@ -338,7 +336,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         score -= 800;
         UpdateScore();
         SettingTimeOfGame();
-        panelLose.SetActive(false);
+        LoseGame();
         ResetStage();               //Reinicia el escenario
         RandomPetition();
         isRoundDone = false;
@@ -366,13 +364,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime, 11);
     }
-    
-    //Reinicia toda la Escena 
-    public void ReloadGame()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 11");
-    }
-
 }
 
 namespace UnityEngine.EventSystems
