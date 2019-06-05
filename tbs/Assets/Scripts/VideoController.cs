@@ -79,7 +79,7 @@ public class VideoController : MonoBehaviour
             _playButton.SetActive(false);
             _pauseButton.SetActive(true);
             enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(newScene), 5, _skipButton);
-            
+
         }
         else
         {
@@ -87,14 +87,14 @@ public class VideoController : MonoBehaviour
             _pauseButton.SetActive(false);
             _playButton.SetActive(true);
             enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(newScene), 5, _skipButton);
-            
+
         }
 
         if (Time >= duration) ChangeScene(); //cambio de escena automatico 
-        
-        
+
+
     }
-    
+
     public void PlayVideo()
     {
         if (!IsPrepared) return;
@@ -113,7 +113,7 @@ public class VideoController : MonoBehaviour
     {
         if (!IsPrepared) return;
         PauseVideo();
-        Seek(0);        
+        Seek(0);
     }
 
     public void Seek(float nTime)
@@ -125,10 +125,10 @@ public class VideoController : MonoBehaviour
         sound.time = nTime * Duration;
         PlayVideo();
     }
-        
+
     public void ChangeScene()
     {
-        SceneManager.LoadScene(newScene);
+        SceneManager.LoadScene("Tutorial");
     }
 
     private int GetLevelNumberFromSceneToLoad(string sceneToChange)

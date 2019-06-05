@@ -87,6 +87,10 @@ namespace Assets.Scripts.DataPersistence.DependecyInjector
         {
             return _levelDataService.GetRealmNumberFromLevelId(levelId);
         }
+        public int GetTimesPlayed(int levelId)
+        {
+            return _levelDataService.GetLevelData(levelId).TimesPlayed;
+        }
         #endregion
         #region PlayerDataAndLevelData
         public bool UnlockGame(int level)
