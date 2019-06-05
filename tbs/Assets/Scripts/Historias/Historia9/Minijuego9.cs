@@ -17,6 +17,7 @@ public class Minijuego9 : MonoBehaviour
     public Sprite[] lights;
     private int _indice = 0, _j = 0, _k = 0;
     private int _red = 0, _green = 0, _yellow = 0, _red2 = 0, _green2 = 0, _yellow2 = 0;
+    private int _iWin0 = 0, _iWin1 = 0, _iWin2 = 0, _iLose = 0;
     private string _angry = "Enojo", _neutral = "Neutro", _happy = "Alegria";
     public string color="";
 
@@ -67,8 +68,8 @@ public class Minijuego9 : MonoBehaviour
             }
             if (timeLeft <= 0 && !isGameDone)
             {
-                audioSource.Stop();
                 isGameDone = true;
+                LoseGame();
             }
         }
     }
@@ -112,6 +113,8 @@ public class Minijuego9 : MonoBehaviour
     }
     private void GetAndInitializeGreen()
     {
+        timeLeft = di.GetRoundTime(_nivel);
+        isRoundDone = false;
         SetLights(2);
         EnableButtons();
         RandomSequence(3);
@@ -308,8 +311,9 @@ public class Minijuego9 : MonoBehaviour
 		/* Comprobacion de caritas enojadas */
         if(color == "red" && _j == 1)
         {
-            if (_red == _red2)
+            if (_red == _red2 && _iWin0 == 0)
             {
+                _iWin0 += 1;
                 Debug.Log("Todos Coinciden!!!");
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
@@ -317,17 +321,19 @@ public class Minijuego9 : MonoBehaviour
                 CompleteRound(1);
                 GetAndInitializeYellow();
             }
-            else
+            else if(_red != _red2)
             {
                 Debug.Log("FALLO, Uno o mas no coinciden");
+                isGameDone = true;
                 LoseGame();
             }
         }
         else if(color == "yellow" && _j == 2)
         {
             /* Comprobacion de caritas neutrales */
-            if (_yellow == _yellow2)
+            if (_yellow == _yellow2 && _iWin1 == 0)
             {
+                _iWin1 += 1;
                 Debug.Log("Todos Coinciden!!! Neutrales");
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
@@ -335,27 +341,32 @@ public class Minijuego9 : MonoBehaviour
                 CompleteRound(2);
                 GetAndInitializeGreen();
             }
-            else
+            else if(_yellow != _yellow2)
             {
                 Debug.Log("FALLO, Uno o mas no coinciden neutrales");
+                isGameDone = true;
                 LoseGame();
             }
         }
         else if(color == "green" && _j == 3)
         {
             /* Comprobacion de caritas alegres */
-            if (_green == _green2)
+            if (_green == _green2 && _iWin2 == 0)
             {
+                _iWin2 += 1;
                 Debug.Log("Todos Coinciden!!! Alegres " + _k);
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
                 UpdateScore();
                 CompleteRound(3);
+                isGameDone = true;
                 WinGame();
             }
-            else
+            else if(_green != _green2 && _iLose == 0)
             {
+                _iLose += 1;
                 Debug.Log("FALLO, Uno o mas no coinciden alegres " + _green + " " + _green2);
+                isGameDone = true;
                 LoseGame();
             }
         }
