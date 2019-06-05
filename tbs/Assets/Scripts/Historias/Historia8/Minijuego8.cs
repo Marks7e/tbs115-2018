@@ -29,7 +29,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public Sprite giftFound;
     public Button[] btnDoor;
     int _iPart = 0, _iGift = 5, _iDoor = 5;
-    public int _roundCount = 3, _iFound = 0;
+    public int _roundCount = 3, _iFound = 0,
+                _iLose = 0, _iWin = 0;
     public Text roundText;
     public GameObject doorPanel;
 
@@ -298,12 +299,14 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     }
     /* funcion lleva logica de parte 3 de minijuego */
     private void VerifiedRoundCount(){
-        if(_roundCount == 0 && _iFound == 0){
+        if(_roundCount == 0 && _iFound == 0 && _iLose == 0){
             //PERDISTE
+            _iLose += 1;
             LoseGame();
         }
-        else if(_iFound == 10 && _roundCount >= 0){
+        else if(_iFound == 10 && _roundCount >= 0 && _iWin == 0){
             //GANASTE
+            _iWin += 1;
             doorPanel.SetActive(false);
             Nivel.text = "3/4"; //Marca de avance de minijuego 8
             isRoundDone = true;
@@ -341,9 +344,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
         else if(_iKnock == 6){
             animator.SetTrigger("knock6");
-            _iKnock += 1;
-        }
-        else if(_iKnock == 7){
             orderPanel.SetActive(false);
             candys.SetActive(true);
             Nivel.text = "4/4"; //Marca de avance de minijuego 8
