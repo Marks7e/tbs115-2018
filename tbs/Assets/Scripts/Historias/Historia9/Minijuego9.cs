@@ -17,7 +17,7 @@ public class Minijuego9 : MonoBehaviour
     public Sprite[] lights;
     private int _indice = 0, _j = 0, _k = 0;
     private int _red = 0, _green = 0, _yellow = 0, _red2 = 0, _green2 = 0, _yellow2 = 0;
-    private string _angry = "Enojo", _neutral = "Tristeza", _happy = "Alegria";
+    private string _angry = "Enojo", _neutral = "Neutro", _happy = "Alegria";
     public string color="";
 
     //Mensaje Ganar/Perder
