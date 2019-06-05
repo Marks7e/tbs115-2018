@@ -8,8 +8,8 @@ public class Minijuego3 : MonoBehaviour
 {
     public GameObject personaje1, personaje2, personaje3;
     public GameObject simbolo1, simbolo2, simbolo3;
-    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnReset, btnContinue, btnTermina;
-    public GameObject msj_ok, msj_fail, msj_complete;
+    public GameObject btnCirculo, btnTriangulo, btnCuadrado, btnMano, btnContinue;
+    public GameObject msj_ok;
     public GameObject texto;
     public Text BestScore, Score;
     public Button BtMano, BtCirculo, BtCuadrado, BtTriangulo;
@@ -65,16 +65,19 @@ public class Minijuego3 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                dependencyInjector.UpdateLevelTimesPlayed(3);
-                UnableGameControls();
-                audioSource.Stop();
-                isGameDone = true;
-                dependencyInjector.ResetLevelSuccessTimeByLevel(3);
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+                LoseGame();
             }
 
         }
+    }
+    private void LoseGame(){
+        dependencyInjector.UpdateLevelTimesPlayed(3);
+        UnableGameControls();
+        audioSource.Stop();
+        isGameDone = true;
+        dependencyInjector.ResetLevelSuccessTimeByLevel(3);
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
     }
     public void RandomSpeak()
     {
@@ -389,10 +392,7 @@ public class Minijuego3 : MonoBehaviour
     public void Fail()
     {
         score -= 800;
-        msj_fail.SetActive(true);
-        btnReset.SetActive(true);
-        isRoundDone = true;
-        dependencyInjector.ResetLevelSuccessTimeByLevel(3);
+        LoseGame();
     }
     //Mensaje de finalizacion de minijuego
     public void Complete()
