@@ -24,6 +24,22 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
 
     public GameObject btnValidar;
 
+    /* tercera parte */
+    public GameObject[] gitfContainer;
+    public Sprite giftFound;
+    public Button[] btnDoor;
+    int _iPart = 0, _iGift = 5, _iDoor = 5;
+    public int _roundCount = 3, _iFound = 0,
+                _iLose = 0, _iWin = 0;
+    public Text roundText;
+    public GameObject doorPanel;
+
+    /* cuarta parte */
+    private Animator animator;
+    public GameObject piñata, orderPanel, candys;
+    public Button stick;
+    public int _iKnock = 1;
+
     /* variables generales del minijuego */
     public GameObject panel1; //primera parte 
     public GameObject panel2; //segunda parte
@@ -31,9 +47,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     public GameObject panel4; //cuarta parte
 
     public GameObject panelWin;
-    public GameObject panelLose;
-    public GameObject btnReset, btnContinue;
-
+    public GameObject btnContinue;
 
     /* variables de persistenca y audio minijuego */
     public AudioSource audioSource;
@@ -72,24 +86,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private int sillaVacia;
     private int _i = 0;
     
-
     // Start is called before the first frame update
     void Start()
     {
-        
         GetAndInitializeAllGameObjects();
-
         InitializeRecordAndScore();
-
-        /*
-        MinigamePartOne();
-
-        btnContinue.GetComponent<Button>().onClick.AddListener(() => NextPart());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
-        btnValidar.GetComponent<Button>().onClick.AddListener(() => ValidatePartTwo());
-        */
+        OpenDoor();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -98,7 +101,9 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         {
             isWalk = false;
         }
-        
+
+        OptionUpdate();
+
         if (!isGameDone) //Si isGameDone es falso, entra
         {
             //Debug.Log("Juego no ha terminado");
@@ -112,11 +117,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             if (timeLeft <= 0 && !isGameDone)
             {
                 isGameDone = true;
-                di.UpdateLevelTimesPlayed(8);
-                audioSource.Stop();
-                di.ResetLevelSuccessTimeByLevel(8);
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 8);
+                LoseGame();
             }
 
             if (hideCanvas1 == false) //ronda 1
@@ -127,15 +128,12 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
        
     }
-
     // Accion del boton 'continue' del panel emergente para pasar a siguiente parte de juego
     public void NextPart()
     {
         switch (opcion)
         {
             case 0:
-
-                // activar animacion sonriendo
 
                 // desactivar canvas 1
                 panel1.SetActive(false);
@@ -154,6 +152,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 // activar canvas 3
                 panel3.SetActive(true);
 
+                _iPart = 3;
+
                 MinigamePartThree();
 
                 break;
@@ -165,12 +165,15 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
                 // activar canvas 4
                 panel4.SetActive(true);
 
+                _iPart = 4;
+
+                MinigamePartFour();
+
                 break;
         }
 
         // sumar para que cambie a la siguiente parte de minijuego
         opcion++;
-        //Debug.Log("Valor de Opcion: "+opcion);
 
         //desactivar ventana emergente
         panelWin.SetActive(false);
@@ -178,12 +181,9 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         OkRound();
 
     }
-
     /* funcion lleva logica de parte 1 de minijuego */
     public void MinigamePartOne()
     {
-        //Debug.Log("********************* Dentro de MinigamePartOne *************************");
-
         HasChanged();
 
         // Validar 
@@ -194,20 +194,12 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             panelWin.SetActive(true);
             hideCanvas1 = true; //canvas 1 oculto
             hideCanvas2 = false; //canvas 2 visible
-
         }
-       
     }
-
     /* funcion lleva logica de parte 2 de minijuego */
     public void MinigamePartTwo()
     {
         sillaVacia = Random.Range(0,4);
-   
-        //Debug.Log("DENTRO DE FUNCION MINIJUEGOPARTTWO, silla vacia: "+sillaVacia);
-        Debug.Log("******************** Dentro de MinigamePartTwo *************************");
-
-        //Debug.Log("Valor de slot2: "+slot2.childCount);
 
         //Llenando las sillas a excepcion de una
         foreach (Transform spriteTransform in personajes)
@@ -222,51 +214,149 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
 
     }
-
-    /* funcion lleva logica de parte 3 de minijuego */
-    public void MinigamePartThree()
-    {
-        Debug.Log("******************* Dentro de MinigamePartThree ************************");
-        //desactivar ventana emergente
-        panelWin.SetActive(false);
-        GameComplete();
-        
-    }
-
     /* Funcion para boton "VALIDAR" que permite verificar luego de posicionar smugie en sillas */
     public void ValidatePartTwo()
-    {
-        
+    { 
         if (slot3.childCount == 0)
         {
-            Debug.Log(" GANASTES!!, Pasa a tercera parte");
             Nivel.text = "2/4";
             panelWin.SetActive(true);
             isRoundDone = true;
             hideCanvas2 = true; //canvas 2 oculto
-            hideCanvas3 = false; //canvas 3 visible
-            
+            hideCanvas3 = false; //canvas 3 visible   
         }
-        
     }
-
-    public void GameComplete()
+     /* funcion lleva logica de parte 3 de minijuego */
+    public void MinigamePartThree()
     {
-        Debug.Log("********************** JUEGO TERMINADO **************************************");
-        /*Desactivando botones*/
-        
-        isGameDone = true;
-
-        audioSource.Stop();
-
-        if (bestScore == score)
-            di.UpdateBestScoreForLevel(8, score);
-        di.UpdateTotalizedScore(score);
-
-        gs = new GameStatus();
-        gs.PlayerWinGame(audioSource, waitingTime, 8);
+        RandomPositionGift();
     }
-
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void RandomPositionGift()
+    {
+        _iGift = Random.Range(0, 5);
+        Debug.Log("Posicion" + _iGift);
+        gitfContainer[_iGift].GetComponent<Image>().sprite = giftFound;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoor()
+    {
+        btnDoor[0].onClick.AddListener(OpenDoorZero);
+        btnDoor[1].onClick.AddListener(OpenDoorOne);
+        btnDoor[2].onClick.AddListener(OpenDoorTwo);
+        btnDoor[3].onClick.AddListener(OpenDoorThree);
+        btnDoor[4].onClick.AddListener(OpenDoorFour);
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorZero()
+    {
+        _iDoor = 0;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[0].enabled = false;
+        btnDoor[0].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorOne()
+    {
+        _iDoor = 1;
+        _roundCount -= 1;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[1].enabled = false;
+        btnDoor[1].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorTwo()
+    {
+        _iDoor = 2;
+        _roundCount -= 1;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[2].enabled = false;
+        btnDoor[2].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorThree()
+    {
+        _iDoor = 3;
+        _roundCount -= 1;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[3].enabled = false;
+        btnDoor[3].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void OpenDoorFour()
+    {
+        _iDoor = 4;
+        _roundCount -= 1;
+        if(_iDoor == _iGift)
+            _iFound = 10;
+        btnDoor[4].enabled = false;
+        btnDoor[4].GetComponent<Image>().enabled = false;
+    }
+    /* funcion lleva logica de parte 3 de minijuego */
+    private void VerifiedRoundCount(){
+        if(_roundCount == 0 && _iFound == 0 && _iLose == 0){
+            //PERDISTE
+            _iLose += 1;
+            LoseGame();
+        }
+        else if(_iFound == 10 && _roundCount >= 0 && _iWin == 0){
+            //GANASTE
+            _iWin += 1;
+            doorPanel.SetActive(false);
+            Nivel.text = "3/4"; //Marca de avance de minijuego 8
+            isRoundDone = true;
+            panelWin.SetActive(true);
+        }
+        roundText.text = "Oportunidades: " + _roundCount.ToString("0") + "/3";
+    }
+    /* funcion lleva logica de parte 4 de minijuego */
+    public void MinigamePartFour()
+    {
+        animator = piñata.GetComponent<Animator>();
+        stick.onClick.AddListener(GetSmaller);
+    }
+    /* funcion lleva logica de parte 4 de minijuego */
+    private void GetSmaller(){
+        if(_iKnock == 1){
+            animator.SetTrigger("knock1");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 2){
+            animator.SetTrigger("knock2");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 3){
+            animator.SetTrigger("knock3");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 4){
+            animator.SetTrigger("knock4");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 5){
+            animator.SetTrigger("knock5");
+            _iKnock += 1;
+        }
+        else if(_iKnock == 6){
+            animator.SetTrigger("knock6");
+            orderPanel.SetActive(false);
+            candys.SetActive(true);
+            Nivel.text = "4/4"; //Marca de avance de minijuego 8
+            isRoundDone = true;
+            OkRound();
+            WinGame();
+        }
+    }
+    /* funcion para identificar que metodos se ejecutaran en Update */
+    private void OptionUpdate(){
+        if(_iPart == 3){
+            VerifiedRoundCount();
+        }
+    }
     // Sirve para saber si se ha movido el regalo
     public void HasChanged()
     {
@@ -281,16 +371,15 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             }
         }
         elementText.text = builder.ToString();
-        
     }
-
     /* Funciones de inicializacion */ 
     public void GetAndInitializeAllGameObjects()
     {
         
         audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
 
         texto = new GameObject();
         texto = GameObject.Find("Timing");
@@ -310,16 +399,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         MinigamePartOne();
 
         btnContinue.GetComponent<Button>().onClick.AddListener(() => NextPart());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
         btnValidar.GetComponent<Button>().onClick.AddListener(() => ValidatePartTwo());
 
     }
-
     private void SettingTimeOfGame()
     {
         timeLeft = di.GetRoundTime(8);
     }
-
     private void InitializeRecordAndScore()
     {
         di = new DependencyInjector();
@@ -337,7 +423,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         SettingTimeOfGame();
 
     }
-
     private void UpdateScore()
     {
         double res = 100 * (timeLeft * ld.PointMultiplier);
@@ -351,7 +436,6 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         }
 
     }
-
     //Mensaje de respuesta correcta
     public void OkRound()
     {
@@ -361,14 +445,32 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         isRoundDone = false;     
 
     }
-
-    // Accion del Reinicia el juego al fallar
-    public void ReloadGame()
+    void LoseGame()
     {
-        Debug.Log("Reiniciar Juego"); //Funcion que desactiva panel de sprites y activa boton
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 8");
-
+        di.UpdateLevelTimesPlayed(8);
+        di.ResetLevelSuccessTimeByLevel(8);
+        audioSource.Stop();
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 8);
     }
+    void WinGame()
+    {
+        isGameDone = true;
+        di.UpdateLevelTimesPlayed(8);
 
+        if (bestScore == score)
+            di.UpdateBestScoreForLevel(8, score);
+        di.UpdateTotalizedScore(score);
+
+        di.SaveSuccesTime(new LevelSuccessTime()
+        {
+            LevelID = 8,
+            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 5)
+        });
+
+        audioSource.Stop();
+        gs = new GameStatus();
+        gs.PlayerWinGame(audioSource, waitingTime = 3, 8);
+    }
 }
 

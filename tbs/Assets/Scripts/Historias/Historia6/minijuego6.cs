@@ -14,7 +14,6 @@ public class minijuego6 : MonoBehaviour
     public AudioSource sourceBtn2;
     public AudioSource sourceBtn3;
     public AudioSource audioSource;
-   
 
     public Button btnAudio1;
     public Button btnAudio2;
@@ -24,12 +23,10 @@ public class minijuego6 : MonoBehaviour
     public Button btnEmoji3;
     public Button btnCompare;
 
-    public GameObject btnReset, btnContinue, btnTermina;
-    public GameObject msj_ok, msj_fail, msj_complete;
+    public GameObject btnContinue;
+    public GameObject msj_ok;
 
     public GameObject panelWin;
-    public GameObject panelLose;
-
 
     public Image icon1;
     public Image icon2;
@@ -73,9 +70,6 @@ public class minijuego6 : MonoBehaviour
     public Text timing;
     public GameObject texto;
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -83,8 +77,6 @@ public class minijuego6 : MonoBehaviour
         InitializeRecordAndScore();
 
         btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
-        btnReset.GetComponent<Button>().onClick.AddListener(() => ReloadGame());
-        
     }
 
     // Update is called once per frame
@@ -100,24 +92,25 @@ public class minijuego6 : MonoBehaviour
 
             if (timeLeft <= 0 && !isGameDone)
             {
-                isGameDone = true;               
-                di.UpdateLevelTimesPlayed(6);
-                audioSource.Stop();
-                di.ResetLevelSuccessTimeByLevel(6);
-                gs = new GameStatus();
-                gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+                LoseGame();
             }
         }
-        
-    
     }
 
+    private void LoseGame(){
+        isGameDone = true;               
+        di.UpdateLevelTimesPlayed(6);
+        audioSource.Stop();
+        di.ResetLevelSuccessTimeByLevel(6);
+        gs = new GameStatus();
+        gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+    }
     /* RandomAudio: cambia el audio de cada boton, representado por sprite de smugie */
     public void RandomAudio()
     {
         for (int i = 0; i < 3; i++)
             {
-                _iClip = Random.Range(0, 5);
+                _iClip = Random.Range(0, 6);
 
                 //Set audio en boton 1,2,3
                 SetAudioButton(i, _iClip);
@@ -221,7 +214,7 @@ public class minijuego6 : MonoBehaviour
         {
             Debug.Log("/********** FALLO, Uno o MAS NO SON CORRECTOS **************/");
             isRoundDone = true;
-            panelLose.SetActive(true);
+            LoseGame();
         }
         
 
@@ -282,7 +275,8 @@ public class minijuego6 : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
 
         /* inicializacion*/
         btnEmoji1.onClick.AddListener(() => Actions(1));
@@ -351,12 +345,6 @@ public class minijuego6 : MonoBehaviour
             BestScore.text = "Record: " + score;
         }
 
-    }
-
-    //Reinicia toda el Minijuego 
-    public void ReloadGame()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Minijuego 6");
     }
 
     //Mensaje de respuesta correcta

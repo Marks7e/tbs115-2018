@@ -28,22 +28,19 @@ public class VideoControl : MonoBehaviour
             _videoState = true;
             btnPlay.SetActive(false);
             btnPause.SetActive(true);
-            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
-            //Debug.Log("Esta reproduciendo"+", "+"frame: "+videoPlayer.frame+", "+"tiempo: "+videoPlayer.time);
+            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad("Tutorial"), 5, skipButton);
         }
         else
         {
             _videoState = false;
             btnPause.SetActive(false);
             btnPlay.SetActive(true);
-            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(sceneToChange), 5, skipButton);
-            //Debug.Log("Esta Pausado"+" "+"frame: "+videoPlayer.frame+", "+"tiempo: "+videoPlayer.time);
+            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad("Tutorial"), 5, skipButton);
         }
 
         if (videoPlayer.time >= duration)
         {
-            //Debug.Log("cambio de escena");
-            SceneManager.LoadScene(sceneToChange);
+            SceneManager.LoadScene("Tutorial");
         }
 
     }
