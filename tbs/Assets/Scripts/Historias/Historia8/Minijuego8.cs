@@ -251,6 +251,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private void OpenDoorZero()
     {
         _iDoor = 0;
+        _roundCount -= 1;
         if(_iDoor == _iGift)
             _iFound = 10;
         btnDoor[0].enabled = false;
