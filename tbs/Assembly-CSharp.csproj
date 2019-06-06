@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Historias\Historia4\Bar.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\IconDragger.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\IconGetter.cs" />
+     <Compile Include="Assets\Scripts\Historias\Historia4\Minijuego4.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\Slot.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia5\Minijuego5.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia6\minijuego6.cs" />
