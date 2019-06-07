@@ -78,7 +78,6 @@
      <Compile Include="Assets\Scripts\Historias\Historia11\Minijuego11.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia11\SlotContent.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia3\Minijuego3.cs" />
-     <Compile Include="Assets\Scripts\Historias\Historia4\Bar.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\Minijuego4.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia4\Slot.cs" />
      <Compile Include="Assets\Scripts\Historias\Historia5\Minijuego5.cs" />

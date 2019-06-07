@@ -11,10 +11,11 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
     [SerializeField] Transform toys; //Personajes
    
     public GameObject[] arrayPrefab;
+    public Button[] trees;
+    public GameObject container;
     private int _i = 0, _dec = 0, _inc = 0, _iSlot = 0,
                 _k = 0, _l = 0, _m = 0, _n  = 0, _p = 0, 
                 _q = 1, _index = 0, _iLose = 0;
-    private int _kS = 0, _lS = 0, _mS = 0, _nS  = 0, _pS = 0;
     private int[] _slots; 
     public float currentTime = 0;
 	float maxTime = 0.1f;
@@ -55,6 +56,7 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
         GetInitializeMusic();
         InitializeRecordAndScore();
         RandomPosition();
+        ActionButton();
         _slots = new int[5];
     }
 
@@ -81,6 +83,28 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
             }
         }
     }
+    private void ActionButton(){
+        trees[0].onClick.AddListener(() => DisableButton(0));
+        trees[1].onClick.AddListener(() => DisableButton(1));
+        trees[2].onClick.AddListener(() => DisableButton(2));
+        trees[3].onClick.AddListener(() => DisableButton(3));
+        trees[4].onClick.AddListener(() => DisableButton(4));
+        trees[5].onClick.AddListener(() => DisableButton(5));
+        trees[6].onClick.AddListener(() => DisableButton(6));
+        trees[7].onClick.AddListener(() => DisableButton(7));
+        trees[8].onClick.AddListener(() => DisableButton(8));
+        trees[9].onClick.AddListener(() => DisableButton(9));
+        trees[10].onClick.AddListener(() => DisableButton(10));
+        trees[11].onClick.AddListener(() => DisableButton(11));
+        trees[12].onClick.AddListener(() => DisableButton(12));
+        trees[13].onClick.AddListener(() => DisableButton(13));
+        trees[14].onClick.AddListener(() => DisableButton(14));
+        trees[15].onClick.AddListener(() => DisableButton(15));
+    }
+    private void DisableButton(int _iButton){
+        trees[_iButton].enabled = false;
+        trees[_iButton].GetComponent<Image>().enabled = false;
+    }
     public void HasChanged()
     {
         foreach (Transform slotTransform in slots)
@@ -102,19 +126,16 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
         switch (index)
         {
             case 0:
-                Debug.Log("indice 0,sumar" + index);
                 toy = arrayPrefab[index];
                 arrayPrefab[index] = arrayPrefab[index + 1];
                 arrayPrefab[index + 1] = toy;
                 break;
             case 2:
-                Debug.Log("Indice 2, restar" + index);
                 toy = arrayPrefab[index];
                 arrayPrefab[index] = arrayPrefab[index - 1];
                 arrayPrefab[index - 1] = toy;
                 break;
             default:
-                Debug.Log("Indice 1, sumar o restar" + index);
                 toy = arrayPrefab[index];
                 arrayPrefab[index] = arrayPrefab[index - 1];
                 arrayPrefab[index - 1] = toy;
@@ -134,7 +155,6 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
                 objectHijo.transform.localScale = spriteTransform.transform.localScale;
             else
                 objectHijo.transform.localScale = new Vector3(0.7f, 0.7f, 1);
-            Debug.Log("Indice: " + _j);
         }
     }
     private int GetIndex(){
@@ -164,27 +184,22 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
         if((nameToy == "smugie_m" || nameToy == "smugie_f") 
             && _iSlot == 0){
                 _slots[0] = 1;
-                _kS = 1;
         }
         else if((nameToy == "smugie_m" || nameToy == "smugie_f") 
             && _iSlot == 1){
                 _slots[1] = 1;
-                _lS = 1;
         }
         else if((nameToy == "smugie_m" || nameToy == "smugie_f") 
             && _iSlot == 2){
                 _slots[2] = 1;
-                _mS = 1;
         }
         else if((nameToy == "smugie_m" || nameToy == "smugie_f") 
             && _iSlot == 3){
                 _slots[3] = 1;
-                _nS = 1;
         }
         else if((nameToy == "smugie_m" || nameToy == "smugie_f") 
             && _iSlot == 4){
                 _slots[4] = 1;
-                _pS = 1;
         }
         else if(nameToy == "conejo_m" || nameToy == "conejo_f")
         {
@@ -233,35 +248,22 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
 		switch(i)
 		{
 			case 0:
-				if(_q==j)
-				{
-					ReInitRound();
-				}
+				if(_q==j) ReInitRound();
 			break;
 			case 1:
-				if(_q==j)
-				{
-					ReInitRound();
-				}
+				if(_q==j) ReInitRound();
 			break;
 			case 2:
-				if(_q==j)
-				{
-                    ReInitRound();
-				}
+				if(_q==j) ReInitRound();
 			break;
 			case 3:
 				if(_q==j)
-				{
 					ReInitRound();
-				}
 			break;
 			case 4:
-				if(_q==j)
-				{
+				if(_q==j){
 					NivelText();
-                    WinGame();
-				}
+                    WinGame();}
 			break;
 		}
 	}
@@ -326,6 +328,7 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
     }
     void WinGame()
     {
+        container.SetActive(false);
         isGameDone = true;
 		if (bestScore == score)
             di.UpdateBestScoreForLevel(4, score);
@@ -348,6 +351,7 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
 	}
     void LoseGame()
     {
+        container.SetActive(false);
         isGameDone = true;
         di.UpdateLevelTimesPlayed(_nivel);
         di.ResetLevelSuccessTimeByLevel(_nivel);
