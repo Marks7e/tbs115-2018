@@ -8,9 +8,9 @@ public class Minijuego10Controller : MonoBehaviour
 {
     public Button btnEmoji1,btnEmoji2,btnEmoji3,btnEmoji4,btnCompare;
 	private Image imgEmo1,imgEmo2,imgEmo3,imgEmo4; //Imagen sobre boton
-	public GameObject panelBotones,panelSecuencia,btnReset, btnContinue;
+	public GameObject panelBotones,panelSecuencia,btnContinue;
 	public GameObject[] emoji; 
-    public GameObject msj_ok, msj_fail;
+    public GameObject msj_ok;
 	private int _indice = 0, _j = 0, _k = 0, _p = 0, _q = 0;
     public Sprite[] spriteList;
 	public Sprite defaultBoton;
@@ -78,21 +78,19 @@ public class Minijuego10Controller : MonoBehaviour
 
 			if (timeLeft <= 0 && !isGameDone)
             {
-                //UnableGameControls();
-                dependecyInjector.UpdateLevelTimesPlayed(10);
-                dependecyInjector.ResetLevelSuccessTimeByLevel(10);
-                audioSource.Stop();
-				isGameDone = true;
-                gameStatusModel = new GameStatus();
-                gameStatusModel.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+				LoseGame();
             }
-			
 		}
-
-		
-
     }
 	
+	private void LoseGame(){
+		dependecyInjector.UpdateLevelTimesPlayed(10);
+        dependecyInjector.ResetLevelSuccessTimeByLevel(10);
+        audioSource.Stop();
+		isGameDone = true;
+        gameStatusModel = new GameStatus();
+        gameStatusModel.PlayerNeedToRepeatGame(audioSource, waitingTime, 1);
+	}
 	/* RandomSequence: Crea la secuencia de emojis de forma random */
     public void RandomSequence()
     {
@@ -188,8 +186,7 @@ public class Minijuego10Controller : MonoBehaviour
     public void Fail()
     {
         score -= 800;
-        msj_fail.SetActive(true);
-        btnReset.SetActive(true);
+        LoseGame();
         isRoundDone = true;
     }
 	
@@ -259,7 +256,8 @@ public class Minijuego10Controller : MonoBehaviour
         dynamicGameBalance = new DynamicGameBalance();
 		audioSource = GetComponent<AudioSource>();
         bgMusic = Resources.Load<AudioClip>("Sounds/Minigame");
-        audioSource.PlayOneShot(bgMusic);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
 
 		btnEmoji1.onClick.AddListener(() => Actions(1));
 		btnEmoji2.onClick.AddListener(() => Actions(2));
