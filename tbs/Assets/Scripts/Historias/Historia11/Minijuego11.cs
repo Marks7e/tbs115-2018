@@ -28,7 +28,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public AudioSource audioPetition;
     public AudioClip[] audioClipArray;
 
-    public GameObject msj_ok, msj_fail;
+    public GameObject msj_ok;
     public GameObject texto;
     public Text BestScore, Score;
 
