@@ -233,6 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50123a021e3ee8e45b3c3178fcdac717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plate: {fileID: 7950599792325615360, guid: b453586c7545c764baceaebfbfa6a06b, type: 3}
+  bag: {fileID: 8847619515962595700, guid: 05af17dbd4b49a54ab01fb86ee254359, type: 3}
 --- !u!4 &798181934
 Transform:
   m_ObjectHideFlags: 0
