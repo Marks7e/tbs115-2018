@@ -84,14 +84,14 @@ public class PostGameTest : MonoBehaviour
 
     public void PositiveAnswer()
     {
-        Debug.Log("Contestó que Sí!");
+        //Debug.Log("Contestó que Sí!");
         questionDataModel.Answer = "S";
         SaveAnswerForQuestion(questionDataModel);
         SendQuestionToPlayer(txtQuestion);
     }
     public void NegativeAnswer()
     {
-        Debug.Log("Contestó que No!");
+        //Debug.Log("Contestó que No!");
         questionDataModel.Answer = "N";
         SaveAnswerForQuestion(questionDataModel);
         SendQuestionToPlayer(txtQuestion);
@@ -156,7 +156,7 @@ public class PostGameTest : MonoBehaviour
         if (counter < times)
         {
             counter++;
-            Debug.Log(counter);
+            //Debug.Log(counter);
         }
         else
         {

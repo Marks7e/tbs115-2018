@@ -29,7 +29,7 @@ public class SceneMgr : MonoBehaviour
     public bool UnlockLevel(int levelId)
     {
         _dependencyInjector = new DependencyInjector();
-        Debug.Log(_dependencyInjector.UnlockGame(levelId));
+        //Debug.Log(_dependencyInjector.UnlockGame(levelId));
         return _dependencyInjector.UnlockGame(levelId);
     }
     private void ValidatingEnoughtPointsForLevel()

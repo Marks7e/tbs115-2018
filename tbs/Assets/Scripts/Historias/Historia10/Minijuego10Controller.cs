@@ -100,7 +100,7 @@ public class Minijuego10Controller : MonoBehaviour
             /* Obtiene indice al azar para llamar a la imagen guardada en spriteList[] */
             _indice = Random.Range(0, 5);
             emoji[i].GetComponent<Image>().sprite = spriteList[_indice];
-			Debug.Log("posicion: "+i+" ,nombre: "+spriteList[_indice].name);
+            //Debug.Log("posicion: "+i+" ,nombre: "+spriteList[_indice].name);
         }
     }
     
@@ -160,12 +160,12 @@ public class Minijuego10Controller : MonoBehaviour
 		imgEmo3.sprite.name == emoji[2].GetComponent<Image>().sprite.name && 
 		imgEmo4.sprite.name == emoji[3].GetComponent<Image>().sprite.name)
 		{
-			Debug.Log("Todos Coinciden!!!");
-			Ok();
+            //Debug.Log("Todos Coinciden!!!");
+            Ok();
 		}else
 		{
-			Debug.Log("FALLO, Uno o mas no coinciden");
-			Fail();
+            //Debug.Log("FALLO, Uno o mas no coinciden");
+            Fail();
 		}
 		
 	}
@@ -245,7 +245,7 @@ public class Minijuego10Controller : MonoBehaviour
 			}
 		}else{
 			isGameDone = true;
-			Debug.Log("----**********--- JUEGO FINALIZADO ----**********---");
+			//Debug.Log("----**********--- JUEGO FINALIZADO ----**********---");
 			Complete();
 		}
     }
@@ -315,7 +315,7 @@ public class Minijuego10Controller : MonoBehaviour
 	
 	private void UpdateScore()
     {
-		Debug.Log("timeLeft: -----------------------  "+timeLeft+"  ----------------------------");
+        //Debug.Log("timeLeft: -----------------------  "+timeLeft+"  ----------------------------");
         double res = 100 * (timeLeft * levelDataModel.PointMultiplier);
         score += (int)res;
         Score.text = "Puntaje: " + score;

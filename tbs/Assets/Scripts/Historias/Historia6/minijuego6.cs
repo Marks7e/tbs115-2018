@@ -206,13 +206,13 @@ public class minijuego6 : MonoBehaviour
             btnAudio2.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo2.sprite.name &&
             btnAudio3.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo3.sprite.name)
         {
-            Debug.Log("/********** HAS ACERTADO *********/");
+            //Debug.Log("/********** HAS ACERTADO *********/");
             isRoundDone = true;
             panelWin.SetActive(true);
         }
         else
         {
-            Debug.Log("/********** FALLO, Uno o MAS NO SON CORRECTOS **************/");
+            //Debug.Log("/********** FALLO, Uno o MAS NO SON CORRECTOS **************/");
             isRoundDone = true;
             LoseGame();
         }

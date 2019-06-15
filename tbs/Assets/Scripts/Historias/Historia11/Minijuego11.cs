@@ -169,7 +169,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     //Valida los sprites arrastrados hacia el rostro base de emoji
     public void Validate()
     {
-        Debug.Log("intento: " + _count);
+        //Debug.Log("intento: " + _count);
         if (elementText.text == _referenciaOpcion)
         {
             if (_count < 2)
@@ -192,7 +192,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                     Destroy(itemSprite);
                 }
 
-                Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
+                //Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
                 _count++;
                 Nivel.text = _count + "/3";
                 CompleteGame();

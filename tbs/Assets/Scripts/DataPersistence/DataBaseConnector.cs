@@ -1,5 +1,4 @@
 ﻿using Mono.Data.Sqlite;
-using System.Data;
 using UnityEngine;
 
 namespace Assets.Scripts.DataPersistence

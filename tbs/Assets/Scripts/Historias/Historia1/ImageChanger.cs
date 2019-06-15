@@ -105,19 +105,19 @@ public class ImageChanger : MonoBehaviour
         switch (index)
         {
             case 0:
-                Debug.Log("indice 0,sumar" + index);
+                //Debug.Log("indice 0,sumar" + index);
                 img = imageList[index];
                 imageList[index] = imageList[index + 1];
                 imageList[index + 1] = img;
                 break;
             case 2:
-                Debug.Log("Indice 2, restar" + index);
+                //Debug.Log("Indice 2, restar" + index);
                 img = imageList[index];
                 imageList[index] = imageList[index - 1];
                 imageList[index - 1] = img;
                 break;
             default:
-                Debug.Log("Indice 1, sumar o restar" + index);
+                //Debug.Log("Indice 1, sumar o restar" + index);
                 img = imageList[index];
                 imageList[index] = imageList[index - 1];
                 imageList[index - 1] = img;

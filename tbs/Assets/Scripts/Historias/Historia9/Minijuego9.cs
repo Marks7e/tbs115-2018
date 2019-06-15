@@ -138,9 +138,9 @@ public class Minijuego9 : MonoBehaviour
                     //Contabiliza los emojis enojo
                     if(btnEmoji[i].GetComponent<Image>().sprite.name == _angry)
                         _red += 1;
-                    Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Enojo: " + _red );
+                    //Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Enojo: " + _red );
                 }
-            break;
+                break;
             case 2:
                 for (int i = 0; i < 4; i++)
                 {
@@ -149,9 +149,9 @@ public class Minijuego9 : MonoBehaviour
                     //Contabiliza los emojis neutrales
                     if(btnEmoji[i].GetComponent<Image>().sprite.name == _neutral)
                         _yellow += 1;
-                    Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Neutral: " + _yellow);
+                    //Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Neutral: " + _yellow);
                 }
-            break;
+                break;
             case 3:
                 for (int i = 0; i < 4; i++)
                 {
@@ -160,9 +160,9 @@ public class Minijuego9 : MonoBehaviour
                     //Contabiliza los emojis alegres
                     if(btnEmoji[i].GetComponent<Image>().sprite.name == _happy)
                         _green += 1;
-                    Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Alegre: " + _green);
+                    //Debug.Log("posicion: "+ i +" ,nombre: "+ spriteList[_indice].name + " Alegre: " + _green);
                 }
-            break;
+                break;
             default:
                 _red = 0; _yellow = 0; _green = 0;
             break;
@@ -183,7 +183,7 @@ public class Minijuego9 : MonoBehaviour
                         _red2 += 1;
                     else
                         _red2 -= 1;
-                    Debug.Log("Eliminadas -> Enojo: " + _red2 );
+                    //Debug.Log("Eliminadas -> Enojo: " + _red2 );
                     break;
                 case 1:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -191,7 +191,7 @@ public class Minijuego9 : MonoBehaviour
                         _red2 += 1;
                     else
                         _red2 -= 1;
-                    Debug.Log("Eliminadas -> Enojo: " + _red2 );
+                    //Debug.Log("Eliminadas -> Enojo: " + _red2 );
                     break;
                 case 2:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -199,7 +199,7 @@ public class Minijuego9 : MonoBehaviour
                         _red2 += 1;
                     else
                         _red2 -= 1;
-                    Debug.Log("Eliminadas -> Enojo: " + _red2 );
+                    //Debug.Log("Eliminadas -> Enojo: " + _red2 );
                     break;
                 case 3:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -207,7 +207,7 @@ public class Minijuego9 : MonoBehaviour
                         _red2 += 1;
                     else
                         _red2 -= 1;
-                    Debug.Log("Eliminadas -> Enojo: " + _red2 );
+                    //Debug.Log("Eliminadas -> Enojo: " + _red2 );
                     break;
             }
         }
@@ -225,7 +225,7 @@ public class Minijuego9 : MonoBehaviour
                         _yellow2 += 1;
                     else
                         _yellow2 -= 1;
-                    Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
+                    //Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
                     break;
                 case 1:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -233,7 +233,7 @@ public class Minijuego9 : MonoBehaviour
                         _yellow2 += 1;
                     else
                         _yellow2 -= 1;
-                    Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
+                    //Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
                     break;
                 case 2:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -241,7 +241,7 @@ public class Minijuego9 : MonoBehaviour
                         _yellow2 += 1;
                     else
                         _yellow2 -= 1;
-                    Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
+                    //Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
                     break;
                 case 3:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -249,7 +249,7 @@ public class Minijuego9 : MonoBehaviour
                         _yellow2 += 1;
                     else
                         _yellow2 -= 1;
-                    Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
+                    //Debug.Log("Eliminadas -> Neutral: " + _yellow2 );
                     break;
             }
         }
@@ -267,7 +267,7 @@ public class Minijuego9 : MonoBehaviour
                         _green2 += 1;
                     else
                         _green2 -= 1;
-                    Debug.Log("Eliminadas -> Alegre: " + _green2 );
+                    //Debug.Log("Eliminadas -> Alegre: " + _green2 );
                     break;
                 case 1:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -275,7 +275,7 @@ public class Minijuego9 : MonoBehaviour
                         _green2 += 1;
                     else
                         _green2 -= 1;
-                    Debug.Log("Eliminadas -> Alegre: " + _green2 );
+                    //Debug.Log("Eliminadas -> Alegre: " + _green2 );
                     break;
                 case 2:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -283,7 +283,7 @@ public class Minijuego9 : MonoBehaviour
                         _green2 += 1;
                     else
                         _green2 -= 1;
-                    Debug.Log("Eliminadas -> Alegre: " + _green2 );
+                    //Debug.Log("Eliminadas -> Alegre: " + _green2 );
                     break;
                 case 3:
                     btnEmoji[btn].GetComponent<Image>().enabled = false;
@@ -291,7 +291,7 @@ public class Minijuego9 : MonoBehaviour
                         _green2 += 1;
                     else
                         _green2 -= 1;
-                    Debug.Log("Eliminadas -> Alegre: " + _green2 );
+                    //Debug.Log("Eliminadas -> Alegre: " + _green2 );
                     break;
             }
         }
@@ -314,7 +314,7 @@ public class Minijuego9 : MonoBehaviour
             if (_red == _red2 && _iWin0 == 0)
             {
                 _iWin0 += 1;
-                Debug.Log("Todos Coinciden!!!");
+                //Debug.Log("Todos Coinciden!!!");
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
                 UpdateScore();
@@ -323,7 +323,7 @@ public class Minijuego9 : MonoBehaviour
             }
             else if(_red != _red2)
             {
-                Debug.Log("FALLO, Uno o mas no coinciden");
+                //Debug.Log("FALLO, Uno o mas no coinciden");
                 isGameDone = true;
                 LoseGame();
             }
@@ -334,7 +334,7 @@ public class Minijuego9 : MonoBehaviour
             if (_yellow == _yellow2 && _iWin1 == 0)
             {
                 _iWin1 += 1;
-                Debug.Log("Todos Coinciden!!! Neutrales");
+                //Debug.Log("Todos Coinciden!!! Neutrales");
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
                 UpdateScore();
@@ -343,7 +343,7 @@ public class Minijuego9 : MonoBehaviour
             }
             else if(_yellow != _yellow2)
             {
-                Debug.Log("FALLO, Uno o mas no coinciden neutrales");
+                //Debug.Log("FALLO, Uno o mas no coinciden neutrales");
                 isGameDone = true;
                 LoseGame();
             }
@@ -354,7 +354,7 @@ public class Minijuego9 : MonoBehaviour
             if (_green == _green2 && _iWin2 == 0)
             {
                 _iWin2 += 1;
-                Debug.Log("Todos Coinciden!!! Alegres " + _k);
+                //Debug.Log("Todos Coinciden!!! Alegres " + _k);
                 isRoundDone = true;
                 totalTimeByGame += dbRoundtime - (int)timeLeft;
                 UpdateScore();
@@ -365,7 +365,7 @@ public class Minijuego9 : MonoBehaviour
             else if(_green != _green2 && _iLose == 0)
             {
                 _iLose += 1;
-                Debug.Log("FALLO, Uno o mas no coinciden alegres " + _green + " " + _green2);
+                //Debug.Log("FALLO, Uno o mas no coinciden alegres " + _green + " " + _green2);
                 isGameDone = true;
                 LoseGame();
             }

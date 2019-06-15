@@ -71,7 +71,7 @@ public class MainMenu : MonoBehaviour
     public void ValueChangeCheck()
     {
         mainAudio.volume = volumeSlider.value;
-        Debug.Log(mainAudio.volume);
+        //Debug.Log(mainAudio.volume);
     }
     public void PlayGame()
     {
@@ -81,21 +81,21 @@ public class MainMenu : MonoBehaviour
     }
     public void ExitGame()
     {
-        Debug.Log("Exiting Game... Editor does not support QUIT event!");
+        //Debug.Log("Exiting Game... Editor does not support QUIT event!");
         Application.Quit();
     }
     public void Options()
     {
         principalMenu.SetActive(false);
         optionMenu.SetActive(true);
-        Debug.Log("Option button Clicked!");
+       //Debug.Log("Option button Clicked!");
     }
     public void OptionsGoBack()
     {
         principalMenu.SetActive(true);
         optionMenu.SetActive(false);
 
-        Debug.Log("Backing to PrincipalMenu...");
+        //Debug.Log("Backing to PrincipalMenu...");
     }
     public void DeleteGameFiles()
     {
@@ -107,7 +107,7 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene ("ExtrasMenu");
         principalMenu.SetActive(false);
         extrasMenu.SetActive(true);
-        Debug.Log("Extras Button Clicked!");
+        //Debug.Log("Extras Button Clicked!");
     }
     public void Stories()
     {

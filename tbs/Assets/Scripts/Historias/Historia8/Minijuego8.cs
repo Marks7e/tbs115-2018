@@ -235,7 +235,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     private void RandomPositionGift()
     {
         _iGift = Random.Range(0, 5);
-        Debug.Log("Posicion" + _iGift);
+        //Debug.Log("Posicion" + _iGift);
         gitfContainer[_iGift].GetComponent<Image>().sprite = giftFound;
     }
     /* funcion lleva logica de parte 3 de minijuego */
