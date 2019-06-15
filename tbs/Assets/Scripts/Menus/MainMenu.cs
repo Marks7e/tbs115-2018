@@ -82,7 +82,10 @@ public class MainMenu : MonoBehaviour
     public void ExitGame()
     {
         //Debug.Log("Exiting Game... Editor does not support QUIT event!");
-        Application.Quit();
+        System.Diagnostics.Process.GetCurrentProcess().Close();
+        System.Diagnostics.Process.GetCurrentProcess().Dispose();
+        System.Diagnostics.Process.GetCurrentProcess().Kill();
+        //Application.Quit();
     }
     public void Options()
     {
