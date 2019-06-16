@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Minijuego7 : MonoBehaviour
+using UnityEngine.EventSystems;
+public class Minijuego7 : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    // Start is called before the first frame update
 
     // Objects spawn time.
     private float spawnTime = 2f;
@@ -16,8 +15,15 @@ public class Minijuego7 : MonoBehaviour
     public GameObject plate;
     // Cylinder
     public GameObject bag;
-    // Square
-    // public GameObject Square;
+
+    //Places
+    public GameObject trashPlace;
+    public GameObject platePlace;
+    private string _musicName = "Sounds/Minigame";
+    public AudioSource audioSource;
+    public AudioClip bgMusic;
+
+    public static GameObject itemBeingDragged;
 
     private enum Things
     {
@@ -27,8 +33,9 @@ public class Minijuego7 : MonoBehaviour
 
     void Start()
     {
-        //GameObject thing = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //thing.transform.position = new Vector3(0,0,-1);
+        PlayMusic();
+        //Debug.Log(trashPlace);
+        //Debug.Log(platePlace);
     }
 
     // Update is called once per frame
@@ -45,6 +52,27 @@ public class Minijuego7 : MonoBehaviour
         //InvokeRepeating("SpawnObject",spawnTime * Time.deltaTime, spawnTime * Time.deltaTime);
     }
 
+    void PlayMusic(){
+        audioSource = GetComponent<AudioSource>();
+        bgMusic = Resources.Load<AudioClip>(_musicName);
+        audioSource.clip = bgMusic;
+        audioSource.Play(0);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException ();
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException ();
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException ();
+    }
     void SpawnObject(){
 
         if (Random.Range(0f, 1f) >= 0.5)
