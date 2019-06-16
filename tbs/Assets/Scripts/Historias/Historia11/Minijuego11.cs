@@ -28,7 +28,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public AudioSource audioPetition;
     public AudioClip[] audioClipArray;
 
-    public GameObject msj_ok, msj_fail;
+    public GameObject msj_ok;
     public GameObject texto;
     public Text BestScore, Score;
 
@@ -55,7 +55,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
     private int _nchar;
     private int _option;
-    private int _count = 1;
+    private int _count = 0;
     private int _i = 0;
 
     private void Awake()
@@ -95,8 +95,6 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             }
 
         }
-
-        Nivel.text = _count + "/3";
 
         if (elementText.text.Length > 10)
         {
@@ -174,13 +172,14 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         Debug.Log("intento: " + _count);
         if (elementText.text == _referenciaOpcion)
         {
-            if (_count < 3)
+            if (_count < 2)
             {
                 //Debug.Log("Son iguales, ACERTASTE");
                 isRoundDone = true;
                 panelSprites.SetActive(false);
                 panelWin.SetActive(true);
                 _count++;
+                Nivel.text = _count + "/3";
             }
             else
             {
@@ -194,6 +193,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 }
 
                 Debug.Log("--*-*-*-*-*-*-*-*-*-*- Juego Terminado -*-*-*-*-*-*-**-*-*-*-*-*--*");
+                _count++;
+                Nivel.text = _count + "/3";
                 CompleteGame();
             }
               

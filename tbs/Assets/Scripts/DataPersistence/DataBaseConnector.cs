@@ -16,7 +16,7 @@ namespace Assets.Scripts.DataPersistence
 
         public SqliteConnection GetDbInstance()
         {
-            SetConnection(PlatformDeploy.PC);
+            SetConnection(PlatformDeploy.Android);
             return _sqliteConnection;
         }
 
