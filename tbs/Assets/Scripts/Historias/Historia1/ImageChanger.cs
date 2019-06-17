@@ -226,7 +226,7 @@ public class ImageChanger : MonoBehaviour
         di.SaveSuccesTime(new LevelSuccessTime()
         {
             LevelID = 1,
-            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 5)
+            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 1)
         });
 
         audioSource.Stop();

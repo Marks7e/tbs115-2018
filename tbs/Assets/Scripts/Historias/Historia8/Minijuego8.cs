@@ -468,7 +468,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         di.SaveSuccesTime(new LevelSuccessTime()
         {
             LevelID = 8,
-            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 5)
+            SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 8)
         });
 
         audioSource.Stop();

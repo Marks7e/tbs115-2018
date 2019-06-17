@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
+using Assets.Scripts.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,6 +50,7 @@ public class minijuego6 : MonoBehaviour
     public LevelData ld;
 
     public DependencyInjector di;
+    public DynamicGameBalance dynamicGameBalance;
 
     //Imagen sobre boton
     private Image _imgEmo1;
@@ -262,6 +264,16 @@ public class minijuego6 : MonoBehaviour
 
         isGameDone = true;
 
+        di = new DependencyInjector();
+        dynamicGameBalance = new DynamicGameBalance();
+        di.UpdateLevelTimesPlayed(3);
+        di.SaveSuccesTime(new LevelSuccessTime()
+        {
+            LevelID = 3,
+            SuccessTime = dynamicGameBalance.CalculateAverageRound(totalTimeByGame, 6)
+        });
+
+
         audioSource.Stop();
 
         if (bestScore == score)
@@ -314,7 +326,7 @@ public class minijuego6 : MonoBehaviour
 
     private void SettingTimeOfGame()
     {
-        timeLeft = ld.RoundTime;
+        timeLeft = di.GetRoundTime(6);
     }
 
     private void InitializeRecordAndScore()

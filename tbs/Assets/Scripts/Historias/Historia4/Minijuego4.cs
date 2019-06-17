@@ -341,7 +341,7 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
             di.SaveSuccesTime(new LevelSuccessTime()
             {
                 LevelID = _nivel,
-                SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 5)
+                SuccessTime = dgb.CalculateAverageRound(totalTimeByGame, 4)
             });
 
             di.UpdateLevelTimesPlayed(_nivel);
