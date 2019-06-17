@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -326,5 +327,12 @@ public class Minijuego10Controller : MonoBehaviour
             BestScore.text = "Record: " + score;
         }
 
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
     }
 }

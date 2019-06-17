@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 
 public class GameStatus : ScriptableObject
 {
@@ -23,6 +24,7 @@ public class GameStatus : ScriptableObject
     {
         win = Resources.Load<AudioClip>("Sounds/Win");
         repeat = Resources.Load<AudioClip>("Sounds/TryAgain");
+        GetGeneralVolume();
     }
     public void PlayerWinGame(AudioSource audioSource, int waitSeconds, int levelId)
     {
@@ -167,5 +169,11 @@ public class GameStatus : ScriptableObject
         canvas.transform.SetParent(msgPanel.transform, false);
         btnRepeatLevel.transform.SetParent(mainCanvas.transform, false);
         btnGoToMainMenu.transform.SetParent(mainCanvas.transform, false);
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = GlobalVariables.GeneralVolume;
+        source.volume = generalVolume;
     }
 }

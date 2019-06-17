@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.DataPersistence.Global;
+﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,13 +50,17 @@ public class TutorialManager : MonoBehaviour
     public GameObject _m12_1;
     public GameObject _m12_2;
     public GameObject _m12_3;
+    public GameObject _mainBGM;
     public List<GameObject> _tutorialList;
     public List<GameObject> _minigameImages;
+
+    public DependencyInjector _di = null;
 
     void Start()
     {
         InitializeGameObjects();
         EnableTutorialByTutorialName(GlobalVariables.LoadTutorial);
+        GetGeneralVolume();
     }
     public void InitializeGameObjects()
     {
@@ -71,7 +76,9 @@ public class TutorialManager : MonoBehaviour
         _minigame10 = GameObject.Find("Minijuego 10");
         _minigame11 = GameObject.Find("Minijuego 11");
         _minigame12 = GameObject.Find("Minijuego 12");
+        _mainBGM = GameObject.Find("mainBGM");
 
+        
         _tutorialList = new List<GameObject>
         {
             _minigame1,
@@ -207,5 +214,11 @@ public class TutorialManager : MonoBehaviour
     private string GetTutorialPrefixByRegExp(string tutorialName)
     {
         return "m" + tutorialName.Split(' ')[1] + "_1";
+    }
+    private void GetGeneralVolume()
+    {
+        _di = new DependencyInjector();
+        float generalVolume = GlobalVariables.GeneralVolume;
+        _mainBGM.GetComponent<AudioSource>().volume = generalVolume;
     }
 }

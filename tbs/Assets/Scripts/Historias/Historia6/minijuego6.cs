@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ public class minijuego6 : MonoBehaviour
     //Imagen sobre boton
     private Image _imgEmo1;
     private Image _imgEmo2;
-    private Image _imgEmo3; 
+    private Image _imgEmo3;
 
     private int _iClip;
 
@@ -75,7 +76,7 @@ public class minijuego6 : MonoBehaviour
     {
         GetAndInitializeAllGameObjects();
         InitializeRecordAndScore();
-
+        GetGeneralVolume();
         btnContinue.GetComponent<Button>().onClick.AddListener(() => OkRound());
     }
 
@@ -97,8 +98,9 @@ public class minijuego6 : MonoBehaviour
         }
     }
 
-    private void LoseGame(){
-        isGameDone = true;               
+    private void LoseGame()
+    {
+        isGameDone = true;
         di.UpdateLevelTimesPlayed(6);
         audioSource.Stop();
         di.ResetLevelSuccessTimeByLevel(6);
@@ -109,13 +111,13 @@ public class minijuego6 : MonoBehaviour
     public void RandomAudio()
     {
         for (int i = 0; i < 3; i++)
-            {
-                _iClip = Random.Range(0, 6);
+        {
+            _iClip = Random.Range(0, 6);
 
-                //Set audio en boton 1,2,3
-                SetAudioButton(i, _iClip);
-            }
-        
+            //Set audio en boton 1,2,3
+            SetAudioButton(i, _iClip);
+        }
+
     }
 
     /* SetAudioButton: asigna al audiosource el audio seleccionado por la funcion RandomAudio */
@@ -147,7 +149,7 @@ public class minijuego6 : MonoBehaviour
                 icon3.enabled = false;
 
                 icon1.enabled = true;
-                sourceBtn1.Play();    
+                sourceBtn1.Play();
                 break;
             case 2:
                 sourceBtn1.Stop();
@@ -163,7 +165,7 @@ public class minijuego6 : MonoBehaviour
                 sourceBtn2.Stop();
                 icon1.enabled = false;
                 icon2.enabled = false;
-                
+
                 icon3.enabled = true;
                 sourceBtn3.Play();
                 break;
@@ -178,7 +180,7 @@ public class minijuego6 : MonoBehaviour
         {
             case 1:
                 SetEmoji(_imgEmo1, _j);
-                if (_j < 1){ _j++; } else { _j = 0; }
+                if (_j < 1) { _j++; } else { _j = 0; }
                 break;
             case 2:
                 SetEmoji(_imgEmo2, _k);
@@ -201,7 +203,7 @@ public class minijuego6 : MonoBehaviour
 
     public void Compare()
     {
-       
+
         if (btnAudio1.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo1.sprite.name &&
             btnAudio2.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo2.sprite.name &&
             btnAudio3.GetComponent<AudioSource>().clip.name.Split(' ')[1] == _imgEmo3.sprite.name)
@@ -216,14 +218,14 @@ public class minijuego6 : MonoBehaviour
             isRoundDone = true;
             LoseGame();
         }
-        
+
 
     }
 
     /* Reestablece escenario para proxima iteracion */
     public void Iteration()
     {
-     
+
         //Coloca imagen base en boton
         _imgEmo1.sprite = defaultBoton;
         _imgEmo2.sprite = defaultBoton;
@@ -259,9 +261,9 @@ public class minijuego6 : MonoBehaviour
         btnCompare.enabled = false;
 
         isGameDone = true;
-       
+
         audioSource.Stop();
-       
+
         if (bestScore == score)
             di.UpdateBestScoreForLevel(6, score);
         di.UpdateTotalizedScore(score);
@@ -356,8 +358,13 @@ public class minijuego6 : MonoBehaviour
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
         isRoundDone = false;
         Iteration();                //Reinicia el escenario
-                                    
+
     }
 
-
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
+    }
 }

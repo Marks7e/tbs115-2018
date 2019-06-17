@@ -8,5 +8,6 @@ namespace Assets.Scripts.DataPersistence.Global
     public static class GlobalVariables
     {
         public static string LoadTutorial { get; set; }
+        public static float GeneralVolume { get; set; }
     }
 }

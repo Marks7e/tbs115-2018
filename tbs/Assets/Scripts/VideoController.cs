@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 
 public class VideoController : MonoBehaviour
 {
+    public DependencyInjector _di = null;
+    public GameObject _audio = null;
     public VideoPlayer video;
     public AudioSource sound;
     public Slider slider;
@@ -65,6 +69,9 @@ public class VideoController : MonoBehaviour
         _skipButton = GameObject.Find("Saltar");
         _playButton = GameObject.Find("Play");
         _pauseButton = GameObject.Find("Pause");
+        _audio = GameObject.Find("Audio");
+
+        GetGeneralVolume();
     }
 
     void Update()
@@ -134,5 +141,11 @@ public class VideoController : MonoBehaviour
     private int GetLevelNumberFromSceneToLoad(string sceneToChange)
     {
         return int.Parse(sceneToChange.Split(' ')[1]);
+    }
+    private void GetGeneralVolume()
+    {
+        _di = new DependencyInjector();
+        float generalVolume = GlobalVariables.GeneralVolume;
+        _audio.GetComponent<AudioSource>().volume = generalVolume;
     }
 }

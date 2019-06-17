@@ -4935,10 +4935,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 618257379}
   m_HandleRect: {fileID: 1311950294}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.25
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.254
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5018,6 +5018,7 @@ MonoBehaviour:
   _m12_1: {fileID: 0}
   _m12_2: {fileID: 0}
   _m12_3: {fileID: 0}
+  _mainBGM: {fileID: 0}
   _tutorialList: []
   _minigameImages: []
 --- !u!4 &674877235

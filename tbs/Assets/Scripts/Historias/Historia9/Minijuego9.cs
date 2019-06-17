@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
 using System.Collections;
@@ -54,6 +55,7 @@ public class Minijuego9 : MonoBehaviour
     {
         GetAndInitializeAllGameObjects();
         GetInitializeMusic();
+        GetGeneralVolume();
         InitializeRecordAndScore();
     }
     // Update is called once per frame
@@ -472,6 +474,13 @@ public class Minijuego9 : MonoBehaviour
             BestScore.text = "Record: " + score;
         }
 
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
     }
 
 }

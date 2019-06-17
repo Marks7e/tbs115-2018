@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ public class PostGameTest : MonoBehaviour
 {
     /*Inyectando dependencias*/
     private DependencyInjector _dependencyInjector = null;
+
+    /*Declarando contenedor de audio (BG)*/
+    private GameObject _bgSong = null;
 
     /*Declarando "contenedores" de UI*/
     GameObject txtQuestion;
@@ -27,6 +31,8 @@ public class PostGameTest : MonoBehaviour
     /*Recuperando nombre de nivel*/
     void Start()
     {
+        _bgSong = GameObject.Find("bgSong");
+
         counter = 3;
         questionDataModel = new QuestionData();
         List<QuestionData> listQuestionDataToSave = new List<QuestionData>();
@@ -38,26 +44,10 @@ public class PostGameTest : MonoBehaviour
         btnYes.SetActive(true);
         btnNo.SetActive(true);
 
+        GetGeneralVolume();
         LoadAllQuestionsToUse();
         SendQuestionToPlayer(txtQuestion);
     }
-
-    //void Awake()
-    //{
-    //    counter = 3;
-    //    questionDataModel = new QuestionData();
-    //    List<QuestionData> listQuestionDataToSave = new List<QuestionData>();
-    //    txtQuestion = GameObject.Find("Question");
-    //    btnYes = GameObject.Find("BtnYes");
-    //    btnNo = GameObject.Find("BtnNo");
-
-    //    txtQuestion.SetActive(true);
-    //    btnYes.SetActive(true);
-    //    btnNo.SetActive(true);
-
-    //    LoadAllQuestionsToUse();
-    //    SendQuestionToPlayer(txtQuestion);
-    //}
 
     private bool LoadAllQuestionsToUse()
     {
@@ -156,12 +146,18 @@ public class PostGameTest : MonoBehaviour
         if (counter < times)
         {
             counter++;
-            //Debug.Log(counter);
         }
         else
         {
             SceneManager.LoadScene("MainMenu");
         }
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        _bgSong.GetComponent<AudioSource>().volume = generalVolume;
     }
 
 }

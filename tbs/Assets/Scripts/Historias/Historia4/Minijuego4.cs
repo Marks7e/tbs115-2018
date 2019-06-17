@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -54,6 +55,7 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
     {
         GetAndInitializeAllGameObjects();
         GetInitializeMusic();
+        GetGeneralVolume();
         InitializeRecordAndScore();
         RandomPosition();
         ActionButton();
@@ -401,6 +403,13 @@ public class Minijuego4 : MonoBehaviour, IHasChanged
             bestScore = score;
             BestScore.text = "Record: " + score;
         }
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
     }
 
 }

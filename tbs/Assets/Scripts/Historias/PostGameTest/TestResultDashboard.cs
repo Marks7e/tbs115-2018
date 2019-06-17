@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using System;
 using System.Collections;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public class TestResultDashboard : MonoBehaviour
 {
     private GameObject _chartObject;
+    private GameObject _bgSound;
     private Button _familyRealmButton;
     private Button _schoolRealmButton;
     private Button _autoevaluationRealmButton;
@@ -36,6 +38,7 @@ public class TestResultDashboard : MonoBehaviour
     void Start()
     {
         InitializeAllObjects();
+        GetGeneralVolume();
     }
     void Update()
     {
@@ -52,6 +55,7 @@ public class TestResultDashboard : MonoBehaviour
         _di = new DependencyInjector();
         _questionDataListModelForRealm = new List<QuestionData>();
 
+        _bgSound = GameObject.Find("bgSound");
         _charImage = GameObject.Find("chartObject").GetComponent<Image>();
         _noDataMessage = GameObject.Find("noDataMessage");
         _percentProgressMessage = GameObject.Find("percentProgressMessage");
@@ -174,5 +178,12 @@ public class TestResultDashboard : MonoBehaviour
                 break;
         }
     }
-    
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        _bgSound.GetComponent<AudioSource>().volume = generalVolume;
+    }
+
 }

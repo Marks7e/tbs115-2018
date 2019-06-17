@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
 using System.Collections;
@@ -91,6 +92,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     {
         GetAndInitializeAllGameObjects();
         InitializeRecordAndScore();
+        GetGeneralVolume();
         OpenDoor();
     }
     // Update is called once per frame
@@ -472,6 +474,13 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime = 3, 8);
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using Assets.Scripts.Utils;
 using System.Collections;
@@ -18,11 +19,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public GameObject btnContinue;
 
     public GameObject[] arrayPrefab = new GameObject[8];
-   
+
     private string _referenciaOpcion;
 
     public Button btnCompare;
-   
+
     public AudioSource audioSource;
     public AudioClip bgMusic;
     public AudioSource audioPetition;
@@ -33,7 +34,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public Text BestScore, Score;
 
     public GameStatus gs;
-  
+
     public PlayerData pd;
     public LevelData ld;
     public int bestScore = 0;
@@ -80,7 +81,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     // Update is called once per frame
     void Update()
     {
-        
+
         if (!isGameDone)
         {
             if (!isRoundDone)
@@ -98,11 +99,11 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         if (elementText.text.Length > 10)
         {
-           DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
+            DisablePanelSprites(); //Funcion que desactiva panel de sprites y activa boton
         }
     }
 
-    private void LoseGame(){
+    private void LoseGame() {
         di.UpdateLevelTimesPlayed(11);
         audioSource.Stop();
         isGameDone = true;
@@ -132,7 +133,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         _referenciaOpcion = " ";
 
         EnablePanelSprite();
-        
+
         //Borra los sprite cargado en rostro de emoji
         foreach (Transform slotTransform in slots)
         {
@@ -185,7 +186,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
             {
                 btnCompare.gameObject.SetActive(false);
                 GameObject.Find("Base_Rostro").SetActive(false); //disable Panel: Base_Rostro
-                                                                    //Borra los sprite cargado en rostro de emoji
+                                                                 //Borra los sprite cargado en rostro de emoji
                 foreach (Transform slotTransform in slots)
                 {
                     GameObject itemSprite = slotTransform.GetComponent<SlotContent>().item;
@@ -197,16 +198,16 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 Nivel.text = _count + "/3";
                 CompleteGame();
             }
-              
+
         }
         else
         {
             //Debug.Log("Son diferentes, FALLASTE");
             isRoundDone = true;
             panelSprites.SetActive(false);
-            LoseGame();  
+            LoseGame();
         }
-       
+
     }
 
     //Reproduce al azar audio con la orden del rostro a formar
@@ -221,7 +222,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 _referenciaOpcion = "o_alegreb_alegre";
                 break;
             case 1:
-                 audioPetition.clip = audioClipArray[1];
+                audioPetition.clip = audioClipArray[1];
                 _referenciaOpcion = "o_tristezab_tristeza";
                 break;
             case 2:
@@ -229,7 +230,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 _referenciaOpcion = "o_miedob_miedo";
                 break;
             case 3:
-                 audioPetition.clip = audioClipArray[3];
+                audioPetition.clip = audioClipArray[3];
                 _referenciaOpcion = "o_enojob_enojo";
                 break;
         }
@@ -243,7 +244,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     public void HasChanged()
     {
         System.Text.StringBuilder builder = new System.Text.StringBuilder();
-   
+
         foreach (Transform slotTransform in slots)
         {
             GameObject item = slotTransform.GetComponent<SlotContent>().item;
@@ -278,7 +279,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         di = new DependencyInjector();
         dgb = new DynamicGameBalance();
         timeLeft = di.GetRoundTime(11);
-        
+
 
     }
 
@@ -341,8 +342,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         ResetStage();               //Reinicia el escenario
         RandomPetition();
         isRoundDone = false;
-        
-       // di.ResetLevelSuccessTimeByLevel(3);
+
+        // di.ResetLevelSuccessTimeByLevel(3);
     }
 
     //Mensaje de finalizacion de minijuego
@@ -357,13 +358,20 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
 
         audioSource.Stop();
         isGameDone = true;
-        
+
         if (bestScore == score)
             di.UpdateBestScoreForLevel(11, score);
         di.UpdateTotalizedScore(score);
 
         gs = new GameStatus();
         gs.PlayerWinGame(audioSource, waitingTime, 11);
+    }
+
+    private void GetGeneralVolume()
+    {
+        float generalVolume = 0.0f;
+        generalVolume = GlobalVariables.GeneralVolume;
+        audioSource.volume = generalVolume;
     }
 }
 

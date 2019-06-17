@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.DataPersistence;
 using Assets.Scripts.DataPersistence.DependecyInjector;
+using Assets.Scripts.DataPersistence.Global;
 using Assets.Scripts.DataPersistence.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,12 +46,11 @@ public class MainMenu : MonoBehaviour
         volumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
         mainAudio = Camera.main.GetComponent<AudioSource>();
 
-        GameOptions gameOptions = new GameOptions();
-        gameOptions = _dependencyInjector.LoadGameOptionById(Assets.Scripts.DataPersistence.DataServices.GameOptionsService.GameSettings.Volume);
+        LoadGameOptions();
 
-        mainAudio.volume = float.Parse(gameOptions.PValue);
+        mainAudio.volume = GlobalVariables.GeneralVolume;
         mainAudio.PlayScheduled(0);
-        volumeSlider.value = float.Parse(gameOptions.PValue);
+        volumeSlider.value = GlobalVariables.GeneralVolume;
         volumeSlider.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
 
         principalMenu.SetActive(true);
@@ -158,6 +158,7 @@ public class MainMenu : MonoBehaviour
                 break;
             case "Options":
                 SaveOptionsBeforeExit();
+                LoadGameOptions();
                 optionMenu.SetActive(false);
                 break;
             case "Realms":
@@ -215,7 +216,21 @@ public class MainMenu : MonoBehaviour
 
     private void SaveOptionsBeforeExit()
     {
+        GameOptions go = new GameOptions
+        {
+            OptionID = (int)Assets.Scripts.DataPersistence.DataServices.GameOptionsService.GameSettings.Volume,
+            PValue = volumeSlider.value.ToString()
+        };
 
+        _dependencyInjector = new DependencyInjector();
+        _dependencyInjector.SaveGameOption(go);
+    }
+    private void LoadGameOptions()
+    {
+        _dependencyInjector = new DependencyInjector();
+        float generalVolume = 0.0f;
+        generalVolume = float.Parse(_dependencyInjector.LoadGameOptionById(Assets.Scripts.DataPersistence.DataServices.GameOptionsService.GameSettings.Volume).PValue);
+        GlobalVariables.GeneralVolume = generalVolume;
     }
 }
 
