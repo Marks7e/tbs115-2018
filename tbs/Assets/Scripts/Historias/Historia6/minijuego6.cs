@@ -269,7 +269,7 @@ public class minijuego6 : MonoBehaviour
         di.UpdateLevelTimesPlayed(3);
         di.SaveSuccesTime(new LevelSuccessTime()
         {
-            LevelID = 3,
+            LevelID = 6,
             SuccessTime = dynamicGameBalance.CalculateAverageRound(totalTimeByGame, 6)
         });
 
