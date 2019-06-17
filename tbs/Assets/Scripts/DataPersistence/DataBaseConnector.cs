@@ -15,7 +15,11 @@ namespace Assets.Scripts.DataPersistence
 
         public SqliteConnection GetDbInstance()
         {
+            #if UNITY_EDITOR
+            SetConnection(PlatformDeploy.PC);
+            #else
             SetConnection(PlatformDeploy.Android);
+            #endif
             return _sqliteConnection;
         }
 
