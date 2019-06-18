@@ -310,6 +310,12 @@ public class Minijuego9 : MonoBehaviour
             _j = 2;
         else if(color == "green" && _green == 0 && _k >= 4)
             _j = 3;
+        if(color == "red" && _red != 0 && _k == 1 && _red2 == 0)
+            _j = 1;
+        else if(color == "yellow" && _yellow != 0 && _k == 2 && _yellow2 == 0)
+            _j = 2;
+        else if(color == "green" && _green != 0 && _k >= 4 && _green2 == 0)
+            _j = 3;
 		/* Comprobacion de caritas enojadas */
         if(color == "red" && _j == 1)
         {
