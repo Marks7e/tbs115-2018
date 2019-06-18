@@ -455,6 +455,8 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         audioSource.Stop();
         gs = new GameStatus();
         gs.PlayerNeedToRepeatGame(audioSource, waitingTime, 8);
+        if(_iPart == 3)
+            doorPanel.SetActive(false);
     }
     void WinGame()
     {
