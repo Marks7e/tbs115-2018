@@ -95,4 +95,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/VideosHistoriasSociales/Video 8.unity
     guid: c989037242f7d634db45a09e4a50cdee
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 9.unity
+    guid: 1f4164f714bb1a6488c22035bf861ab5
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 10.unity
+    guid: 3b33e9dae20fd994584e7fe0524be599
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 11.unity
+    guid: e122ce43d7cfd7f4392ca39c50862bb9
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 12.unity
+    guid: ddb93ed16d4dd3f49baf47bed7a876cc
   m_configObjects: {}
