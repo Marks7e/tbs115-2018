@@ -71,4 +71,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorials/Tutorial.unity
     guid: a7f3727477246584aa5c93ff95851c30
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 1.unity
+    guid: ddaefb8f71beb724f8f9f04abf029450
+  - enabled: 1
+    path: Assets/Scenes/VideosHistoriasSociales/Video 2.unity
+    guid: be2a33d86d2df3b44a2b11a5a0f2c76e
   m_configObjects: {}

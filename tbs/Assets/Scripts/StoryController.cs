@@ -7,20 +7,20 @@ using UnityEngine.SceneManagement;
 using Assets.Scripts.DataPersistence.DependecyInjector;
 using Assets.Scripts.DataPersistence.Global;
 
-public class VideoController : MonoBehaviour
+public class StoryController : MonoBehaviour
 {
     public DependencyInjector _di = null;
     public GameObject _audio = null;
     public VideoPlayer video;
     public AudioSource sound;
     public Slider slider;
-    public string newScene;
     public float duration; //duracion
-
-    public EnableSkip enableSkip;
-    private GameObject _skipButton;
+        
     private GameObject _playButton;
     private GameObject _pauseButton;
+    private GameObject _replayButton;
+    private GameObject _homeButton;
+
     private bool _videoState;
 
     //propiedades de video player
@@ -65,10 +65,14 @@ public class VideoController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        enableSkip = new EnableSkip();
-        _skipButton = GameObject.Find("Saltar");
         _playButton = GameObject.Find("Play");
         _pauseButton = GameObject.Find("Pause");
+        _replayButton = GameObject.Find("Reinicio");
+        _homeButton = GameObject.Find("Home");
+
+        _homeButton.SetActive(false);
+        _replayButton.SetActive(false);
+
         _audio = GameObject.Find("Audio");
 
         GetGeneralVolume();
@@ -85,21 +89,30 @@ public class VideoController : MonoBehaviour
             _videoState = true;
             _playButton.SetActive(false);
             _pauseButton.SetActive(true);
-            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(newScene), 5, _skipButton);
-
+            _homeButton.SetActive(false);
+            _replayButton.SetActive(false);
+           
         }
         else
         {
             _videoState = false;
             _pauseButton.SetActive(false);
             _playButton.SetActive(true);
-            enableSkip.EnableSkipButton(GetLevelNumberFromSceneToLoad(newScene), 5, _skipButton);
-
+            _homeButton.SetActive(false);
+            _replayButton.SetActive(false);
+            
         }
 
-        // if (Time >= duration) ChangeScene(); //cambio de escena automatico 
-        if (Time >= duration) ChangeScene();
-          
+        if (Time >= duration)
+        {
+            _playButton.SetActive(false);
+            _pauseButton.SetActive(false);
+            
+            _homeButton.SetActive(true);
+            _replayButton.SetActive(true);
+
+        }      
+
     }
 
     public void PlayVideo()
@@ -121,6 +134,7 @@ public class VideoController : MonoBehaviour
         if (!IsPrepared) return;
         PauseVideo();
         Seek(0);
+        
     }
 
     public void Seek(float nTime)
@@ -130,18 +144,13 @@ public class VideoController : MonoBehaviour
         nTime = Mathf.Clamp(nTime, 0, 1);
         video.time = nTime * Duration;
         sound.time = nTime * Duration;
-        PlayVideo();
     }
 
     public void ChangeScene()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("MainMenu");
     }
 
-    private int GetLevelNumberFromSceneToLoad(string sceneToChange)
-    {
-        return int.Parse(sceneToChange.Split(' ')[1]);
-    }
     private void GetGeneralVolume()
     {
         _di = new DependencyInjector();
