@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public class Minijuego5 : MonoBehaviour, IHasChanged
 {
     [SerializeField] Transform slots;
-
+    
+    public GameObject slotsPanel;
     public Button[] emojiArrow;
     public Sprite arrow, uIMask;
     public int _iArrow = 4, _iSlot = 4, _iTurn = 0, 
@@ -233,6 +234,8 @@ public class Minijuego5 : MonoBehaviour, IHasChanged
     }
     void WinGame()
     {
+        slotsPanel.SetActive(false);
+        emojiArrow[_iArrow].GetComponent<Image>().sprite = uIMask;
         di.UpdateLevelTimesPlayed(_nivel);
 
         if (bestScore == score)
@@ -251,6 +254,8 @@ public class Minijuego5 : MonoBehaviour, IHasChanged
     }
     void LoseGame()
     {
+        slotsPanel.SetActive(false);
+        emojiArrow[_iArrow].GetComponent<Image>().sprite = uIMask;
         di.UpdateLevelTimesPlayed(_nivel);
         di.ResetLevelSuccessTimeByLevel(_nivel);
         audioSource.Stop();

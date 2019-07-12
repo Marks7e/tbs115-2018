@@ -102,6 +102,7 @@ public class minijuego6 : MonoBehaviour
 
     private void LoseGame()
     {
+        btnCompare.enabled = false;
         isGameDone = true;
         di.UpdateLevelTimesPlayed(6);
         audioSource.Stop();
@@ -213,6 +214,7 @@ public class minijuego6 : MonoBehaviour
             //Debug.Log("/********** HAS ACERTADO *********/");
             isRoundDone = true;
             panelWin.SetActive(true);
+            btnCompare.enabled = false;
         }
         else
         {
@@ -364,6 +366,7 @@ public class minijuego6 : MonoBehaviour
     //Mensaje de respuesta correcta
     public void OkRound()
     {
+        btnCompare.enabled = true;
         totalTimeByGame += dbRoundtime - (int)timeLeft;
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo

@@ -3311,6 +3311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: {fileID: 1772152601}
+  slotsPanel: {fileID: 1772152600}
   emojiArrow:
   - {fileID: 1859828754}
   - {fileID: 65705266}
