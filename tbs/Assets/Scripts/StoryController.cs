@@ -151,6 +151,11 @@ public class StoryController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void replayVideo(string animation)
+    {
+        SceneManager.LoadScene(animation);
+    }
+
     private void GetGeneralVolume()
     {
         _di = new DependencyInjector();

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2988186819176569867}
   - component: {fileID: 2988186819176569869}
   - component: {fileID: 7867123694518603155}
+  - component: {fileID: 8542103865917229240}
   m_Layer: 5
   m_Name: o_miedo
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56321fa6c69b1664cae5a9151a4a1ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &8542103865917229240
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988186819176569865}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 5.665181}
+  m_Size: {x: 120.1096, y: 50.59565}
+  m_Direction: 1

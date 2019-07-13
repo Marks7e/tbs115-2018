@@ -190,11 +190,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173ba9f2ea1f0c340aac441118158dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audio: {fileID: 0}
   video: {fileID: 151545022}
   sound: {fileID: 946623396}
   slider: {fileID: 1310084352}
   newScene: Minijuego 1
-  duration: 30
+  duration: 0
 --- !u!1 &155287130
 GameObject:
   m_ObjectHideFlags: 0

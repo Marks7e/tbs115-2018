@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4078050494872329986}
   - component: {fileID: 4078050494872329988}
   - component: {fileID: 617686424146397883}
+  - component: {fileID: 6427434161301301668}
   m_Layer: 5
   m_Name: o_tristeza
   m_TagString: Untagged
@@ -100,3 +101,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56321fa6c69b1664cae5a9151a4a1ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!70 &6427434161301301668
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078050494872329984}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 10.793289}
+  m_Size: {x: 120.4768, y: 50.97461}
+  m_Direction: 1

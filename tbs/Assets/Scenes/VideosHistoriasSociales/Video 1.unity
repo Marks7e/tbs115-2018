@@ -192,14 +192,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 454535142}
-        m_MethodName: RestartVideo
-        m_Mode: 1
+        m_MethodName: replayVideo
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Animacion 1
+          m_StringArgument: Video 1
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -508,7 +508,6 @@ MonoBehaviour:
   video: {fileID: 454535143}
   sound: {fileID: 944207042}
   slider: {fileID: 61336802}
-  newScene: Minijuego 1
   duration: 30
 --- !u!328 &454535143
 VideoPlayer:

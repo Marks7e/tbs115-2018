@@ -97,9 +97,8 @@ public class VideoController : MonoBehaviour
 
         }
 
-        // if (Time >= duration) ChangeScene(); //cambio de escena automatico 
-        if (Time >= duration) ChangeScene();
-          
+       if (Time >= duration) ChangeScene(); 
+        
     }
 
     public void PlayVideo()
@@ -142,6 +141,7 @@ public class VideoController : MonoBehaviour
     {
         return int.Parse(sceneToChange.Split(' ')[1]);
     }
+
     private void GetGeneralVolume()
     {
         _di = new DependencyInjector();
