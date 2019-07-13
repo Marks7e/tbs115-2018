@@ -195,7 +195,7 @@ MonoBehaviour:
   sound: {fileID: 946623396}
   slider: {fileID: 1310084352}
   newScene: Minijuego 1
-  duration: 0
+  duration: 30
 --- !u!1 &155287130
 GameObject:
   m_ObjectHideFlags: 0
