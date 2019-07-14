@@ -21,6 +21,7 @@ public class Minijuego9 : MonoBehaviour
     private int _iWin0 = 0, _iWin1 = 0, _iWin2 = 0, _iLose = 0;
     private string _angry = "Enojo", _neutral = "Neutro", _happy = "Alegria";
     public string color="";
+    public GameObject panel;
 
     //Mensaje Ganar/Perder
     public GameStatus gs;
@@ -416,6 +417,7 @@ public class Minijuego9 : MonoBehaviour
     }
     void WinGame()
     {
+        panel.SetActive(false);
         di.UpdateLevelTimesPlayed(_nivel);
 
         if (bestScore == score)
@@ -434,6 +436,7 @@ public class Minijuego9 : MonoBehaviour
     }
     void LoseGame()
     {
+        panel.SetActive(false);
         di.UpdateLevelTimesPlayed(_nivel);
         di.ResetLevelSuccessTimeByLevel(_nivel);
         audioSource.Stop();

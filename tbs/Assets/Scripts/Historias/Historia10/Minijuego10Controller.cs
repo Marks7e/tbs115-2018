@@ -83,8 +83,22 @@ public class Minijuego10Controller : MonoBehaviour
             }
 		}
     }
-	
+	private void DisableButtons(){
+		btnEmoji1.enabled = false;
+		btnEmoji2.enabled = false;
+		btnEmoji3.enabled = false;
+		btnEmoji4.enabled = false;
+		btnCompare.enabled = false;
+	}
+	private void EnableButtons(){
+		btnEmoji1.enabled = true;
+		btnEmoji2.enabled = true;
+		btnEmoji3.enabled = true;
+		btnEmoji4.enabled = true;
+		btnCompare.enabled = true;
+	}
 	private void LoseGame(){
+		DisableButtons();
 		dependecyInjector.UpdateLevelTimesPlayed(10);
         dependecyInjector.ResetLevelSuccessTimeByLevel(10);
         audioSource.Stop();
@@ -179,7 +193,7 @@ public class Minijuego10Controller : MonoBehaviour
         SettingTimeOfGame();
         msj_ok.SetActive(true);
         btnContinue.SetActive(true);
-		btnCompare.enabled = false;
+		DisableButtons();
         isRoundDone = true;
     }
     
@@ -223,7 +237,7 @@ public class Minijuego10Controller : MonoBehaviour
 
         msj_ok.SetActive(false);
         btnContinue.SetActive(false);
-		btnCompare.enabled = true;
+		EnableButtons();
 
 		//Coloca imagen base en boton
 		imgEmo1.sprite = defaultBoton;

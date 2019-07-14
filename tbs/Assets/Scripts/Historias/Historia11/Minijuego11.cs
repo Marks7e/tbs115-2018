@@ -104,6 +104,8 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     }
 
     private void LoseGame() {
+        panelSprites.SetActive(false);
+        btnCompare.enabled = false;
         di.UpdateLevelTimesPlayed(11);
         audioSource.Stop();
         isGameDone = true;
@@ -179,6 +181,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
                 isRoundDone = true;
                 panelSprites.SetActive(false);
                 panelWin.SetActive(true);
+                btnCompare.enabled = false;
                 _count++;
                 Nivel.text = _count + "/3";
             }
@@ -327,6 +330,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
+        btnCompare.enabled = true;
         ResetStage();               //Reinicia el escenario
         RandomPetition();           //Realiza peticion de nuevo rostro a formar
         isRoundDone = false;
@@ -349,6 +353,7 @@ public class Minijuego11 : MonoBehaviour, IHasChanged
     //Mensaje de finalizacion de minijuego
     public void CompleteGame()
     {
+        btnCompare.enabled = false;
         di.UpdateLevelTimesPlayed(11);
         di.SaveSuccesTime(new LevelSuccessTime()
         {
