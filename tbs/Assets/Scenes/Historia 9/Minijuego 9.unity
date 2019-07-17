@@ -554,6 +554,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c3f6bb79c007d224f94d0efba2c09f51, type: 3}
   - {fileID: 21300000, guid: 3b0f696d2173a1d41a6741075d59f5dc, type: 3}
   color: 
+  panel: {fileID: 1762914379}
   gs: {fileID: 0}
   audioSource: {fileID: 0}
   bgMusic: {fileID: 0}
@@ -2178,7 +2179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -204, y: 143}
+  m_AnchoredPosition: {x: -204.00002, y: 143}
   m_SizeDelta: {x: -640, y: -422.62155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2038260698
