@@ -15,12 +15,15 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     [SerializeField] Transform slot;
     [SerializeField] Text elementText;
     public GameObject smugie;
+    public GameObject panelGift;
 
     /* segunda parte */
     [SerializeField] Transform personajes;
     [SerializeField] Transform slot2;
     [SerializeField] Transform slot3;
    
+    public GameObject panelPersonajes;
+
     public GameObject[] arrayPrefab = new GameObject[4];
 
     public GameObject btnValidar;
@@ -194,6 +197,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
             Nivel.text = "1/4"; //Marca de avance de minijuego 8
             isRoundDone = true; 
             panelWin.SetActive(true);
+            panelGift.SetActive(false);
             hideCanvas1 = true; //canvas 1 oculto
             hideCanvas2 = false; //canvas 2 visible
         }
@@ -223,6 +227,7 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         {
             Nivel.text = "2/4";
             panelWin.SetActive(true);
+            btnValidar.SetActive(false);
             isRoundDone = true;
             hideCanvas2 = true; //canvas 2 oculto
             hideCanvas3 = false; //canvas 3 visible   
@@ -450,6 +455,10 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
     }
     void LoseGame()
     {
+        panelGift.SetActive(false);
+        panelPersonajes.SetActive(false);
+        btnValidar.SetActive(false);
+        panel4.SetActive(false);
         di.UpdateLevelTimesPlayed(8);
         di.ResetLevelSuccessTimeByLevel(8);
         audioSource.Stop();
@@ -485,4 +494,3 @@ public class Minijuego8 : MonoBehaviour, IHasChanged
         audioSource.volume = generalVolume;
     }
 }
-

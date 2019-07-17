@@ -616,9 +616,11 @@ MonoBehaviour:
   slot: {fileID: 1564721027}
   elementText: {fileID: 126223344}
   smugie: {fileID: 1062746828}
+  panelGift: {fileID: 1564721026}
   personajes: {fileID: 320580238}
   slot2: {fileID: 557695301}
   slot3: {fileID: 1491964619}
+  panelPersonajes: {fileID: 320580237}
   arrayPrefab:
   - {fileID: 250332672933748213, guid: e5fd38156faa1f143a1dc2a15a2ee857, type: 3}
   - {fileID: 5096642748088141593, guid: 4260c53d4999a5f4aad1323577fd60ef, type: 3}
@@ -5405,7 +5407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75, y: -149.91582}
+  m_AnchoredPosition: {x: 75.00003, y: -150.15723}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1491964620
@@ -5889,7 +5891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 108}
+  m_AnchoredPosition: {x: 2, y: 150}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1594285763
