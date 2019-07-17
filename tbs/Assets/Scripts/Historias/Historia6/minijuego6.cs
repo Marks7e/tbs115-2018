@@ -102,6 +102,7 @@ public class minijuego6 : MonoBehaviour
 
     private void LoseGame()
     {
+        DisableButtons();
         isGameDone = true;
         di.UpdateLevelTimesPlayed(6);
         audioSource.Stop();
@@ -213,6 +214,7 @@ public class minijuego6 : MonoBehaviour
             //Debug.Log("/********** HAS ACERTADO *********/");
             isRoundDone = true;
             panelWin.SetActive(true);
+            DisableButtons();
         }
         else
         {
@@ -250,9 +252,7 @@ public class minijuego6 : MonoBehaviour
         }
 
     }
-
-    public void Complete()
-    {
+    private void DisableButtons(){
         /*Desactivando botones*/
         btnAudio1.enabled = false;
         btnAudio2.enabled = false;
@@ -261,7 +261,20 @@ public class minijuego6 : MonoBehaviour
         btnEmoji2.enabled = false;
         btnEmoji3.enabled = false;
         btnCompare.enabled = false;
-
+    }
+    private void EnableButtons(){
+        /*Desactivando botones*/
+        btnAudio1.enabled = true;
+        btnAudio2.enabled = true;
+        btnAudio3.enabled = true;
+        btnEmoji1.enabled = true;
+        btnEmoji2.enabled = true;
+        btnEmoji3.enabled = true;
+        btnCompare.enabled = true;
+    }
+    public void Complete()
+    {
+        DisableButtons();
         isGameDone = true;
 
         di = new DependencyInjector();
@@ -368,6 +381,7 @@ public class minijuego6 : MonoBehaviour
         UpdateScore();
         SettingTimeOfGame();        //Reinicia el tiempo
         panelWin.SetActive(false);  //Desactiva panel de mensaje de ganador de ronda
+        EnableButtons();
         isRoundDone = false;
         Iteration();                //Reinicia el escenario
 
