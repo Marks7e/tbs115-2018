@@ -276,7 +276,7 @@ MonoBehaviour:
   sound: {fileID: 1927208969}
   slider: {fileID: 1649209628}
   newScene: Minijuego 10
-  duration: 0
+  duration: 16
 --- !u!328 &128041792
 VideoPlayer:
   m_ObjectHideFlags: 0

@@ -843,7 +843,7 @@ MonoBehaviour:
   sound: {fileID: 1693202796}
   slider: {fileID: 2033818160}
   newScene: Minijuego 5
-  duration: 0
+  duration: 20
 --- !u!328 &905873883
 VideoPlayer:
   m_ObjectHideFlags: 0
